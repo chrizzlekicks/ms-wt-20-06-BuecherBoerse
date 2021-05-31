@@ -16,6 +16,7 @@ const EditBook = () => {
     setShowEditBook,
   } = useGlobalContext();
   const { updateSingleBookInfo } = useBookData();
+  const { name, author, category, language, condition, description } = openBook;
 
   const textChange = (e) => {
     setOpenBook({ ...openBook, [e.target.name]: e.target.value });
@@ -41,7 +42,7 @@ const EditBook = () => {
               name='name'
               id='name'
               placeholder='Name des Buches'
-              value={openBook.name}
+              value={name}
               onChange={textChange}
             />
             <InputField
@@ -50,7 +51,7 @@ const EditBook = () => {
               name='author'
               id='author'
               placeholder='Autor*in des Buches'
-              value={openBook.author}
+              value={author}
               onChange={textChange}
             />
             <InputField
@@ -59,7 +60,7 @@ const EditBook = () => {
               name='category'
               id='category'
               placeholder='Genre des Buches'
-              value={openBook.category}
+              value={category}
               onChange={textChange}
             />
             <InputField
@@ -68,7 +69,7 @@ const EditBook = () => {
               name='language'
               id='language'
               placeholder='Sprache des Buches'
-              value={openBook.language}
+              value={language}
               onChange={textChange}
             />
             <InputField
@@ -77,7 +78,7 @@ const EditBook = () => {
               name='condition'
               id='condition'
               placeholder='Zustand des Buches'
-              value={openBook.condition}
+              value={condition}
               onChange={textChange}
             />
             <TextAreaInput
@@ -86,7 +87,7 @@ const EditBook = () => {
               id='desc'
               rows='2'
               placeholder='Kurze Beschreibung des Buches'
-              value={openBook.description}
+              value={description}
               onChange={textChange}
             />
             <div className='action-btn-container'>
