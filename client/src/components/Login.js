@@ -8,7 +8,7 @@ const Login = () => {
   const { AUTH_SIGNIN, isTabLeft, userCredential, setUserCredential } =
     useGlobalContext();
   const { signInUser } = useAuth();
-  const { name, email, password } = userCredential;
+  const { email, password } = userCredential;
 
   const checkLoginInput = (e) => {
     setUserCredential({
@@ -29,15 +29,6 @@ const Login = () => {
           <h3>Willkommen zurück</h3>
         </div>
         <section className='form'>
-          <InputField
-            type='text'
-            htmlFor='Dein Username:'
-            name='name'
-            id='name'
-            value={name}
-            onChange={checkLoginInput}
-            required
-          />
           <InputField
             type='text'
             htmlFor='Deine Email:'
