@@ -46,6 +46,10 @@ const BookSchema = new mongoose.Schema({
         ref: 'User',
         required: "Bitte einen User eintragen"
     },
+     username : {
+        type: String,
+        required: "Bitte einen User eintragen"
+    },
     status: {	//privat, bereit zum Verleihen, verliehen
         type: String,
         trim: true,
