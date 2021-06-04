@@ -1,35 +1,14 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useOpenBookContext } from '../context/OpenBookContext';
 import ModalWrapper from './ModalWrapper';
 import Form from './Form';
 import InputField from './InputField';
 import TextAreaInput from './TextAreaInput';
 import ActionBtn from './ActionBtn';
-import { useBookData } from '../hooks/useBookData';
 
 const EditBook = () => {
-  const {
-    API_BOOKS,
-    jwt,
-    openBook,
-    setOpenBook,
-    showEditBook,
-    setShowEditBook,
-  } = useGlobalContext();
-  const { updateSingleBookInfo } = useBookData();
+  const { openBook, showEditBook, updateBook, textChange, closeEditWindow } =
+    useOpenBookContext();
   const { name, author, category, language, condition, description } = openBook;
-
-  const textChange = (e) => {
-    setOpenBook({ ...openBook, [e.target.name]: e.target.value });
-  };
-
-  const updateBook = (e) => {
-    e.preventDefault();
-    updateSingleBookInfo(API_BOOKS, openBook._id, jwt, openBook);
-  };
-
-  const closeEditWindow = () => {
-    setShowEditBook(false);
-  };
 
   return (
     <>

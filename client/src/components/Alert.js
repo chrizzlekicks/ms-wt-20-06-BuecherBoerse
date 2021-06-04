@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Alert = () => {
   const { alert, setAlert } = useGlobalContext();

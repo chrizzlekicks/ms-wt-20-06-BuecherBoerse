@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useGlobalContext } from './context/OverallContext';
+import { useGlobalContext } from './context/GlobalContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Marketplace from './pages/Marketplace';
@@ -19,6 +19,11 @@ import DataPrivacy from './pages/DataPrivacy';
 import Imprint from './pages/Imprint';
 import MyBooks from './pages/MyBooks';
 import Messages from './pages/Messages';
+import { MarketplaceProvider } from './context/MarketplaceContext';
+import { UploadBookProvider } from './context/UploadBookContext';
+import { OpenBookProvider } from './context/OpenBookContext';
+import { MyBooksProvider } from './context/MyBooksContext';
+import { MessageProvider } from './context/MessageContext';
 
 const App = () => {
   const { isUserLoggedIn } = useGlobalContext();
@@ -33,22 +38,29 @@ const App = () => {
               {!isUserLoggedIn ? <LoginScreen /> : <Redirect to='/' />}
             </Route>
             <ProtectedRoute exact path='/'>
-              <Marketplace />
-            </ProtectedRoute>
-            <ProtectedRoute path='/uploadbook'>
-              <UploadBook />
+              <MarketplaceProvider>
+                <Marketplace />
+              </MarketplaceProvider>
             </ProtectedRoute>
             <ProtectedRoute path='/mybooks'>
-              <MyBooks />
+              <MyBooksProvider>
+                <MyBooks />
+              </MyBooksProvider>
+            </ProtectedRoute>
+            <ProtectedRoute path='/uploadbook'>
+              <UploadBookProvider>
+                <UploadBook />
+              </UploadBookProvider>
             </ProtectedRoute>
             <ProtectedRoute path='/openbook/:id'>
-              <OpenBook />
+              <OpenBookProvider>
+                <OpenBook />
+              </OpenBookProvider>
             </ProtectedRoute>
             <ProtectedRoute path='/messages'>
-              <Messages />
-            </ProtectedRoute>
-            <ProtectedRoute path='/about'>
-              <Error />
+              <MessageProvider>
+                <Messages />
+              </MessageProvider>
             </ProtectedRoute>
             <ProtectedRoute path='/imprint'>
               <Imprint />

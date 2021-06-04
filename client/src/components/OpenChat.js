@@ -1,8 +1,8 @@
 import Message from './Message';
-import { useGlobalContext } from '../context/OverallContext';
+import { useMessageContext } from '../context/MessageContext';
 
 const OpenChat = () => {
-  const { chat, selectedConversation, scrollToBottom } = useGlobalContext();
+  const { chat, selectedConversation, scrollToBottom } = useMessageContext();
   const { recipients, messages } = chat;
 
   if (!selectedConversation) {

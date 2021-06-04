@@ -1,36 +1,14 @@
-import { useEffect } from 'react';
 import Conversations from '../components/Conversations';
 import ChatWindow from '../components/ChatWindow';
-import { useGlobalContext } from '../context/OverallContext';
-import { useMessaging } from '../hooks/useMessaging';
+import { useGlobalContext } from '../context/GlobalContext';
 import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
 import EmptyShelf from '../components/EmptyShelf';
+import { useMessageContext } from '../context/MessageContext';
 
 const Messages = () => {
-  const {
-    closeSubmenu,
-    API_MESSAGESUSER,
-    loading,
-    userId,
-    jwt,
-    conversations,
-    isMessageSent,
-    setIsMessageSent,
-  } = useGlobalContext();
-
-  const { fetchUserConversations } = useMessaging();
-
-  useEffect(() => {
-    fetchUserConversations(API_MESSAGESUSER, userId, jwt);
-  }, [
-    API_MESSAGESUSER,
-    fetchUserConversations,
-    isMessageSent,
-    setIsMessageSent,
-    userId,
-    jwt,
-  ]);
+  const { closeSubmenu, loading } = useGlobalContext();
+  const { conversations } = useMessageContext();
 
   return (
     <>

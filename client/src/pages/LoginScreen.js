@@ -1,7 +1,7 @@
 import Login from '../components/Login';
 import Tab from '../components/Tab';
 import Signup from '../components/Signup';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import Loading2 from '../components/Loading2';
 import Alert from '../components/Alert';
 import { motion } from 'framer-motion';

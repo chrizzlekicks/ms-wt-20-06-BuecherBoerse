@@ -1,6 +1,6 @@
-import React, { useState, useContext, useRef } from 'react';
+import { createContext, useState, useContext } from 'react';
 
-const AppContext = React.createContext();
+const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const API_BOOKS = '/api/books/';
@@ -13,53 +13,32 @@ export const AppProvider = ({ children }) => {
   const userName = sessionStorage.getItem('name');
   const userId = sessionStorage.getItem('id');
   const jwt = sessionStorage.getItem('token');
+  const [isTabLeft, setIsTabLeft] = useState(true);
   const [userCredential, setUserCredential] = useState({
     name: '',
     email: '',
     password: '',
   });
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(userName ? true : false);
-  const [allBooks, setAllBooks] = useState([]);
-  const [books, setBooks] = useState(allBooks);
-  const [myBooks, setMyBooks] = useState([]);
-  const [openBook, setOpenBook] = useState({});
   const [loading, setLoading] = useState(false);
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [location, setLocation] = useState({});
-  const [isTabLeft, setIsTabLeft] = useState(true);
   const [alert, setAlert] = useState({ display: false, icon: '', msg: '' });
-  const [newBook, setNewBook] = useState({
-    name: '',
-    author: '',
-    genre: '',
-    language: '',
-    condition: '',
-    desc: '',
-  });
-  const [bookImage, setBookImage] = useState();
-  const [showMessageModal, setShowMessageModal] = useState(false);
-  const [showEditBook, setShowEditBook] = useState(false);
-  const [user, setUser] = useState();
-  const [chat, setChat] = useState([]);
-  const [conversations, setConversations] = useState([]);
   const [isMessageSent, setIsMessageSent] = useState(false);
-  const [selectedConversation, setSelectedConversation] = useState(false);
-  const [newMessage, setNewMessage] = useState({
-    sender: '',
-    reciever: '',
-    message: '',
-  });
-  const scrollToBottom = useRef();
 
+  // öffne das Usermenu rechts oben
   const openSubmenu = (coordinates) => {
     setLocation(coordinates);
     setIsSubmenuOpen(true);
   };
+
+  // schließe das Usermenu rechts oben
   const closeSubmenu = () => {
     setIsSubmenuOpen(false);
   };
 
+  // verberge die Links
   const hideLinks = () => {
     if (showLinks) {
       setShowLinks(false);
@@ -76,55 +55,28 @@ export const AppProvider = ({ children }) => {
         API_BOOKSBYUSER,
         API_MESSAGES,
         API_MESSAGESUSER,
-        userCredential,
-        setUserCredential,
         isUserLoggedIn,
         setIsUserLoggedIn,
-        allBooks,
-        setAllBooks,
-        books,
-        setBooks,
-        myBooks,
-        setMyBooks,
-        openBook,
-        setOpenBook,
+        userCredential,
+        setUserCredential,
         loading,
         setLoading,
         alert,
         setAlert,
-        newBook,
-        setNewBook,
-        bookImage,
-        setBookImage,
         showLinks,
         setShowLinks,
         isSubmenuOpen,
         openSubmenu,
         closeSubmenu,
-        location,
         isTabLeft,
         setIsTabLeft,
+        location,
         userName,
         userId,
         jwt,
         hideLinks,
-        showMessageModal,
-        setShowMessageModal,
-        showEditBook,
-        setShowEditBook,
-        user,
-        setUser,
-        conversations,
-        setConversations,
-        chat,
-        setChat,
-        newMessage,
-        setNewMessage,
         isMessageSent,
         setIsMessageSent,
-        selectedConversation,
-        setSelectedConversation,
-        scrollToBottom,
       }}
     >
       {children}

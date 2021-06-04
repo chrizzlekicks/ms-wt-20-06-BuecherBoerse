@@ -4,7 +4,7 @@ import { FaBook, FaBookOpen } from 'react-icons/fa';
 import logo from '../static/buecherregal.svg';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import UserBar from './UserBar';
 
 const Navbar = () => {

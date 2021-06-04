@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Tab = () => {
   const { isTabLeft, setIsTabLeft } = useGlobalContext();

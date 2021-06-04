@@ -1,6 +1,6 @@
 import { FaUserCircle } from 'react-icons/fa';
 import Submenu from '../components/Submenu';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const UserBar = () => {
   const { isUserLoggedIn, openSubmenu, isSubmenuOpen, closeSubmenu, userName } =

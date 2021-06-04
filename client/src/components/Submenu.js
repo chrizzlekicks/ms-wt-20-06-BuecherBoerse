@@ -1,13 +1,13 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import { useAuth } from '../hooks/useAuth';
 
 const Submenu = () => {
-  const { isSubmenuOpen, location, AUTH_SIGNOUT, setIsUserLoggedIn } =
+  const { setIsUserLoggedIn, AUTH_SIGNOUT, isSubmenuOpen, location } =
     useGlobalContext();
-  const { getLoggedOut } = useAuth();
   const container = useRef(null);
+  const { getLoggedOut } = useAuth();
 
   useEffect(() => {
     const submenu = container.current;
@@ -16,6 +16,7 @@ const Submenu = () => {
     submenu.style.bottom = `${divBottom}px`;
   }, [location]);
 
+  // logge den User aus
   const logout = () => {
     getLoggedOut(AUTH_SIGNOUT);
     setIsUserLoggedIn(false);

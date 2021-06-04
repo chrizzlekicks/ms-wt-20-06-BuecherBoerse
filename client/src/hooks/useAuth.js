@@ -1,6 +1,6 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 export const useAuth = () => {
   const {

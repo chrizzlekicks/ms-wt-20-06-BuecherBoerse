@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import { motion } from 'framer-motion';
 
 const DataPrivacy = () => {

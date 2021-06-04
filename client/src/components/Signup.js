@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import { useAuth } from '../hooks/useAuth';
 import InputField from './InputField';
 import SigninBtn from './SigninBtn';
