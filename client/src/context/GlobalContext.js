@@ -38,52 +38,60 @@ export const AppProvider = ({ children }) => {
     setIsSubmenuOpen(false);
   };
 
-  // verberge die Links
+  // schliesse das Usermenu unabhängig davon wo der User hinklickt (außerhalb des Usermenus)
+  const hideSubmenu = (e) => {
+    if (!e.target.classList.contains('helper')) {
+      closeSubmenu();
+    }
+  };
+
+  // klappe das Navigationsmenu ein nach Klicken eines Links
   const hideLinks = () => {
     if (showLinks) {
       setShowLinks(false);
     }
   };
 
+  // speichere APIs, states und functions in einer globalen Variable
+  const globalValues = {
+    API_BOOKS,
+    API_USERS,
+    AUTH_SIGNIN,
+    AUTH_SIGNOUT,
+    API_BOOKSBYUSER,
+    API_MESSAGES,
+    API_MESSAGESUSER,
+    isUserLoggedIn,
+    setIsUserLoggedIn,
+    userCredential,
+    setUserCredential,
+    loading,
+    setLoading,
+    alert,
+    setAlert,
+    showLinks,
+    setShowLinks,
+    isSubmenuOpen,
+    openSubmenu,
+    closeSubmenu,
+    hideSubmenu,
+    isTabLeft,
+    setIsTabLeft,
+    location,
+    userName,
+    userId,
+    jwt,
+    hideLinks,
+    isMessageSent,
+    setIsMessageSent,
+  };
+
   return (
-    <AppContext.Provider
-      value={{
-        API_BOOKS,
-        API_USERS,
-        AUTH_SIGNIN,
-        AUTH_SIGNOUT,
-        API_BOOKSBYUSER,
-        API_MESSAGES,
-        API_MESSAGESUSER,
-        isUserLoggedIn,
-        setIsUserLoggedIn,
-        userCredential,
-        setUserCredential,
-        loading,
-        setLoading,
-        alert,
-        setAlert,
-        showLinks,
-        setShowLinks,
-        isSubmenuOpen,
-        openSubmenu,
-        closeSubmenu,
-        isTabLeft,
-        setIsTabLeft,
-        location,
-        userName,
-        userId,
-        jwt,
-        hideLinks,
-        isMessageSent,
-        setIsMessageSent,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={globalValues}>{children}</AppContext.Provider>
   );
 };
 
+// custom hook
 export const useGlobalContext = () => {
   return useContext(AppContext);
 };

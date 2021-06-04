@@ -9,7 +9,6 @@ export const useAuth = () => {
     setIsUserLoggedIn,
     setAlert,
     setIsTabLeft,
-    setSelectedConversation,
     setLoading,
   } = useGlobalContext();
   const history = useHistory();
@@ -62,7 +61,6 @@ export const useAuth = () => {
       const res = await fetch(url);
       if (res.ok) {
         await res.json();
-        setSelectedConversation(false);
         sessionStorage.clear();
         setUserCredential({ name: '', email: '', password: '' });
       } else {

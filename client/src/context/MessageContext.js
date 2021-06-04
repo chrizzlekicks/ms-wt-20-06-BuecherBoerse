@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
 } from 'react';
+import { FaFlushed } from 'react-icons/fa';
 import { useGlobalContext } from '../context/GlobalContext';
 
 const MessageContext = createContext();
@@ -28,6 +29,7 @@ export const MessageProvider = ({ children }) => {
     jwt,
     API_MESSAGESUSER,
     API_MESSAGES,
+    setAlert,
   } = useGlobalContext();
 
   // GET Konversationen vom Backend
@@ -59,7 +61,7 @@ export const MessageProvider = ({ children }) => {
   // GET alle Nachrichten einer Konversation
   const fetchMessages = useCallback(
     async (api_messages, conv_id, token, user_id) => {
-      if (conversations || conv_id) {
+      if (selectedConversation || isMessageSent) {
         try {
           setLoading(true);
           const res = await fetch(`${api_messages}${conv_id}`, {
@@ -96,7 +98,7 @@ export const MessageProvider = ({ children }) => {
       }
       return null;
     },
-    [conversations, setLoading, setChat, setNewMessage, setIsMessageSent]
+    [selectedConversation, isMessageSent, setLoading, setIsMessageSent]
   );
 
   // POST Nachricht in bestehende Konversation
@@ -143,7 +145,7 @@ export const MessageProvider = ({ children }) => {
   // update die Nachrichten
   useEffect(() => {
     fetchMessages(API_MESSAGES, sessionStorage.getItem('convId'), jwt, userId);
-  }, [API_MESSAGES, fetchMessages, jwt, userId]);
+  }, [isMessageSent, API_MESSAGES, fetchMessages, jwt, userId]);
 
   // rufe eine Konversation und die dazugehörigen Nachrichten auf
   const openConversation = (e) => {
@@ -159,6 +161,14 @@ export const MessageProvider = ({ children }) => {
 
   // schicke die Nachricht ab
   const sendMessage = (e) => {
+    if (!selectedConversation) {
+      setAlert({
+        display: true,
+        icon: <FaFlushed />,
+        msg: 'Du hast keine Konversation ausgewählt!',
+      });
+      return null;
+    }
     e.preventDefault();
     postMessage(API_MESSAGES, chat._id, jwt, newMessage);
     setIsMessageSent(true);
