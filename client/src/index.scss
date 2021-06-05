@@ -43,6 +43,7 @@ ul {
 a {
   text-transform: capitalize;
   text-decoration: none;
+  font-size: $fnt-sz;
 }
 
 h1,
@@ -55,11 +56,11 @@ h4 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 h3 {
@@ -67,16 +68,17 @@ h3 {
 }
 
 h4 {
-  font-size: 0.875rem;
+  font-size: $fnt-sz;
 }
 
 p {
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
+  font-size: $fnt-sz;
+  margin-bottom: 0.5rem;
 }
 
 button {
   font-family: $fnt-fmly;
+  font-size: $fnt-sz;
 
   &:focus {
     outline: none;
@@ -84,6 +86,10 @@ button {
 }
 
 @media (min-width: 800px) {
+  a {
+    font-size: 1rem;
+  }
+
   h1 {
     font-size: 3rem;
   }
@@ -101,6 +107,10 @@ button {
   }
 
   p {
+    font-size: 1rem;
+  }
+
+  button {
     font-size: 1rem;
   }
 }

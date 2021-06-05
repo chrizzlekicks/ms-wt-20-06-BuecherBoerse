@@ -15,12 +15,20 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ display: false, icon: '', msg: '' });
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(false);
   const [isMessageSent, setIsMessageSent] = useState(false);
 
   // schließe das Usermenu rechts oben
   const closeSubmenu = () => {
     setIsSubmenuOpen(false);
+  };
+
+  // klappe das Navigationsmenu ein nach Klicken eines Links
+  const hideLinks = () => {
+    if (showLinks) {
+      setShowLinks(false);
+    }
   };
 
   // speichere APIs, states und functions in einer globalen Variable
@@ -46,6 +54,9 @@ export const AppProvider = ({ children }) => {
     setSelectedConversation,
     isMessageSent,
     setIsMessageSent,
+    showLinks,
+    setShowLinks,
+    hideLinks,
   };
 
   return (

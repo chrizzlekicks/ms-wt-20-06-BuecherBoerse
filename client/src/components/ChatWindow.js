@@ -1,6 +1,7 @@
 import FilterButton from './FilterButton';
 import Form from './Form';
 import OpenChat from './OpenChat';
+import { FaPaperPlane } from 'react-icons/fa';
 import { useMessageContext } from '../context/MessageContext';
 
 const ChatWindow = () => {
@@ -20,7 +21,7 @@ const ChatWindow = () => {
             onKeyPress={handleKeyPress}
           />
           <FilterButton type='submit' style={{ margin: '0' }}>
-            Abschicken
+            <FaPaperPlane style={{ display: 'grid', placeItems: 'center' }} />
           </FilterButton>
         </Form>
       </aside>

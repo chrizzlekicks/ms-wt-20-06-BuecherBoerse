@@ -6,7 +6,6 @@ const NavbarContext = createContext();
 export const NavbarProvider = ({ children }) => {
   const AUTH_SIGNOUT = '/auth/signout';
   const [navbar, setNavbar] = useState(false);
-  const [showLinks, setShowLinks] = useState(false);
   const [location, setLocation] = useState({});
   const container = useRef(null);
   const {
@@ -14,6 +13,8 @@ export const NavbarProvider = ({ children }) => {
     closeSubmenu,
     setIsSubmenuOpen,
     setSelectedConversation,
+    setShowLinks,
+    showLinks,
   } = useGlobalContext();
 
   // GET logge User aus System
@@ -72,13 +73,6 @@ export const NavbarProvider = ({ children }) => {
     }
   };
 
-  // klappe das Navigationsmenu ein nach Klicken eines Links
-  const hideLinks = () => {
-    if (showLinks) {
-      setShowLinks(false);
-    }
-  };
-
   // bestimme die Position des Submenus
   const showUserSubmenu = (e) => {
     const divSize = e.currentTarget.getBoundingClientRect();
@@ -97,13 +91,11 @@ export const NavbarProvider = ({ children }) => {
   // speichere states unf functions in Variable
   const navValues = {
     navbar,
-    showLinks,
     location,
     container,
     toggleNavbar,
     openSubmenu,
     hideSubmenu,
-    hideLinks,
     showUserSubmenu,
     logout,
   };

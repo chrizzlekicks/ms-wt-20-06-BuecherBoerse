@@ -76,7 +76,7 @@ const UploadBook = () => {
               htmlFor='Beschreibung:'
               name='desc'
               id='desc'
-              rows='5'
+              rows='4'
               placeholder='Kurze Beschreibung des Buches'
               value={newBook.desc}
               onChange={textChange}

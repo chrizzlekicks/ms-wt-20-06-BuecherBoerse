@@ -5,10 +5,11 @@ import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
 import UserBar from './UserBar';
 import { useNavbarContext } from '../context/NavbarContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Navbar = () => {
-  const { navbar, showLinks, hideLinks, toggleNavbar, hideSubmenu } =
-    useNavbarContext();
+  const { navbar, toggleNavbar, hideSubmenu } = useNavbarContext();
+  const { showLinks, hideLinks } = useGlobalContext();
 
   return (
     <>
