@@ -72,13 +72,13 @@ h4 {
 }
 
 p {
-  font-size: $fnt-sz;
+  font-size: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
 button {
   font-family: $fnt-fmly;
-  font-size: $fnt-sz;
+  font-size: 0.75rem;
 
   &:focus {
     outline: none;
@@ -107,11 +107,11 @@ button {
   }
 
   p {
-    font-size: 1rem;
+    font-size: $fnt-sz;
   }
 
   button {
-    font-size: 1rem;
+    font-size: $fnt-sz;
   }
 }
 
