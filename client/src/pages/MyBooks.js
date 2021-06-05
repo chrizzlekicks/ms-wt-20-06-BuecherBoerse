@@ -1,58 +1,35 @@
-import { useEffect } from 'react';
-import { useGlobalContext } from '../context/OverallContext';
-import Shelf from '../components/Shelf';
+import { useGlobalContext } from '../context/GlobalContext';
+import { useMyBooksContext } from '../context/MyBooksContext';
 import UserDashboard from '../components/UserDashboard';
 import Loading from '../components/Loading';
-import EmptyShelf from '../components/EmptyShelf';
 import Alert from '../components/Alert';
-import { useBookData } from '../hooks/useBookData';
 import { motion } from 'framer-motion';
+import Shelf from '../components/Shelf';
 
 const MyBooks = () => {
-  const {
-    alert,
-    closeSubmenu,
-    myBooks,
-    loading,
-    userId,
-    jwt,
-    API_BOOKSBYUSER,
-  } = useGlobalContext();
-  const { fetchMyBooks } = useBookData();
+  const { alert, closeSubmenu, loading } = useGlobalContext();
+  const { myBooks } = useMyBooksContext();
 
-  useEffect(() => {
-    fetchMyBooks(API_BOOKSBYUSER, userId, jwt);
-  }, [fetchMyBooks, API_BOOKSBYUSER, userId, jwt]);
-
-  if (loading) {
-    return (
-      <>
+  return (
+    <>
+      {loading ? (
         <main>
           <Loading />
         </main>
-      </>
-    );
-  }
-  return (
-    <>
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        onClick={closeSubmenu}
-      >
-        <UserDashboard />
-        {myBooks.length < 1 ? (
-          <EmptyShelf>
-            Aktuell hast du noch keine Bücher hochgeladen. Lade schnell welche
-            hoch und biete sie zum Verleihen an!
-          </EmptyShelf>
-        ) : (
-          <Shelf books={myBooks}>{myBooks}</Shelf>
-        )}
-        {alert.display && <Alert />}
-      </motion.main>
+      ) : (
+        <motion.main
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={closeSubmenu}
+        >
+          <UserDashboard />
+          <Shelf myBooks={myBooks}>{myBooks}</Shelf>
+          {alert.display && <Alert />}
+        </motion.main>
+      )}
+      ;
     </>
   );
 };

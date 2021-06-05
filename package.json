@@ -6,19 +6,19 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node --es-module-specifier-resolution=node ./server/server.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd client && npm ci && npm run build"
   },
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/techlabsms/ms-wt-20-06-BuecherBoerse.git"
+    "url": "git+https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/techlabsms/ms-wt-20-06-BuecherBoerse/issues"
+    "url": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse/issues"
   },
-  "homepage": "https://github.com/techlabsms/ms-wt-20-06-BuecherBoerse#readme",
+  "homepage": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse#readme",
   "engines": {
     "node": "13.12.0",
     "npm": "6.14.4"
