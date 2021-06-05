@@ -1,17 +1,12 @@
 import { FaUserCircle } from 'react-icons/fa';
 import Submenu from '../components/Submenu';
 import { useGlobalContext } from '../context/GlobalContext';
+import { useNavbarContext } from '../context/NavbarContext';
 
 const UserBar = () => {
-  const { isUserLoggedIn, openSubmenu, isSubmenuOpen, closeSubmenu, userName } =
+  const { isUserLoggedIn, isSubmenuOpen, closeSubmenu, userName } =
     useGlobalContext();
-
-  const showUserSubmenu = (e) => {
-    const divSize = e.currentTarget.getBoundingClientRect();
-    const divCenter = (divSize.left + divSize.right) / 2;
-    const divBottom = divSize.bottom - 3;
-    openSubmenu({ divCenter, divBottom });
-  };
+  const { showUserSubmenu } = useNavbarContext();
 
   return (
     <>

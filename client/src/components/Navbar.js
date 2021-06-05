@@ -1,34 +1,14 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
 import logo from '../static/buecherregal.svg';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
-import { useGlobalContext } from '../context/GlobalContext';
 import UserBar from './UserBar';
+import { useNavbarContext } from '../context/NavbarContext';
 
 const Navbar = () => {
-  const [navbar, setNavbar] = useState(false);
-  const { showLinks, setShowLinks, hideLinks, hideSubmenu } =
-    useGlobalContext();
-
-  useEffect(() => {
-    const stickyNav = () => {
-      if (window.scrollY >= 120) {
-        setNavbar(true);
-      } else {
-        setNavbar(false);
-      }
-    };
-    window.addEventListener('scroll', stickyNav);
-    return () => {
-      window.removeEventListener('scroll', stickyNav);
-    };
-  });
-
-  const toggleNavbar = () => {
-    setShowLinks(!showLinks);
-  };
+  const { navbar, showLinks, hideLinks, toggleNavbar, hideSubmenu } =
+    useNavbarContext();
 
   return (
     <>

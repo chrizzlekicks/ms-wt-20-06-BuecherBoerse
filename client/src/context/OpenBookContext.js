@@ -21,17 +21,10 @@ export const OpenBookProvider = ({ children }) => {
     reciever: '',
     message: '',
   });
-  const { id } = useParams();
-  const {
-    setLoading,
-    setAlert,
-    API_BOOKS,
-    API_MESSAGES,
-    userId,
-    jwt,
-    setIsMessageSent,
-  } = useGlobalContext();
   const history = useHistory();
+  const { id } = useParams();
+  const { setLoading, setAlert, API_BOOKS, API_MESSAGES, userId, jwt } =
+    useGlobalContext();
 
   // GET Buchinfo vom Backend
   const fetchSingleBook = useCallback(
@@ -212,7 +205,6 @@ export const OpenBookProvider = ({ children }) => {
   const submitConv = (e) => {
     e.preventDefault();
     startNewConversation(API_MESSAGES, jwt, newConv);
-    setIsMessageSent(true);
   };
 
   // schließe Nachrichtenfenster

@@ -14,7 +14,6 @@ const MessageContext = createContext();
 export const MessageProvider = ({ children }) => {
   const [conversations, setConversations] = useState([]);
   const [chat, setChat] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState(false);
   const [newMessage, setNewMessage] = useState({
     sender: '',
     reciever: '',
@@ -24,6 +23,8 @@ export const MessageProvider = ({ children }) => {
   const {
     isMessageSent,
     setIsMessageSent,
+    selectedConversation,
+    setSelectedConversation,
     setLoading,
     userId,
     jwt,
@@ -61,7 +62,7 @@ export const MessageProvider = ({ children }) => {
   // GET alle Nachrichten einer Konversation
   const fetchMessages = useCallback(
     async (api_messages, conv_id, token, user_id) => {
-      if (selectedConversation || isMessageSent) {
+      if (selectedConversation) {
         try {
           setLoading(true);
           const res = await fetch(`${api_messages}${conv_id}`, {
@@ -98,7 +99,7 @@ export const MessageProvider = ({ children }) => {
       }
       return null;
     },
-    [selectedConversation, isMessageSent, setLoading, setIsMessageSent]
+    [selectedConversation, setLoading, setIsMessageSent]
   );
 
   // POST Nachricht in bestehende Konversation

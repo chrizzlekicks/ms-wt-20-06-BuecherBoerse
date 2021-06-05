@@ -5,9 +5,11 @@ import { useGlobalContext } from '../context/GlobalContext';
 import Loading2 from '../components/Loading2';
 import Alert from '../components/Alert';
 import { motion } from 'framer-motion';
+import { useAuthContext } from '../context/AuthContext';
 
 const LoginScreen = () => {
-  const { alert, isTabLeft, loading } = useGlobalContext();
+  const { alert, loading } = useGlobalContext();
+  const { isTabLeft } = useAuthContext();
 
   return (
     <>

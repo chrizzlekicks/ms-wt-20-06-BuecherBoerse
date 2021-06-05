@@ -1,25 +1,11 @@
-import { useGlobalContext } from '../context/GlobalContext';
-import { useAuth } from '../hooks/useAuth';
 import InputField from './InputField';
 import SigninBtn from './SigninBtn';
 import Form from './Form';
+import { useAuthContext } from '../context/AuthContext';
 
 const Signup = () => {
-  const { API_USERS, userCredential, setUserCredential } = useGlobalContext();
-  const { signInUser } = useAuth();
+  const { userCredential, signupNow, checkSigninInput } = useAuthContext();
   const { name, email, password } = userCredential;
-
-  const checkSignupInput = (e) => {
-    setUserCredential({
-      ...userCredential,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const signupNow = (e) => {
-    e.preventDefault();
-    signInUser(API_USERS);
-  };
 
   return (
     <>
@@ -34,7 +20,7 @@ const Signup = () => {
             name='name'
             id='name'
             value={name}
-            onChange={checkSignupInput}
+            onChange={checkSigninInput}
             required
           />
           <InputField
@@ -43,7 +29,7 @@ const Signup = () => {
             name='email'
             id='email'
             value={email}
-            onChange={checkSignupInput}
+            onChange={checkSigninInput}
             required
           />
           <InputField
@@ -52,7 +38,7 @@ const Signup = () => {
             name='password'
             id='password'
             value={password}
-            onChange={checkSignupInput}
+            onChange={checkSigninInput}
             required
           />
           <SigninBtn type='submit'>Registrieren</SigninBtn>

@@ -2,6 +2,7 @@
 .links {
   transition: $trnstn;
   margin: 0.5rem;
+  display: inline-block;
 
   a {
     color: $fnt-clr;
