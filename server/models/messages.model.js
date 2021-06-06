@@ -12,7 +12,7 @@ const MessageSchema = new mongoose.Schema({
     },
     message: {
         type: String,
-        required: 'Bitte Nachricht eingeben',
+        required: [true, 'Bitte Nachricht eingeben'],
     },
     created: {
         type: Date,
