@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import FilterButton from './FilterButton';
 
 const ReturnTo = () => {
-  let history = useHistory();
+  const history = useHistory();
   const prevPath = () => history.goBack();
   return (
     <>

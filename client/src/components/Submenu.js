@@ -1,25 +1,10 @@
-import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/OverallContext';
-import { useAuth } from '../hooks/useAuth';
+import { useGlobalContext } from '../context/GlobalContext';
+import { useNavbarContext } from '../context/NavbarContext';
 
 const Submenu = () => {
-  const { isSubmenuOpen, location, AUTH_SIGNOUT, setIsUserLoggedIn } =
-    useGlobalContext();
-  const { getLoggedOut } = useAuth();
-  const container = useRef(null);
-
-  useEffect(() => {
-    const submenu = container.current;
-    const { divCenter, divBottom } = location;
-    submenu.style.left = `${divCenter}px`;
-    submenu.style.bottom = `${divBottom}px`;
-  }, [location]);
-
-  const logout = () => {
-    getLoggedOut(AUTH_SIGNOUT);
-    setIsUserLoggedIn(false);
-  };
+  const { isSubmenuOpen } = useGlobalContext();
+  const { container, logout } = useNavbarContext();
 
   return (
     <>

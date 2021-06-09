@@ -1,36 +1,12 @@
-import { useEffect } from 'react';
 import Conversations from '../components/Conversations';
 import ChatWindow from '../components/ChatWindow';
-import { useGlobalContext } from '../context/OverallContext';
-import { useMessaging } from '../hooks/useMessaging';
+import { useGlobalContext } from '../context/GlobalContext';
 import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
-import EmptyShelf from '../components/EmptyShelf';
+import Alert from '../components/Alert';
 
 const Messages = () => {
-  const {
-    closeSubmenu,
-    API_MESSAGESUSER,
-    loading,
-    userId,
-    jwt,
-    conversations,
-    isMessageSent,
-    setIsMessageSent,
-  } = useGlobalContext();
-
-  const { fetchUserConversations } = useMessaging();
-
-  useEffect(() => {
-    fetchUserConversations(API_MESSAGESUSER, userId, jwt);
-  }, [
-    API_MESSAGESUSER,
-    fetchUserConversations,
-    isMessageSent,
-    setIsMessageSent,
-    userId,
-    jwt,
-  ]);
+  const { alert, closeSubmenu, loading } = useGlobalContext();
 
   return (
     <>
@@ -42,17 +18,11 @@ const Messages = () => {
         transition={{ duration: 0.25 }}
         onClick={closeSubmenu}
       >
-        {conversations.length < 1 ? (
-          <EmptyShelf>
-            Aktuell hast du noch keine Nachrichten verfasst. Schreibe einem
-            User, indem du ein Buch auswählst und auf "Jetzt ausleihen" klickst.
-          </EmptyShelf>
-        ) : (
-          <section className='message-container'>
-            <Conversations />
-            <ChatWindow />
-          </section>
-        )}
+        <section className='message-container'>
+          <Conversations />
+          <ChatWindow />
+        </section>
+        {alert.display && <Alert />}
       </motion.main>
     </>
   );

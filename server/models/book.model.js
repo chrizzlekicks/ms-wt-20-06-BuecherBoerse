@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'
-import crypto from 'crypto'
-import User from '../models/user.model'
+import mongoose from 'mongoose';
 
 const BookSchema = new mongoose.Schema({
     name: {
@@ -59,6 +57,6 @@ const BookSchema = new mongoose.Schema({
         default: Date.now
     },
     updated: Date
-})
+});
 
-export default mongoose.model('Book', BookSchema)
+export default mongoose.model('Book', BookSchema);

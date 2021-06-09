@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useGlobalContext } from './context/OverallContext';
+import { useGlobalContext } from './context/GlobalContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Marketplace from './pages/Marketplace';
@@ -19,51 +19,73 @@ import DataPrivacy from './pages/DataPrivacy';
 import Imprint from './pages/Imprint';
 import MyBooks from './pages/MyBooks';
 import Messages from './pages/Messages';
+import { MarketplaceProvider } from './context/MarketplaceContext';
+import { UploadBookProvider } from './context/UploadBookContext';
+import { OpenBookProvider } from './context/OpenBookContext';
+import { MyBooksProvider } from './context/MyBooksContext';
+import { MessageProvider } from './context/MessageContext';
+import { AuthProvider } from './context/AuthContext';
+import { NavbarProvider } from './context/NavbarContext';
 
 const App = () => {
   const { isUserLoggedIn } = useGlobalContext();
   return (
-    <>
-      <Router>
-        {isUserLoggedIn && <Navbar />}
-        <ScrollToTop />
-        <AnimatePresence exitBeforeEnter initial={false}>
-          <Switch>
-            <Route path='/login'>
-              {!isUserLoggedIn ? <LoginScreen /> : <Redirect to='/' />}
-            </Route>
-            <ProtectedRoute exact path='/'>
+    <Router>
+      <ScrollToTop />
+      {isUserLoggedIn && (
+        <NavbarProvider>
+          <Navbar />
+        </NavbarProvider>
+      )}
+      <AnimatePresence exitBeforeEnter initial={false}>
+        <Switch>
+          <Route path='/login'>
+            {!isUserLoggedIn ? (
+              <AuthProvider>
+                <LoginScreen />
+              </AuthProvider>
+            ) : (
+              <Redirect to='/' />
+            )}
+          </Route>
+          <ProtectedRoute exact path='/'>
+            <MarketplaceProvider>
               <Marketplace />
-            </ProtectedRoute>
-            <ProtectedRoute path='/uploadbook'>
-              <UploadBook />
-            </ProtectedRoute>
-            <ProtectedRoute path='/mybooks'>
+            </MarketplaceProvider>
+          </ProtectedRoute>
+          <ProtectedRoute path='/mybooks'>
+            <MyBooksProvider>
               <MyBooks />
-            </ProtectedRoute>
-            <ProtectedRoute path='/openbook/:id'>
+            </MyBooksProvider>
+          </ProtectedRoute>
+          <ProtectedRoute path='/uploadbook'>
+            <UploadBookProvider>
+              <UploadBook />
+            </UploadBookProvider>
+          </ProtectedRoute>
+          <ProtectedRoute path='/openbook/:id'>
+            <OpenBookProvider>
               <OpenBook />
-            </ProtectedRoute>
-            <ProtectedRoute path='/messages'>
+            </OpenBookProvider>
+          </ProtectedRoute>
+          <ProtectedRoute path='/messages'>
+            <MessageProvider>
               <Messages />
-            </ProtectedRoute>
-            <ProtectedRoute path='/about'>
-              <Error />
-            </ProtectedRoute>
-            <ProtectedRoute path='/imprint'>
-              <Imprint />
-            </ProtectedRoute>
-            <ProtectedRoute path='/dataprivacy'>
-              <DataPrivacy />
-            </ProtectedRoute>
-            <Route path='*'>
-              <Error />
-            </Route>
-          </Switch>
-        </AnimatePresence>
-        {isUserLoggedIn && <Footer />}
-      </Router>
-    </>
+            </MessageProvider>
+          </ProtectedRoute>
+          <ProtectedRoute path='/imprint'>
+            <Imprint />
+          </ProtectedRoute>
+          <ProtectedRoute path='/dataprivacy'>
+            <DataPrivacy />
+          </ProtectedRoute>
+          <Route path='*'>
+            <Error />
+          </Route>
+        </Switch>
+      </AnimatePresence>
+      {isUserLoggedIn && <Footer />}
+    </Router>
   );
 };
 

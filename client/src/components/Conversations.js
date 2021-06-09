@@ -1,8 +1,8 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useMessageContext } from '../context/MessageContext';
 import Conversation from './Conversation';
 
 const Conversations = () => {
-  const { conversations } = useGlobalContext();
+  const { conversations } = useMessageContext();
 
   return (
     <>

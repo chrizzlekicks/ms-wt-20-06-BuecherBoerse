@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'
-import User from '../models/user.model'
+import mongoose from 'mongoose';
 
 const MessageSchema = new mongoose.Schema({
     sender: {
@@ -20,4 +19,4 @@ const MessageSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('Message', MessageSchema)
+export default mongoose.model('Message', MessageSchema);
