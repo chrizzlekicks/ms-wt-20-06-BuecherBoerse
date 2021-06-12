@@ -1,21 +1,35 @@
-/* Upload Book */
-.book-form {
+/* Upload & Edit Book */
+@mixin bookupload() {
   background-color: $brnd-clr;
   color: $bckgrnd-clr;
   padding: 1.25rem 0.75rem;
   border-radius: $brdr-rds-2;
   box-shadow: $bx-shdw;
   margin: 0.5rem;
-  width: 90vw;
+  width: 90%;
+}
+
+.book-form {
+  @include bookupload();
+}
+
+.book-update-form {
+  @include bookupload();
+  animation: slide-up 0.75s;
 }
 
 @media (min-width: 800px) {
   .book-form {
-    max-width: $mx-wdth;
     padding: 1.5rem;
     margin: 2rem auto;
     display: grid;
     grid-template-columns: repeat(2, 50%);
     max-width: 750px;
+  }
+
+  .book-update-form {
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 450px;
   }
 }

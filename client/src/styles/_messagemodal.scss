@@ -10,6 +10,8 @@
   overflow: hidden;
   transform: scale(0);
   transition: $nvbr-trns;
+  display: grid;
+  place-items: center;
 
   &.open {
     visibility: visible;
@@ -28,7 +30,7 @@
   padding: 1rem;
   position: relative;
   text-align: center;
-  width: 100vw;
+  width: 100%;
   background-color: $brnd-clr;
   border-radius: 25px;
   box-shadow: $bx-shdw;

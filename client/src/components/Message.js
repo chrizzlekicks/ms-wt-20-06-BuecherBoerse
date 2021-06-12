@@ -15,7 +15,7 @@ const Message = ({ recipients, message, sender }) => {
                 : recipients[1].name}
             </h4>
           </header>
-          <p>{message}</p>
+          <p className='message-body'>{message}</p>
         </aside>
       </article>
     </>

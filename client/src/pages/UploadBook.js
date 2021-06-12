@@ -1,62 +1,17 @@
 import Alert from '../components/Alert';
 import ImageUploader from '../components/ImageUploader';
 import InputField from '../components/InputField';
-import { FaFlushed } from 'react-icons/fa';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import TextAreaInput from '../components/TextAreaInput';
 import ActionBtn from '../components/ActionBtn';
 import Form from '../components/Form';
-import { useBookData } from '../hooks/useBookData';
 import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
+import { useUploadBookContext } from '../context/UploadBookContext';
 
 const UploadBook = () => {
-  const {
-    alert,
-    setAlert,
-    newBook,
-    setNewBook,
-    loading,
-    bookImage,
-    setBookImage,
-    closeSubmenu,
-    jwt,
-    userId,
-    API_BOOKS,
-  } = useGlobalContext();
-  const { bookUpload } = useBookData();
-
-  const textChange = (e) => {
-    setNewBook({ ...newBook, [e.target.name]: e.target.value });
-  };
-
-  const uploadAll = (e) => {
-    e.preventDefault();
-    if (
-      newBook.name &&
-      newBook.author &&
-      newBook.genre &&
-      newBook.language &&
-      newBook.condition
-    ) {
-      const bookData = new FormData();
-      bookData.append('bookImage', bookImage);
-      bookData.append('name', newBook.name);
-      bookData.append('author', newBook.author);
-      bookData.append('category', newBook.genre);
-      bookData.append('language', newBook.language);
-      bookData.append('condition', newBook.condition);
-      bookData.append('owner', userId);
-      bookData.append('description', newBook.desc);
-      bookUpload(API_BOOKS, jwt, bookData);
-    } else {
-      setAlert({
-        display: true,
-        icon: <FaFlushed />,
-        msg: 'Halt, da fehlen paar Felder!',
-      });
-    }
-  };
+  const { alert, loading, closeSubmenu } = useGlobalContext();
+  const { newBook, textChange, uploadAll, resetInput } = useUploadBookContext();
 
   return (
     <>
@@ -70,7 +25,7 @@ const UploadBook = () => {
       >
         <h2 className='title'>Buch hochladen</h2>
         <Form className='book-form' onSubmit={uploadAll}>
-          <ImageUploader bookImage={bookImage} setBookImage={setBookImage} />
+          <ImageUploader />
           <div className='info-upload'>
             <InputField
               type='text'
@@ -121,28 +76,14 @@ const UploadBook = () => {
               htmlFor='Beschreibung:'
               name='desc'
               id='desc'
-              rows='5'
+              rows='4'
               placeholder='Kurze Beschreibung des Buches'
               value={newBook.desc}
               onChange={textChange}
             />
             <div className='action-btn-container'>
               <ActionBtn type='submit'>Hochladen</ActionBtn>
-              <ActionBtn
-                type='reset'
-                onClick={() => {
-                  setBookImage();
-                  setNewBook({
-                    name: '',
-                    author: '',
-                    genre: '',
-                    language: '',
-                    condition: '',
-                    owner: userId,
-                    desc: '',
-                  });
-                }}
-              >
+              <ActionBtn type='reset' onClick={resetInput}>
                 Löschen
               </ActionBtn>
             </div>

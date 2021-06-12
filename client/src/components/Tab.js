@@ -1,7 +1,7 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useAuthContext } from '../context/AuthContext';
 
 const Tab = () => {
-  const { isTabLeft, setIsTabLeft } = useGlobalContext();
+  const { isTabLeft, setIsTabLeft } = useAuthContext();
   return (
     <>
       <div className='tab-container'>

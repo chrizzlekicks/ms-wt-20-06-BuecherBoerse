@@ -1,38 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useGlobalContext } from '../context/OverallContext';
+import { useMarketplaceContext } from '../context/MarketplaceContext';
 
 const SearchBar = () => {
-  const [search, setSearch] = useState('');
-  const { allBooks, setBooks } = useGlobalContext();
-  const handleInput = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-    let searchedBooks = allBooks.filter(
-      (book) =>
-        book.name.toLowerCase().includes(search.toLowerCase()) ||
-        book.author.toLowerCase().includes(search.toLowerCase())
-    );
-    setBooks(searchedBooks);
-  }, [search, allBooks, setBooks]);
+  const { search, handleSearch } = useMarketplaceContext();
 
   return (
     <>
       <section className='search-bar'>
-        <form onSubmit={handleSearch}>
-          <input
-            type='text'
-            className='search-form'
-            value={search}
-            onChange={handleInput}
-            placeholder='Nach Titel oder Autor*in suchen...'
-          ></input>
-        </form>
+        <input
+          type='text'
+          className='search-form'
+          value={search}
+          onChange={handleSearch}
+          placeholder='Nach Titel oder Autor*in suchen...'
+        ></input>
       </section>
     </>
   );

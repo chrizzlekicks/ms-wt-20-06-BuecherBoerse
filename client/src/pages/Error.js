@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import { FaMeh } from 'react-icons/fa';
 import ReturnTo from '../components/ReturnTo';
 

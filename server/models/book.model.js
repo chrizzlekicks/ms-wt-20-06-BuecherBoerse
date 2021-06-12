@@ -1,50 +1,52 @@
-import mongoose from 'mongoose'
-import crypto from 'crypto'
-import User from '../models/user.model'
+import mongoose from 'mongoose';
 
 const BookSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: 'Name des Buches fehlt'
+        required: [true, 'Name des Buches fehlt']
     },
     author: {
         type: String,
         trim: true,
-        required: 'Autor des Buches fehlt'
+        required: [true, 'Autor des Buches fehlt']
     },
     image: {
         type: String,
-        required: 'Kein Bild ausgewählt',
+        required: [true, 'Kein Bild ausgewählt']
     },
     imagekitIoId: {
         type: String,
-        required: 'Kein Bild ausgewählt',
+        required: [true, 'Kein Bild ausgewählt']
     },
     category: {
         type: String,
         trim: true,
-        required: "Bitte ein Genre eintragen"
+        required: [true, "Bitte ein Genre eintragen"]
     },
     language: {
         type: String,
         trim: true,
-        required: "Bitte eine Sprache eintragen"
+        required: [true, "Bitte eine Sprache eintragen"]
     },
     condition: {		//Zustand des Buches
         type: String,
         trim: true,
-        required: "Bitte den Zustand angeben"
+        required: [true, "Bitte den Zustand angeben"]
     },
     description: {		//Beschreibung des Buches
         type: String,
-        required: "Bitte beschreibe dein Buch"
+        required: [true, "Bitte beschreibe dein Buch"]
     },
     //User ID
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: "Bitte einen User eintragen"
+        required: [true, "Bitte einen User eintragen"]
+    },
+    username: {
+        type: String,
+        required: [true, "Bitte einen User eintragen"]
     },
     status: {	//privat, bereit zum Verleihen, verliehen
         type: String,
@@ -55,6 +57,6 @@ const BookSchema = new mongoose.Schema({
         default: Date.now
     },
     updated: Date
-})
+});
 
-export default mongoose.model('Book', BookSchema)
+export default mongoose.model('Book', BookSchema);
