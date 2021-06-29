@@ -1,40 +1,16 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
 import logo from '../static/buecherregal.svg';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
-import { useGlobalContext } from '../context/OverallContext';
 import UserBar from './UserBar';
+import { useNavbarContext } from '../context/NavbarContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Navbar = () => {
-  const [navbar, setNavbar] = useState(false);
-  const { showLinks, setShowLinks, hideLinks, closeSubmenu } =
-    useGlobalContext();
+  const { navbar, toggleNavbar, hideSubmenu } = useNavbarContext();
+  const { showLinks, hideLinks } = useGlobalContext();
 
-  useEffect(() => {
-    const stickyNav = () => {
-      if (window.scrollY >= 120) {
-        setNavbar(true);
-      } else {
-        setNavbar(false);
-      }
-    };
-    window.addEventListener('scroll', stickyNav);
-    return () => {
-      window.removeEventListener('scroll', stickyNav);
-    };
-  });
-
-  const toggleNavbar = () => {
-    setShowLinks(!showLinks);
-  };
-
-  const hideSubmenu = (e) => {
-    if (!e.target.classList.contains('helper')) {
-      closeSubmenu();
-    }
-  };
   return (
     <>
       <nav
@@ -44,7 +20,7 @@ const Navbar = () => {
         <header className='nav-content'>
           <div className='nav-header basic-flex'>
             <Link to='/' className='basic-flex' onClick={hideLinks}>
-              <img src={logo} alt='logo' />
+              <img src={logo} alt='logo' width='160' height='60' />
             </Link>
             <button className='nav-toggle' onClick={toggleNavbar}>
               {showLinks ? <FaBookOpen /> : <FaBook />}

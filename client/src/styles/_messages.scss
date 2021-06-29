@@ -8,78 +8,125 @@
   height: calc(100vh - 15vh);
   border-top: 1px solid $clr-gry;
   border-bottom: 1px solid $clr-gry;
+}
 
-  .conversations {
-    display: flex;
-    flex-direction: column;
+.conversations {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+}
+
+.conversation {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  border: none;
+  border-bottom: 1px solid $clr-gry;
+  color: $fnt-clr;
+  background-color: $bckgrnd-clr;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: $trnstn;
+
+  &:last-child {
+    border: none;
+  }
+
+  &:hover {
+    background-color: $brnd-clr;
+    border-color: $brnd-clr;
+    color: $bckgrnd-clr;
+  }
+}
+
+.glimpse-message {
+  margin-left: 0.1rem;
+  text-align: left;
+  padding: 0.25rem;
+
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    display: none;
+    margin-bottom: 0;
+  }
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-left: 1px solid $clr-gry;
+
+  .chat {
     overflow: auto;
-    width: 100%;
+  }
+}
 
-    .conversation {
-      border: none;
-      border-bottom: 1px solid $clr-gry;
-      color: $fnt-clr;
-      background-color: $bckgrnd-clr;
-      padding: 0.5rem;
-      cursor: pointer;
-      transition: $trnstn;
+.message {
+  padding: 0.5rem 0.75rem;
 
-      &:last-child {
-        border: none;
-      }
+  .message-header {
+    margin-bottom: 0.25rem;
 
-      &:hover {
-        background-color: $brnd-clr;
-        border-color: $brnd-clr;
-        color: $bckgrnd-clr;
-      }
+    h4 {
+      display: flex;
     }
+  }
+
+  .message-body {
+    display: inline-block;
+  }
+}
+
+.input-message {
+  display: flex;
+  padding: 0.5rem;
+  border-top: 1px solid $clr-gry;
+
+  .enter-message {
+    border-color: $clr-gry;
+    margin-right: 0.5rem;
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
+@media (min-width: 800px) {
+  .conversation {
+    grid-template-columns: 20% 80%;
+    padding: 0.5rem;
   }
 
   .glimpse-message {
-    margin-left: 1rem;
-    text-align: left;
-    padding: 0.25rem;
+    margin-left: 0.5rem;
+
+    h4 {
+      margin-bottom: 0.5rem;
+    }
 
     p {
-      margin-bottom: 0;
+      display: block;
     }
   }
 
-  .chat-window {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: flex-end;
-    overflow: hidden;
-    border-left: 1px solid $clr-gry;
+  .message {
+    padding: 1rem 2rem;
 
-    .chat {
-      overflow: auto;
-
-      .message {
-        padding: 1rem 2rem;
-
-        .message-header {
-          h4 {
-            display: flex;
-            margin-right: 2rem;
-          }
-        }
-      }
+    .message-header {
+      margin-bottom: 0.5rem;
     }
+  }
 
-    .input-message {
-      display: flex;
-      padding: 0.5rem 1rem;
-      border-top: 1px solid $clr-gry;
+  .input-message {
+    padding: 0.75rem;
 
-      .enter-message {
-        border-color: $clr-gry;
-        margin-right: 1rem;
-        width: 100%;
-        flex-grow: 1;
-      }
+    .enter-message {
+      margin-right: 1rem;
     }
   }
 }

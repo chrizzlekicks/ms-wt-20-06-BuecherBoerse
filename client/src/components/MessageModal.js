@@ -1,53 +1,29 @@
 import Form from './Form';
 import TextAreaInput from './TextAreaInput';
 import FilterButton from './FilterButton';
-import { useGlobalContext } from '../context/OverallContext';
-import { useMessaging } from '../hooks/useMessaging';
 import ModalWrapper from './ModalWrapper';
+import { useOpenBookContext } from '../context/OpenBookContext';
 
 const MessageModal = () => {
   const {
-    API_MESSAGES,
-    userId,
-    jwt,
     showMessageModal,
-    setShowMessageModal,
-    setIsMessageSent,
-    newMessage,
-    setNewMessage,
-  } = useGlobalContext();
-  const { startNewConversation } = useMessaging();
+    newConv,
+    msgModalInput,
+    submitConv,
+    closeMessageModal,
+  } = useOpenBookContext();
 
-  let recieverID = sessionStorage.getItem('receiver');
-
-  const closeMessageModal = () => {
-    setShowMessageModal(false);
-    sessionStorage.removeItem('receiver');
-  };
   return (
     <>
       <ModalWrapper showMessageModal={showMessageModal}>
         <aside className='msg-modal'>
           <h3 className='modal-title'>Deine Nachricht:</h3>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              startNewConversation(API_MESSAGES, jwt, newMessage);
-              setIsMessageSent(true);
-              sessionStorage.removeItem('receiver');
-            }}
-          >
+          <Form onSubmit={submitConv}>
             <TextAreaInput
               name='message'
               rows='3'
-              value={newMessage.message}
-              onChange={(e) => {
-                setNewMessage({
-                  sender: userId,
-                  reciever: recieverID,
-                  message: e.target.value,
-                });
-              }}
+              value={newConv.message}
+              onChange={msgModalInput}
             />
             <FilterButton type='submit' style={{ margin: '1rem' }}>
               Abschicken

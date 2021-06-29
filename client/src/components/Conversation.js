@@ -1,17 +1,10 @@
 import { FaUserCircle } from 'react-icons/fa';
-import { useMessaging } from '../hooks/useMessaging';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
+import { useMessageContext } from '../context/MessageContext';
 
 const Conversation = ({ _id, recipients, messages }) => {
-  const { userName, API_MESSAGES, userId, jwt, setSelectedConversation } =
-    useGlobalContext();
-  const { fetchMessages } = useMessaging();
-
-  const openConversation = (e) => {
-    setSelectedConversation(true);
-    sessionStorage.setItem('convId', e.currentTarget.id);
-    fetchMessages(API_MESSAGES, e.currentTarget.id, jwt, userId);
-  };
+  const { userName } = useGlobalContext();
+  const { openConversation } = useMessageContext();
 
   return (
     <>

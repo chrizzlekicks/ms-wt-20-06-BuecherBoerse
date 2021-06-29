@@ -1,52 +1,36 @@
-import { useEffect } from 'react';
+import { useGlobalContext } from '../context/GlobalContext';
+import { useMarketplaceContext } from '../context/MarketplaceContext';
 import GenreFilter from '../components/GenreFilter';
 import Shelf from '../components/Shelf';
 import SearchBar from '../components/SearchBar';
 import Loading from '../components/Loading';
-import EmptyShelf from '../components/EmptyShelf';
 import Alert from '../components/Alert';
-import { useGlobalContext } from '../context/OverallContext';
-import { useBookData } from '../hooks/useBookData';
 import { motion } from 'framer-motion';
 
 const Marketplace = () => {
-  const { alert, books, loading, closeSubmenu, API_BOOKS } = useGlobalContext();
-  const { fetchBooks } = useBookData();
+  const { alert, loading, closeSubmenu } = useGlobalContext();
+  const { books } = useMarketplaceContext();
 
-  useEffect(() => {
-    fetchBooks(API_BOOKS);
-  }, [fetchBooks, API_BOOKS]);
-
-  if (loading && books.length < 1) {
-    return (
-      <>
+  return (
+    <>
+      {loading ? (
         <main>
           <Loading />
         </main>
-      </>
-    );
-  }
-  return (
-    <>
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        onClick={closeSubmenu}
-      >
-        <SearchBar />
-        <GenreFilter />
-        {books.length < 1 ? (
-          <EmptyShelf>
-            Zurzeit befinden sich keine Bücher im Bücherregal. Lade doch gerne
-            welche hoch!
-          </EmptyShelf>
-        ) : (
+      ) : (
+        <motion.main
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={closeSubmenu}
+        >
+          <SearchBar />
+          <GenreFilter />
           <Shelf books={books}>{books}</Shelf>
-        )}
-        {alert.display && <Alert />}
-      </motion.main>
+          {alert.display && <Alert />}
+        </motion.main>
+      )}
     </>
   );
 };

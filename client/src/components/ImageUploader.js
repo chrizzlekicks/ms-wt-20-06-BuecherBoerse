@@ -1,9 +1,9 @@
 import { FaFileImage } from 'react-icons/fa';
+import { useUploadBookContext } from '../context/UploadBookContext';
 
-const ImageUploader = ({ bookImage, setBookImage }) => {
-  const imageChange = (e) => {
-    setBookImage(e.target.files[0]);
-  };
+const ImageUploader = () => {
+  const { bookImage, imageChange } = useUploadBookContext();
+
   return (
     <>
       <div className='image-upload'>

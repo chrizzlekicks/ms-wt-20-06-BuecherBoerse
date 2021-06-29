@@ -1,48 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useGlobalContext } from '../context/OverallContext';
+import { useGlobalContext } from '../context/GlobalContext';
 import Loading from '../components/Loading';
 import UserAction from '../components/UserAction';
 import Alert from '../components/Alert';
 import ReturnTo from '../components/ReturnTo';
 import MessageModal from '../components/MessageModal';
 import Loading2 from '../components/Loading2';
-import { useBookData } from '../hooks/useBookData';
 import { motion } from 'framer-motion';
 import EditBook from '../components/EditBook';
+import { useOpenBookContext } from '../context/OpenBookContext';
 
 const OpenBook = () => {
-  const {
-    alert,
-    closeSubmenu,
-    loading,
-    API_BOOKS,
-    showMessageModal,
-    showEditBook,
-    openBook,
-  } = useGlobalContext();
-  const { fetchSingleBook } = useBookData();
-  const [showDesc, setShowDesc] = useState(false);
-  const { id } = useParams();
-
-  useEffect(() => {
-    fetchSingleBook(API_BOOKS, id);
-  }, [API_BOOKS, fetchSingleBook, id]);
-
-  const {
-    image,
-    name,
-    author,
-    category,
-    language,
-    condition,
-    owner,
-    description,
-  } = openBook;
-
-  const collapseDesc = () => {
-    setShowDesc(!showDesc);
-  };
+  const { alert, closeSubmenu, loading } = useGlobalContext();
+  const { openBook, showDesc, showMessageModal, showEditBook, collapseDesc } =
+    useOpenBookContext();
+  const { image, name, author, category, language, description } = openBook;
 
   if (loading) {
     return (
@@ -94,7 +65,7 @@ const OpenBook = () => {
               </p>
             </div>
           </section>
-          <UserAction id={id} owner={owner} condition={condition} />
+          <UserAction />
         </article>
         {alert.display && <Alert />}
       </motion.main>

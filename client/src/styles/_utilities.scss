@@ -50,7 +50,7 @@
 .user-icon {
   align-self: center;
   font-size: 2rem;
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 input,
@@ -59,7 +59,13 @@ textarea {
   border: 1px solid $brnd-clr;
   border-radius: $brdr-rds;
   resize: none;
+  font-size: 0.75rem;
+  width: 100%;
   font-family: $fnt-fmly;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .active {
@@ -69,6 +75,11 @@ textarea {
 @media (min-width: 800px) {
   input,
   textarea {
+    padding: 0.5rem;
+    font-size: $fnt-sz;
+  }
+
+  .user-icon {
     padding: 0.5rem;
   }
 }
