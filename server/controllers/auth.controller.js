@@ -64,6 +64,14 @@ const requireSignin = expressJwt({
     userProperty: 'auth',
 });
 
+const signinError = function (err, req, res, next) {
+    console.log(err)
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).send('invalid token...');
+    }
+    next()
+}
+
 // Darf der Benutzer die Aktion ausfuehren?
 // Sein eigenes Profil bearbeiten ist in Ordnung
 const hasAuthorization = (req, res, next) => {
@@ -78,7 +86,7 @@ const hasAuthorization = (req, res, next) => {
 };
 
 const hasAuthorizationForNewMessage = (req, res, next) => {
-    const authorized = req.body.sender == req.auth._id;
+    const authorized = (req.body.sender == req.auth._id);
     //console.log(req.body.sender, req.auth._id);
 
     if (!authorized) {
@@ -109,7 +117,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
 
 //Dürfen BenutzerInnen etwas an einem Buch ändern?
 const hasAuthorizationForBook = (req, res, next) => {
-    const authorized = req.profile.owner == req.auth._id;
+    const authorized = (req.profile.owner == req.auth._id);
     if (!authorized) {
         return res.status('403').json({
             error: 'User is not authorized for book',
@@ -122,6 +130,7 @@ export default {
     signin,
     signout,
     requireSignin,
+    signinError,
     hasAuthorization,
     hasAuthorizationForBook,
     hasAuthorizationForConversation,

@@ -31,8 +31,12 @@ const createConv = async (req, res) => {
 }
 
 // Update conversation with new message
+// automaticaly add current user as sender
+// req.auth._id ist User Id
 const writeMessage = async (req, res) => {
+    req.body.sender = req.auth._id
     const message = new Message(req.body)
+
     try {
         await message.save()
         // Add message to conversation
