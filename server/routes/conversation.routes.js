@@ -22,8 +22,6 @@ router.route('/api/messages/:convId')
 router.route('/api/messages/user/:userId')
     .get(authCtrl.requireSignin, authCtrl.hasAuthorization, conversationCtrl.getConvByUser)
 
-
-
 router.param('convId', conversationCtrl.convByID)
 router.param('userId', userCtrl.userByID)
 

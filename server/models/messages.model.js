@@ -16,6 +16,12 @@ const MessageSchema = new mongoose.Schema({
     created: {
         type: Date,
         default: Date.now,
+    },
+    group: {
+        type: String,
+        trim: true,
+        lowercase: true
+        //required: [true, 'Gruppe ist erforderlich']
     }
 })
 

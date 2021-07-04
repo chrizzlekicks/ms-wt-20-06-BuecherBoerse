@@ -5,6 +5,8 @@ import Message from '../models/messages.model'
 const createConv = async (req, res) => {
     // Erstelt erste Nachricht und die zugehoerige Conversation
     // Füge erste Nachricht zu Conversation hinzu
+    // add current user as sender
+    req.body.sender = req.auth._id
     const message = new Message(req.body)
 
     // Erstelle Conversation für Nachricht
@@ -31,9 +33,8 @@ const createConv = async (req, res) => {
 }
 
 // Update conversation with new message
-// automaticaly add current user as sender
-// req.auth._id ist User Id
 const writeMessage = async (req, res) => {
+    // add current user as sender
     req.body.sender = req.auth._id
     const message = new Message(req.body)
 

@@ -1,24 +1,30 @@
 import mongoose from 'mongoose';
 
 const ConversationSchema = new mongoose.Schema({
-  recipients: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+    recipients: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
+    messages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Message',
+        },
+    ],
+    created: {
+        type: Date,
+        default: Date.now,
     },
-  ],
-  messages: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Message',
-    },
-  ],
-  created: {
-    type: Date,
-    default: Date.now,
-  },
-  // BookId als betreff
-  updated: Date, // Last message
+    // BookId als betreff
+    updated: Date, // Last message
+    group: {
+        type: String,
+        trim: true,
+        lowercase: true
+        //required: [true, 'Gruppe ist erforderlich']
+    }
 });
 
 export default mongoose.model('Conversation', ConversationSchema);

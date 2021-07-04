@@ -24,7 +24,15 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    updated: Date
+    updated: Date,
+    group: [
+        {
+            type: String,
+            trim: true,
+            lowercase: true
+            //required: [true, 'Gruppe ist erforderlich']
+        }
+    ]
 })
 
 UserSchema.virtual('password')

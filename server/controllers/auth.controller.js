@@ -23,6 +23,7 @@ const signin = async (req, res) => {
         const token = jwt.sign(
             {
                 _id: user._id,
+                group: user.group
             },
             config.jwtSecret,
             {
@@ -40,6 +41,7 @@ const signin = async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                group: user.group
             },
         });
     } catch (err) {
@@ -66,6 +68,7 @@ const requireSignin = expressJwt({
 
 const signinError = function (err, req, res, next) {
     console.log(err)
+    console.log(req.auth)
     if (err.name === 'UnauthorizedError') {
         res.status(401).send('invalid token...');
     }
@@ -134,5 +137,5 @@ export default {
     hasAuthorization,
     hasAuthorizationForBook,
     hasAuthorizationForConversation,
-    hasAuthorizationForNewMessage,
+    hasAuthorizationForNewMessage
 };

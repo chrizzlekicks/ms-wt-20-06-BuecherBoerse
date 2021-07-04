@@ -5,6 +5,10 @@ import errorHandler from './../helpers/dbErrorHandler';
 //Buch wird erstellt
 const create = async (req, res) => {
     try {
+        // overwrite the username und the user_id from the req
+        req.body.username = req.auth.name
+        req.body.owner = req.auth._id
+
         const book = new Book(req.body);
         try {
             book.image = res.locals.BookUrl;
@@ -31,7 +35,7 @@ const create = async (req, res) => {
 const list = async (req, res) => {
     try {
         let bookList = await Book.find().select(
-            'name author image category owner status updated created'
+            'name author image category owner status updated created group'
         );
         res.json(bookList);
     } catch (err) {
@@ -67,7 +71,7 @@ const bookByID = async (req, res, next, id) => {
                 error: 'Book not found',
             });
         }
-        req.profile = book;
+        req.book = book;
         next();
     } catch (err) {
         return res.status('400').json({
@@ -78,14 +82,18 @@ const bookByID = async (req, res, next, id) => {
 
 //zuvor mit bookByID ausgewähltes Buch anzeigen
 const read = (req, res) => {
-    return res.json(req.profile);
+    return res.json(req.book);
 };
 
 //verändere Buch mit PUT
 const update = async (req, res) => {
     try {
+        // overwrite the username und the user_id from the req
+        req.body.username = req.auth.name
+        req.body.owner = req.auth._id
+
         // Get Book
-        let book = req.profile;
+        let book = req.book;
         //Verändern der restlichen Buchdaten
         // Update via json
         book = extend(book, req.body);
@@ -102,7 +110,7 @@ const update = async (req, res) => {
 const updateWithImage = async (req, res) => {
     try {
         // Get Book
-        let book = req.profile;
+        let book = req.book;
 
         // Update image, image_id and timestamp
         book.image = res.locals.BookUrl;
@@ -122,7 +130,7 @@ const updateWithImage = async (req, res) => {
 //lösche Buch
 const remove = async (req, res) => {
     try {
-        let book = req.profile;
+        let book = req.book;
         //löscht Bild des Buches aus der Datenbank
         // Loescht Bild vom Server? tbd
         //console.log(book);
