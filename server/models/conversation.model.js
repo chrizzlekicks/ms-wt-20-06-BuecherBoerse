@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+
 const ConversationSchema = new mongoose.Schema({
     recipients: [
         {
@@ -13,6 +14,10 @@ const ConversationSchema = new mongoose.Schema({
             ref: 'Message',
         },
     ],
+    topic: {
+        type: String,
+        trim: true
+    },
     created: {
         type: Date,
         default: Date.now,

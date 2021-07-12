@@ -16,11 +16,11 @@ router.route('/api/messages/:convId')
     .post(authCtrl.requireSignin, authCtrl.hasAuthorizationForConversation, conversationCtrl.writeMessage)
     .delete(authCtrl.requireSignin, authCtrl.hasAuthorizationForConversation, conversationCtrl.deleteConvByID)
 
-// Erhalte bestimmte Nachricht??
+// New Route for messages counter?
 
 // Erhalte alle Conversations in denen der User beteiligt ist
 router.route('/api/messages/user/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, conversationCtrl.getConvByUser)
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, conversationCtrl.getConvByUser, conversationCtrl.countUnreadMessages)
 
 router.param('convId', conversationCtrl.convByID)
 router.param('userId', userCtrl.userByID)
