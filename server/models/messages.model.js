@@ -7,14 +7,10 @@ const readByRecipientSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
-        readAt: {
-            type: Date,
-            default: Date.now(),
-        },
-    },
-    {
-        timestamps: false,
-    }
+    timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'readAt'
+  }
 );
 
 const MessageSchema = new mongoose.Schema({
@@ -44,10 +40,10 @@ const MessageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
-    readAt: {
-        type: Date,
-        default: Date.now(),
-    },
+    timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'readAt'
+  }
 })
 
 export default mongoose.model('Message', MessageSchema);
