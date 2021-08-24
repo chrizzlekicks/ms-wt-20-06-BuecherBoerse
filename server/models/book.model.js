@@ -52,16 +52,14 @@ const BookSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    updated: Date,
     group: {
         type: String,
         trim: true,
         lowercase: true
         //required: [true, 'Gruppe ist erforderlich']
+    },
+    {
+        timestamps: true
     }
 });
 
