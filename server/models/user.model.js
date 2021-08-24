@@ -20,11 +20,6 @@ const UserSchema = new mongoose.Schema({
         required: "Password ist erforderlich"
     },
     salt: String,
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    updated: Date,
     group: [
         {
             type: String,
@@ -32,7 +27,10 @@ const UserSchema = new mongoose.Schema({
             lowercase: true
             //required: [true, 'Gruppe ist erforderlich']
         }
-    ]
+    ],
+    {
+        timestamps: true
+    }
 })
 
 UserSchema.virtual('password')
