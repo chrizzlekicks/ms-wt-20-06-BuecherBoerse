@@ -7,10 +7,13 @@ const readByRecipientSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
-    timestamps: {
-        createdAt: 'createdAt',
-        updatedAt: 'readAt'
-  }
+    },
+    {
+        timestamps: {
+            createdAt: 'createdAt',
+            updatedAt: 'readAt'
+        }
+    }
 );
 
 const MessageSchema = new mongoose.Schema({

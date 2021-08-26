@@ -23,10 +23,11 @@ const ConversationSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
         //required: [true, 'Gruppe ist erforderlich']
-    },
+    }
+},
     {
         timestamps: true
     }
-});
+);
 
 export default mongoose.model('Conversation', ConversationSchema);

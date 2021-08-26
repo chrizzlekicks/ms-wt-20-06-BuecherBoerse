@@ -27,11 +27,12 @@ const UserSchema = new mongoose.Schema({
             lowercase: true
             //required: [true, 'Gruppe ist erforderlich']
         }
-    ],
+    ]
+    },
     {
         timestamps: true
     }
-})
+)
 
 UserSchema.virtual('password')
     .set(function (password) {
