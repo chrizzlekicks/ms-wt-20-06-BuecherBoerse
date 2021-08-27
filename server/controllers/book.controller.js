@@ -48,6 +48,7 @@ const list = async (req, res) => {
 //Erhalte alle Buecher eines bestimmten Users
 const bookByUser = async (req, res) => {
     try {
+        // exec -> lean
         let books = await Book.find({ owner: req.params.userId }).exec();
         if (!books) {
             return res.status('400').json({
