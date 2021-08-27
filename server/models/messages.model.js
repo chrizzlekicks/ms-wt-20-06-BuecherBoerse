@@ -43,10 +43,12 @@ const MessageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
-    timestamps: {
-        createdAt: 'createdAt',
-        updatedAt: 'readAt'
-  }
-})
+}
+    , {
+        timestamps: {
+            createdAt: 'createdAt',
+            updatedAt: 'readAt'
+        }
+    })
 
 export default mongoose.model('Message', MessageSchema);
