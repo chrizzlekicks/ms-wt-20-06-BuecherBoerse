@@ -54,16 +54,16 @@ UserSchema.path('hashed_password').validate(function (v) {
 }, null)
 
 UserSchema.methods = {
-    authenticate: function (plainText) {
-        return this.encryptPassword(plainText) === this.hashed_password
+    authenticate: function (plainTextInputPassword) {
+        const keyBuffer = Buffer.from(this.encryptPassword(plainTextInputPassword), "hex")
+        const hashBuffer = Buffer.from(this.hashed_password, "hex")
+        return crypto.timingSafeEqual(hashBuffer, keyBuffer)
     },
     encryptPassword: function (password) {
         if (!password) return ''
         try {
-            return crypto
-                .createHmac('sha1', this.salt)
-                .update(password)
-                .digest('hex')
+          const passwordBuffer = Buffer.from(password, "utf8")
+            return crypto.scryptSync(passwordBuffer, this.salt, 64).toString("hex")
         } catch (err) {
             return ''
         }
