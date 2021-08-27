@@ -1,9 +1,8 @@
 import User from '../models/user.model';
-import passwordResetToken from '../models/passwordResetToken.model';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from './../../config/config';
-import crypto from 'crypto'
+import includes from 'lodash';
 
 const signin = async (req, res) => {
     try {
@@ -104,6 +103,13 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 
 const hasAuthorizationForConversation = (req, res, next) => {
     let isrecipient = false;
+
+    // console.log("test")
+    console.log("find")
+    // if (includes(req.conv.recipients, req.auth._id)) {
+    //     isrecipient = true;
+    // }
+
     req.conv.recipients.forEach((recipient) => {
         if (recipient._id == req.auth._id) {
             isrecipient = true;
@@ -119,6 +125,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
     }
     next();
 };
+
 
 //Dürfen BenutzerInnen etwas an einem Buch ändern?
 const hasAuthorizationForBook = (req, res, next) => {

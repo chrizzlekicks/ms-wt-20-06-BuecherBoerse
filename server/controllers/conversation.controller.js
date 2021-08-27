@@ -92,18 +92,18 @@ const convByID = async (req, res, next, id) => {
             return res.status('400').json({
                 error: "Conversation not found"
             })
-        console.log(conv)
+        // console.log(conv)
         // current user has read the conversation/messages
-        conv.messages.forEach(message => {
-            let currentMessage = Message.findById(message._id).populate("readByRecipients", "_id").exec()
-            console.log(currentMessage)
-            currentMessage.readByRecipients.forEach(user => {
-                console.log(user)
-                if (user != req.auth._id) {
-                    Message.findByIdAndUpdate(req.message._id, { $push: { readByRecipients: req.auth._id, readAt: Date.now() } }, { new: true, useFindAndModify: false }).exec()
-                }
-            });
-        });
+        // conv.messages.forEach(message => {
+        //     let currentMessage = Message.findById(message._id).populate("readByRecipients", "_id").exec()
+        //     console.log(currentMessage)
+        //     currentMessage.readByRecipients.forEach(user => {
+        //         console.log(user)
+        //         if (user != req.auth._id) {
+        //             Message.findByIdAndUpdate(req.message._id, { $push: { readByRecipients: req.auth._id, readAt: Date.now() } }, { new: true, useFindAndModify: false }).exec()
+        //         }
+        //     });
+        // });
         req.conv = conv
     } catch (err) {
         return res.status('400').json({

@@ -18,7 +18,7 @@ const requestPasswordReset = async (req, res) => {
     let oldtoken = await passwordResetToken.findOne({ user: user._id });
     if (oldtoken) { await oldtoken.deleteOne(); }
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const hash = crypto.createHmac("sha1", "123456").update(resetToken).digest("hex") //process.env.passwort_reset_salt
+    const hash = crypto.createHmac("sha256", "123456").update(resetToken).digest("hex") //process.env.passwort_reset_salt
     const token = new passwordResetToken(({
         user: user._id,
         token: hash
@@ -31,7 +31,7 @@ const requestPasswordReset = async (req, res) => {
             message: err,
         });
     }
-    const link = `kodebi.de/passwordReset?token=${resetToken}&id=${user._id}`;
+    const link = `kodebi.de/auth/resetPassword?token=${resetToken}&id=${user._id}`;
     console.log(link);
     //sendPasswordResetMail(user.email, "Password Reset Request", { name: user.name, link: link, }, "./template/requestResetPassword.handlebars");
     //return link;

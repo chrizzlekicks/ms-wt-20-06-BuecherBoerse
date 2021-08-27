@@ -28,6 +28,7 @@ if (config.env === 'production') {
 }
 
 // use morgan for logging
+// Use rate-limiter
 
 // mount routes
 app.use('/', userRoutes);
