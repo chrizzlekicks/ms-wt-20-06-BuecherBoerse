@@ -1,7 +1,9 @@
 import User from '../models/user.model';
+import passwordResetToken from '../models/passwordResetToken.model';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from './../../config/config';
+import crypto from 'crypto'
 
 const signin = async (req, res) => {
     try {
