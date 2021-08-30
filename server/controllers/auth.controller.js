@@ -102,11 +102,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 
 const hasAuthorizationForConversation = (req, res, next) => {
 
-    function isPartOfConversation(currentRecipient) {
-        return currentRecipient._id == req.auth._id;
-    }
-
-    const isrecipient = req.conv.recipients.find(isPartOfConversation);
+    const isrecipient = req.conv.recipients.includes(req.auth._id);
 
     // req.conv.recipients.forEach((recipient) => {
     //     if (recipient._id == req.auth._id) {
