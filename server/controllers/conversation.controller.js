@@ -105,6 +105,7 @@ const convByID = async (req, res, next, id) => {
         //     });
         // });
         req.conv = conv
+        next()
     } catch (err) {
         return res.status('400').json({
             error: err.Message

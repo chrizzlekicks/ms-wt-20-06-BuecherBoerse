@@ -2,7 +2,6 @@ import User from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from './../../config/config';
-import includes from 'lodash';
 
 const signin = async (req, res) => {
     try {
@@ -32,9 +31,9 @@ const signin = async (req, res) => {
             }
         );
 
-        res.cookie('t', token, {
-            expire: Date.now() + 9999,
-        });
+        // res.cookie('t', token, {
+        //     expire: Date.now() + 9999,
+        // });
 
         return res.json({
             token,
@@ -102,19 +101,18 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 };
 
 const hasAuthorizationForConversation = (req, res, next) => {
-    let isrecipient = false;
 
-    // console.log("test")
-    console.log("find")
-    // if (includes(req.conv.recipients, req.auth._id)) {
-    //     isrecipient = true;
-    // }
+    function isPartOfConversation(currentRecipient) {
+        return currentRecipient._id == req.auth._id;
+    }
 
-    req.conv.recipients.forEach((recipient) => {
-        if (recipient._id == req.auth._id) {
-            isrecipient = true;
-        }
-    });
+    const isrecipient = req.conv.recipients.find(isPartOfConversation);
+
+    // req.conv.recipients.forEach((recipient) => {
+    //     if (recipient._id == req.auth._id) {
+    //         isrecipient = true;
+    //     }
+    // });
 
     let authorized = req.auth && isrecipient;
 

@@ -31,7 +31,7 @@ const requestPasswordReset = async (req, res) => {
             message: err,
         });
     }
-    const link = "kodebi.de/auth/resetPassword?token=${resetToken}&id=${user._id}";
+    const link = "https://www.kodebi.de/auth/resetPassword?token=" + resetToken + "&id=" + user._id
     console.log(link);
     //sendPasswordResetMail(user.email, "Password Reset Request", { name: user.name, link: link, }, "./template/requestResetPassword.handlebars");
     //return link;
@@ -70,4 +70,10 @@ async function sendPasswordResetMail(mailTo, resetLink) {
     console.log("Message sent: %s", info.messageId);
 }
 
-export default { requestPasswordReset }
+const resetPassword = async (req, res) => {
+
+
+
+}
+
+export default { requestPasswordReset, resetPassword }
