@@ -1,12 +1,13 @@
 import multer from 'multer';
 import ImageKit from 'imagekit';
+import config from './../../config/config';
 
 // imagekit.io Auth definition
 // Define in process.env.
 var imagekitUpload = new ImageKit({
-    publicKey: process.env.imagekit_pub_key,
-    privateKey: process.env.imagekit_private_key,
-    urlEndpoint: process.env.imagekit_url_endpoint,
+    publicKey: config.ImagePublicKey,
+    privateKey: config.ImagePrivateKey,
+    urlEndpoint: config.ImageUrlEndpoint
 });
 
 // Save picture temporally in memory
