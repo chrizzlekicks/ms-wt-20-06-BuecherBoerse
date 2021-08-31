@@ -93,7 +93,7 @@ const resetPassword = async (req, res) => {
             error: 'Password too short',
         });
     }
-
+    // { runValidators: true, context: 'query' };
     let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
 
     if(!user){
