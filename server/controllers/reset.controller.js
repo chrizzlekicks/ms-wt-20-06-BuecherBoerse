@@ -71,9 +71,42 @@ async function sendPasswordResetMail(mailTo, resetLink) {
 }
 
 const resetPassword = async (req, res) => {
+    // We need userid, reset token, new password
+    let resetToken = await passwordResetToken.findOne({ user: req.body.userId }).exec();
+    if (!resetToken) {
+        return res.status('401').json({
+            error: 'Token not found',
+        });
+    }
 
+    const keyBuffer = Buffer.from(req.body.token, "hex")
+    const hashBuffer = Buffer.from(resetToken.token, "hex")
+    const isValid = await crypto.timingSafeEqual(keyBuffer, hashBuffer)
+    if (!isValid) {
+        return res.status('401').json({
+            error: "Invalid or expired password reset token",
+        });
+    }
 
+    if(!req.body.password || req.body.password.length < 6){
+        return res.status('401').json({
+            error: 'Password too short',
+        });
+    }
 
+    let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
+
+    if(!user){
+        return res.status('401').json({
+            error: 'Passwort Reset not succesfull',
+        });
+    }
+
+    await resetToken.deleteOne();
+
+    return res.status(200).json({
+        message: 'Passwort Reset succesfull'
+    });
 }
 
 export default { requestPasswordReset, resetPassword }

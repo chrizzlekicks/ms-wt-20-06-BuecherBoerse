@@ -107,3 +107,16 @@ Editor-view: Json visual Editor
 | messages    | arrray von mongoose.MessageID| Neue Nachrichten werden automatisch eingefügt |
 | created   | Datum | Wird automatisch generiert |
 | updated   | Datum | Wird automatisch generiert (noch nicht funktional) |
+
+### requestPasswordReset
+| Feld        | Typ           | Beschreibung  |
+| ------------- |:-------------:| -----:|
+| mail   | string| Mail des Users |
+
+### resetPassword
+| Feld        | Typ           | Beschreibung  |
+| ------------- |:-------------:| -----:|
+| userId     | mongoose.userid  | ID des Users |
+| token      | string           | Token zum zurücksetzen |
+| password   | string           | Neues Passwort |
+
