@@ -78,7 +78,6 @@ const MoveBookToDeleteFolder = (req, res, next) => {
             next();
         })
         .catch((error) => {
-            console.log(error);
             res.send(error);
         });
 };
@@ -93,9 +92,9 @@ const DeleteBookImage = (req, res, next) => {
             searchQuery: 'name=' + fileName + ' AND filePath="b"',
         },
         function (error, result) {
-            if (error) console.log(error);
-            else {
-                console.log(result);
+            if (error) {
+                console.log(error);
+            } else {
                 ImageId = result.fileId;
             }
         }
@@ -103,8 +102,11 @@ const DeleteBookImage = (req, res, next) => {
 
     if (ImageId != 0) {
         imagekitUpload.deleteFile(ImageId, function (error, result) {
-            if (error) console.log(error);
-            else console.log(result);
+            if (error) {
+                console.log(error);
+            } else { 
+                console.log(result);
+            }
         });
     } else {
         res.send('Image not found');

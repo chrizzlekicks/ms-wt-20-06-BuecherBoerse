@@ -26,7 +26,7 @@ const create = async (req, res) => {
         });
     } catch (err) {
         return res.status(400).json({
-            message: err.message,
+            what: err.name
         });
     }
 };
@@ -58,7 +58,7 @@ const bookByUser = async (req, res) => {
         res.json(books);
     } catch (err) {
         return res.status('400').json({
-            error: err.message,
+            what: err.name
         });
     }
 };
@@ -76,7 +76,7 @@ const bookByID = async (req, res, next, id) => {
         next();
     } catch (err) {
         return res.status('400').json({
-            error: 'Could not retrieve book',
+            what: err.name
         });
     }
 };
@@ -107,7 +107,7 @@ const update = async (req, res) => {
         res.json(book);
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };
@@ -126,7 +126,7 @@ const updateImage = async (req, res) => {
         res.json(book);
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };
@@ -147,7 +147,7 @@ const remove = async (req, res) => {
         });
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };

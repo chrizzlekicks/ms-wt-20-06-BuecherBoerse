@@ -67,10 +67,8 @@ const requireSignin = expressJwt({
 });
 
 const signinError = function (err, req, res, next) {
-    console.log(err)
-    console.log(req.auth)
     if (err.name === 'UnauthorizedError') {
-        res.status(401).send('invalid token...');
+        res.status(401).send('Invalid token');
     }
     next()
 }
@@ -90,7 +88,6 @@ const hasAuthorization = (req, res, next) => {
 
 const hasAuthorizationForNewMessage = (req, res, next) => {
     const authorized = (req.body.sender == req.auth._id);
-    //console.log(req.body.sender, req.auth._id);
 
     if (!authorized) {
         return res.status('403').json({
@@ -101,14 +98,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 };
 
 const hasAuthorizationForConversation = (req, res, next) => {
-
     const isrecipient = req.conv.recipients.includes(req.auth._id);
-
-    // req.conv.recipients.forEach((recipient) => {
-    //     if (recipient._id == req.auth._id) {
-    //         isrecipient = true;
-    //     }
-    // });
 
     let authorized = req.auth && isrecipient;
 

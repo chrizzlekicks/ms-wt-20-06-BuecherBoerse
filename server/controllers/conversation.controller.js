@@ -7,7 +7,6 @@ const createConv = async (req, res) => {
     // Füge erste Nachricht zu Conversation hinzu
     // add current user as sender
     req.body.sender = req.auth._id
-    req.body.readByRecipients = req.auth._id
     const message = new Message(req.body)
 
     // Erstelle Conversation für Nachricht
@@ -26,9 +25,8 @@ const createConv = async (req, res) => {
             conversation: conversation
         })
     } catch (err) {
-        console.log(err)
         return res.status(400).json({
-            error: err.Message,
+            what: err.name
         })
     }
 }
@@ -37,13 +35,11 @@ const createConv = async (req, res) => {
 const writeMessage = async (req, res) => {
     // add current user as sender
     req.body.sender = req.auth._id
-    req.body.readByRecipients = req.auth._id
     const message = new Message(req.body)
 
     try {
         await message.save()
         // Add message to conversation
-        // Add Writer to readByRecipients
         let conversation = await Conversation.findByIdAndUpdate(req.conv._id, { $push: { messages: message } }, { new: true, useFindAndModify: false }).exec()
 
         return res.status(200).json({
@@ -52,9 +48,8 @@ const writeMessage = async (req, res) => {
             conversation: conversation
         })
     } catch (err) {
-        console.log(err)
         return res.status(400).json({
-            error: err.message,
+            what: err.name
         })
     }
 }
@@ -75,7 +70,7 @@ const getConvByUser = async (req, res, next) => {
         next()
     } catch (err) {
         return res.status('400').json({
-            error: err.Message,
+            what: err.name
         });
     }
 };
@@ -92,18 +87,6 @@ const convByID = async (req, res, next, id) => {
             return res.status('400').json({
                 error: "Conversation not found"
             });};
-        // console.log(conv)
-        // current user has read the conversation/messages
-        // conv.messages.forEach(message => {
-        //     let currentMessage = Message.findById(message._id).populate("readByRecipients", "_id").exec()
-        //     console.log(currentMessage)
-        //     currentMessage.readByRecipients.forEach(user => {
-        //         console.log(user)
-        //         if (user != req.auth._id) {
-        //             Message.findByIdAndUpdate(req.message._id, { $push: { readByRecipients: req.auth._id, readAt: Date.now() } }, { new: true, useFindAndModify: false }).exec()
-        //         }
-        //     });
-        // });
 
         // check if sender of last message is not current user, then update readAt timestamp
         // messages.slice(-1)[0] 
@@ -116,7 +99,7 @@ const convByID = async (req, res, next, id) => {
         next();
     } catch (err) {
         return res.status('400').json({
-            error: err.Message
+            what: err.name
         })
     }
 }
@@ -127,6 +110,8 @@ const countUnreadMessages = async (req, res) => {
     // find convs of user and populate with message ids
     let counterUnread = 0
     console.log(req.convs)
+
+    // filter messages, with time stamps and last sender
 
     try {
         req.convs.forEach(conversation => {
@@ -143,7 +128,7 @@ const countUnreadMessages = async (req, res) => {
         });
     } catch (error) {
         return res.status('400').json({
-            error: error.Message,
+            error: error.message,
         });
     }
 
@@ -190,10 +175,9 @@ const deleteConvByID = async (req, res) => {
             });
         }
 
-
     } catch (err) {
         return res.status(400).json({
-            error: err.message,
+            what: err.name
         });
 
     }

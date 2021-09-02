@@ -14,7 +14,7 @@ const create = async (req, res) => {
         });
     } catch (err) {
         return res.status(400).json({
-            message: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };
@@ -26,7 +26,7 @@ const list = async (req, res) => {
         res.json(users);
     } catch (err) {
         return res.status(400).json({
-            message: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };
@@ -44,7 +44,7 @@ const userByID = async (req, res, next, id) => {
         req.profile = user;
         next();
     } catch (err) {
-        return res.status('400').json({
+        return res.status(400).json({
             error: 'Could not retrieve user',
         });
     }
@@ -69,7 +69,7 @@ const update = async (req, res) => {
         res.json(user);
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };
@@ -84,7 +84,7 @@ const remove = async (req, res) => {
         res.json(deletedUser);
     } catch (err) {
         return res.status(400).json({
-            error: errorHandler.getErrorMessage(err),
+            what: err.name
         });
     }
 };

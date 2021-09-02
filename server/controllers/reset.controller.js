@@ -28,7 +28,7 @@ const requestPasswordReset = async (req, res) => {
         await token.save();
     } catch (err) {
         return res.status(400).json({
-            message: err,
+            what: err.name
         });
     }
     const link = "https://www.kodebi.de/auth/resetPassword?token=" + resetToken + "&id=" + user._id
