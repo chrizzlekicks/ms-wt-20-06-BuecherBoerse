@@ -9,12 +9,12 @@ const signin = async (req, res) => {
             email: req.body.email,
         });
         if (!user)
-            return res.status('401').json({
+            return res.status(404).json({
                 error: 'User not found',
             });
 
         if (!user.authenticate(req.body.password)) {
-            return res.status('401').send({
+            return res.status(401).send({
                 error: "Email and password don't match.",
             });
         }
@@ -45,7 +45,7 @@ const signin = async (req, res) => {
             },
         });
     } catch (err) {
-        return res.status('401').json({
+        return res.status(500).json({
             error: 'Could not sign in',
         });
     }
@@ -53,7 +53,7 @@ const signin = async (req, res) => {
 
 const signout = (req, res) => {
     res.clearCookie('t');
-    return res.status('200').json({
+    return res.status(200).json({
         message: 'signed out',
     });
 };
@@ -70,7 +70,7 @@ const signinError = function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         res.status(401).send('Invalid token');
     }
-    next()
+    next();
 }
 
 // Darf der Benutzer die Aktion ausfuehren?
@@ -79,7 +79,7 @@ const hasAuthorization = (req, res, next) => {
     const authorized = req.profile && req.auth && (req.profile._id == req.auth._id);
 
     if (!authorized) {
-        return res.status('403').json({
+        return res.status(403).json({
             error: 'User is not authorized',
         });
     }
@@ -90,7 +90,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
     const authorized = (req.body.sender == req.auth._id);
 
     if (!authorized) {
-        return res.status('403').json({
+        return res.status(403).json({
             error: 'User is not the sender of the new message',
         });
     }
@@ -103,7 +103,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
     const authorized = req.auth && isrecipient;
 
     if (!authorized) {
-        return res.status('403').json({
+        return res.status(403).json({
             error: 'User is not part of conversation',
         });
     }
@@ -115,7 +115,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
 const hasAuthorizationForBook = (req, res, next) => {
     const authorized = req.auth && (req.book.owner == req.auth._id);
     if (!authorized) {
-        return res.status('403').json({
+        return res.status(403).json({
             error: 'User is not authorized for book',
         });
     }

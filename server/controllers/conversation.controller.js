@@ -19,13 +19,13 @@ const createConv = async (req, res) => {
         await message.save()
         // Speichere Conversation
         await conversation.save()
-        return res.status(200).json({
+        return res.status(201).json({
             message: "Nachricht erfolgreich gesendet!",
             nachricht: message,
             conversation: conversation
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         })
     }
@@ -42,13 +42,13 @@ const writeMessage = async (req, res) => {
         // Add message to conversation
         let conversation = await Conversation.findByIdAndUpdate(req.conv._id, { $push: { messages: message } }, { new: true, useFindAndModify: false }).exec()
 
-        return res.status(200).json({
+        return res.status(201).json({
             message: "Nachricht erfolgreich gesendet!",
             nachricht: message,
             conversation: conversation
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         })
     }
@@ -60,7 +60,7 @@ const getConvByUser = async (req, res, next) => {
         // populate messages.send _id name
         let convs = await Conversation.find({ recipients: req.params.userId }).populate("recipients", "_id name").populate("messages", "_id message sender reciever").exec()
         if (!convs) {
-            return res.status('400').json({
+            return res.status(404).json({
                 error: 'User has no conversations',
             });
         }
@@ -69,7 +69,7 @@ const getConvByUser = async (req, res, next) => {
         req.convs = convs
         next()
     } catch (err) {
-        return res.status('400').json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -84,7 +84,7 @@ const convByID = async (req, res, next, id) => {
     try {
         const conv = await Conversation.findById(id).populate("recipients", "_id name").populate("messages", "_id message sender reciever").exec();
         if (!conv) {
-            return res.status('400').json({
+            return res.status(404).json({
                 error: "Conversation not found"
             });};
 
@@ -98,7 +98,7 @@ const convByID = async (req, res, next, id) => {
         req.conv = conv;
         next();
     } catch (err) {
-        return res.status('400').json({
+        return res.status(500).json({
             what: err.name
         })
     }
@@ -132,14 +132,10 @@ const countUnreadMessages = async (req, res) => {
     //     )
 
         const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate({
-            "path": "messages.sender",
-            "match": { "sender":  req.auth._id }
-        }).limit(5).countDocuments();
+            "path": "messages" , populate: { "path": 'sender', "match": { "sender":  req.auth._id }}}).limit(5).countDocuments();
         //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("messages.sender").equals(req.auth._id).countDocuments();
         //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("conversations.messages.sender").in(req.auth._id).limit(10).countDocuments();
         //exec();
-
-        const 
 
     return res.status(200).json({
         message: 'Unread Conversations successfully requested!',
@@ -147,7 +143,7 @@ const countUnreadMessages = async (req, res) => {
     });
 
     } catch (error) {
-        return res.status('400').json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -190,7 +186,7 @@ const deleteConvByID = async (req, res) => {
         }
 
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
 

@@ -9,7 +9,7 @@ const requestPasswordReset = async (req, res) => {
         email: req.body.email,
     });
     if (!user) {
-        return res.status('401').json({
+        return res.status(404).json({
             error: 'User not found',
         });
     }
@@ -27,7 +27,7 @@ const requestPasswordReset = async (req, res) => {
     try {
         await token.save();
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -45,7 +45,7 @@ async function sendPasswordResetMail(mailTo, resetLink) {
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        host: "smtp.strato.de",
+        host: config.mailSmtpServer,
         port: 465,
         secure: true,
         auth: {
@@ -74,7 +74,7 @@ const resetPassword = async (req, res) => {
     // We need userid, reset token, new password
     let resetToken = await passwordResetToken.findOne({ user: req.body.userId }).exec();
     if (!resetToken) {
-        return res.status('401').json({
+        return res.status(401).json({
             error: 'Token not found',
         });
     }
@@ -83,23 +83,34 @@ const resetPassword = async (req, res) => {
     const hashBuffer = Buffer.from(resetToken.token, "hex")
     const isValid = await crypto.timingSafeEqual(keyBuffer, hashBuffer)
     if (!isValid) {
-        return res.status('401').json({
+        return res.status(401).json({
             error: "Invalid or expired password reset token",
         });
     }
 
-    if(!req.body.password || req.body.password.length < 6){
-        return res.status('401').json({
-            error: 'Password too short',
+    // if(!req.body.password || req.body.password.length < 6){
+    //     return res.status('401').json({
+    //         error: 'Password too short',
+    //     });
+    // }
+
+    // { runValidators: true, context: 'query' };
+    // let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
+
+    // Use save for validators
+    let user = await Book.findById(req.body.userId);
+    if (!user) {
+        return res.status(404).json({
+             error: 'User not found',
         });
     }
-    // { runValidators: true, context: 'query' };
-    // Use save for validators
-    let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
 
-    if(!user){
-        return res.status('401').json({
-            error: 'Passwort Reset not succesfull',
+    user.password = req.body.password;
+    try {
+        await user.save();
+    } catch (err) {
+        return res.status(500).json({
+            what: err.name
         });
     }
 

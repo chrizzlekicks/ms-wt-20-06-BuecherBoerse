@@ -25,7 +25,7 @@ const create = async (req, res) => {
             image: res.locals.BookUrl,
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -39,8 +39,8 @@ const list = async (req, res) => {
         );
         res.json(bookList);
     } catch (err) {
-        return res.status(400).json({
-            message: errorHandler.getErrorMessage(err),
+        return res.status(500).json({
+            what: err.name
         });
     }
 };
@@ -51,13 +51,13 @@ const bookByUser = async (req, res) => {
         // exec -> lean
         let books = await Book.find({ owner: req.params.userId }).exec();
         if (!books) {
-            return res.status('400').json({
+            return res.status(404).json({
                 error: 'User has no books',
             });
         }
         res.json(books);
     } catch (err) {
-        return res.status('400').json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -68,14 +68,14 @@ const bookByID = async (req, res, next, id) => {
     try {
         let book = await Book.findById(id);
         if (!book) {
-            return res.status('400').json({
+            return res.status(404).json({
                 error: 'Book not found',
             });
         }
         req.book = book;
         next();
     } catch (err) {
-        return res.status('400').json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -106,7 +106,7 @@ const update = async (req, res) => {
         await book.save();
         res.json(book);
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -125,7 +125,7 @@ const updateImage = async (req, res) => {
         await book.save();
         res.json(book);
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
     }
@@ -146,7 +146,7 @@ const remove = async (req, res) => {
             book: deletedBook,
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             what: err.name
         });
     }

@@ -9,6 +9,7 @@ const config = {
     mailUser: process.env.mail_user,
     mailPass: process.env.mail_pass,
     mailFrom: process.env.mail_from,
+    mailSmtpServer: process.env.mail_server,
     passwortResetSalt: process.env.passwort_reset_salt || "YOUR_secret_key",
     ImagePublicKey: process.env.imagekit_pub_key,
     ImagePrivateKey: process.env.imagekit_private_key,
