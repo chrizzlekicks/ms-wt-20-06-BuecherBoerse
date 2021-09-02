@@ -112,10 +112,34 @@ const countUnreadMessages = async (req, res) => {
     // filter messages, with time stamps and last sender
 
     try {
+    //     Order.find({ "articles.quantity": { "$gte": 5 } })
+    // .populate({
+    //     "path": "articles.article",
+    //     "match": { "price": { "$lte": 500 } }
+    // }).exec(function(err,orders) {
+    //     orders = orders.filter(function(order) {
+    //         order.articles = order.articles.filter(function(article) {
+    //             return (
+    //                 ( article.quantity >= 5 ) &&
+    //                 ( article.article != null )
+    //             )
+    //         });
+    //         return order.aricles.length > 0;
+    //     })
 
+    //     // orders has non matching entries removed            
+    //     }
+    //     )
+
+        const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate({
+            "path": "messages.sender",
+            "match": { "sender":  req.auth._id }
+        }).limit(5).countDocuments();
         //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("messages.sender").equals(req.auth._id).countDocuments();
         //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("conversations.messages.sender").in(req.auth._id).limit(10).countDocuments();
         //exec();
+
+        const 
 
     return res.status(200).json({
         message: 'Unread Conversations successfully requested!',
