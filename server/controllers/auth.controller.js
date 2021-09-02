@@ -100,7 +100,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 const hasAuthorizationForConversation = (req, res, next) => {
     const isrecipient = req.conv.recipients.includes(req.auth._id);
 
-    let authorized = req.auth && isrecipient;
+    const authorized = req.auth && isrecipient;
 
     if (!authorized) {
         return res.status('403').json({
@@ -113,7 +113,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
 
 //Dürfen BenutzerInnen etwas an einem Buch ändern?
 const hasAuthorizationForBook = (req, res, next) => {
-    const authorized = (req.profile.owner == req.auth._id);
+    const authorized = req.auth && (req.book.owner == req.auth._id);
     if (!authorized) {
         return res.status('403').json({
             error: 'User is not authorized for book',

@@ -109,34 +109,24 @@ const convByID = async (req, res, next, id) => {
 const countUnreadMessages = async (req, res) => {
     // find convs of user and populate with message ids
     let counterUnread = 0
-    console.log(req.convs)
-
     // filter messages, with time stamps and last sender
 
     try {
-        req.convs.forEach(conversation => {
-            console.log(conversation)
-            conversation.messages.forEach(message => {
-                console.log(message)
-                let currentMessage = Message.findById(message._id).populate("readByRecipients", "_id").exec()
-                currentMessage.readByRecipients.forEach(user => {
-                    if (user != req.auth._id) {
-                        counterUnread += 1
-                    }
-                });
-            });
-        });
-    } catch (error) {
-        return res.status('400').json({
-            error: error.message,
-        });
-    }
+
+        //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("messages.sender").equals(req.auth._id).countDocuments();
+        //const conv = Conversation.findById(id).where("updatedAt").gt("readAt").populate("messages", "sender").where("conversations.messages.sender").in(req.auth._id).limit(10).countDocuments();
+        //exec();
 
     return res.status(200).json({
-        message: 'Conversations successfully requested!',
-        conversations: convs,
+        message: 'Unread Conversations successfully requested!',
         unreadcounter: counterUnread
     });
+
+    } catch (error) {
+        return res.status('400').json({
+            what: err.name
+        });
+    }
 }
 
 
