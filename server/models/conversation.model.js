@@ -23,10 +23,17 @@ const ConversationSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
         //required: [true, 'Gruppe ist erforderlich']
+    },
+    readAt :{
+        type: Date,
+        default: Date.now
     }
 },
     {
-        timestamps: true
+        timestamps: {
+            createdAt: 'createdAt',
+            updatedAt: 'updatedAt'
+        }
     }
 );
 

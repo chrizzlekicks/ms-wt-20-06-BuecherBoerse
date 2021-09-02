@@ -87,11 +87,11 @@ const read = (req, res) => {
 // Füge die Conversation mit bestimmer ID zum request hinzu 
 const convByID = async (req, res, next, id) => {
     try {
-        const conv = await Conversation.findById(id).populate("recipients", "_id name").populate("messages", "_id message sender reciever").exec()
-        if (!conv)
+        const conv = await Conversation.findById(id).populate("recipients", "_id name").populate("messages", "_id message sender reciever").exec();
+        if (!conv) {
             return res.status('400').json({
                 error: "Conversation not found"
-            })
+            });};
         // console.log(conv)
         // current user has read the conversation/messages
         // conv.messages.forEach(message => {
@@ -104,8 +104,10 @@ const convByID = async (req, res, next, id) => {
         //         }
         //     });
         // });
-        req.conv = conv
-        next()
+        await conv.updateOne({ readAt: Date.now }).exec();
+
+        req.conv = conv;
+        next();
     } catch (err) {
         return res.status('400').json({
             error: err.Message

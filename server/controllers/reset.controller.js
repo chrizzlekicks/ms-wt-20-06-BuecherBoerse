@@ -94,6 +94,7 @@ const resetPassword = async (req, res) => {
         });
     }
     // { runValidators: true, context: 'query' };
+    // Use save for validators
     let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
 
     if(!user){

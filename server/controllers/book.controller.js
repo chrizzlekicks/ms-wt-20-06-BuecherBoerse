@@ -98,7 +98,6 @@ const update = async (req, res) => {
         //Verändern der restlichen Buchdaten
         // Update via json
         book = extend(book, req.body);
-        book.updated = Date.now();
         await book.save();
         res.json(book);
     } catch (err) {
@@ -116,7 +115,6 @@ const updateWithImage = async (req, res) => {
         // Update image, image_id and timestamp
         book.image = res.locals.BookUrl;
         book.imagekitIoId = res.locals.BookImageId;
-        book.updated = Date.now();
 
         // Save modified book to db
         await book.save();
