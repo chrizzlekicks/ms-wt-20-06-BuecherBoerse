@@ -63,7 +63,6 @@ const update = async (req, res) => {
         let user = req.profile;
         // lodash - merge and extend user profile
         user = extend(user, req.body);
-        user.updated = Date.now();
         await user.save();
         user.hashed_password = undefined;
         user.salt = undefined;

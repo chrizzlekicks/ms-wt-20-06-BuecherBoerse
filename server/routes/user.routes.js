@@ -1,7 +1,6 @@
 import express from 'express'
 import userCtrl from '../controllers/user.controller'
 import authCtrl from '../controllers/auth.controller'
-import GrpCtrl from '../controllers/group.controller'
 
 const router = express.Router()
 
@@ -10,7 +9,7 @@ router.route('/api/users')
     .post(userCtrl.create) // Create user with POST
 
 router.route('/api/users/:userId')
-    .get(authCtrl.requireSignin, GrpCtrl.hasGroupAuthorization, userCtrl.read) // Showing a user with GET
+    .get(authCtrl.requireSignin, userCtrl.read) // Showing a user with GET
     .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update) // Update with PUT
     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove) // Remove with DELETE
 

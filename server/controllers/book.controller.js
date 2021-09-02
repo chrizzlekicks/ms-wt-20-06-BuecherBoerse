@@ -89,14 +89,19 @@ const read = (req, res) => {
 //verändere Buch mit PUT
 const update = async (req, res) => {
     try {
-        // overwrite the username und the user_id from the req
-        req.body.username = req.auth.name
-        req.body.owner = req.auth._id
-
         // Get Book
         let book = req.book;
-        //Verändern der restlichen Buchdaten
-        // Update via json
+
+        // overwrite the user_id from the req
+        // with the old data from the book, so no one can change the book owner
+        // Also don't allow to change the image in this route
+        // Update the username to the name of the currently loggedin user
+        req.body.username = req.auth.name;
+        req.body.owner = book.owner;
+        req.body.image = book.image;
+        req.body.imagekitIoId = book.imagekitIoId;
+
+        // Verändern der restlichen Buchdaten
         book = extend(book, req.body);
         await book.save();
         res.json(book);
@@ -107,12 +112,12 @@ const update = async (req, res) => {
     }
 };
 
-const updateWithImage = async (req, res) => {
+const updateImage = async (req, res) => {
     try {
         // Get Book
         let book = req.book;
 
-        // Update image, image_id and timestamp
+        // Only Update image, image_id and timestamp
         book.image = res.locals.BookUrl;
         book.imagekitIoId = res.locals.BookImageId;
 
@@ -153,7 +158,7 @@ export default {
     bookByID,
     read,
     update,
-    updateWithImage,
+    updateImage,
     remove,
     bookByUser,
 };
