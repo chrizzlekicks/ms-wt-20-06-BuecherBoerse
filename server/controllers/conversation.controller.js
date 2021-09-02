@@ -104,7 +104,13 @@ const convByID = async (req, res, next, id) => {
         //         }
         //     });
         // });
-        await conv.updateOne({ readAt: Date.now }).exec();
+
+        // check if sender of last message is not current user, then update readAt timestamp
+        // messages.slice(-1)[0] 
+        // messages[messages.length -1]
+        if(conv.messages.at(-1).sender != req.auth._id){
+            await conv.updateOne({ readAt: Date.now }).exec();
+        };
 
         req.conv = conv;
         next();
