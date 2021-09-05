@@ -66,12 +66,12 @@ const requireSignin = expressJwt({
     userProperty: 'auth',
 });
 
-const signinError = function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).send('Invalid token');
-    }
-    next();
-}
+// const signinError = function (err, req, res, next) {
+//     if (err) {
+//         res.status(401).send('Invalid token');
+//     }
+//     next();
+// }
 
 // Darf der Benutzer die Aktion ausfuehren?
 // Sein eigenes Profil bearbeiten ist in Ordnung
@@ -98,7 +98,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 };
 
 const hasAuthorizationForConversation = (req, res, next) => {
-    const isrecipient = req.conv.recipients.includes(req.auth._id);
+    const isrecipient = req.conv.recipients.some(recipient => recipient._id == req.auth._id);
 
     const authorized = req.auth && isrecipient;
 
@@ -126,7 +126,6 @@ export default {
     signin,
     signout,
     requireSignin,
-    signinError,
     hasAuthorization,
     hasAuthorizationForBook,
     hasAuthorizationForConversation,
