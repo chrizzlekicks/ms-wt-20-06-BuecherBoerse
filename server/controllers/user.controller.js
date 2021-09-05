@@ -1,6 +1,5 @@
 import User from '../models/user.model';
 import extend from 'lodash/extend';
-import errorHandler from './../helpers/dbErrorHandler';
 
 // Erstelle Benutzer
 const create = async (req, res) => {
@@ -22,7 +21,7 @@ const create = async (req, res) => {
 // Liste alle Benutzer auf
 const list = async (req, res) => {
     try {
-        let users = await User.find().select('name email updated created group');
+        let users = await User.find().select('name email updated created group').exec();
         res.json(users);
     } catch (err) {
         return res.status(500).json({
@@ -35,7 +34,7 @@ const list = async (req, res) => {
 // An die Anfrage anhaengen und weiterleiten
 const userByID = async (req, res, next, id) => {
     try {
-        let user = await User.findById(id);
+        let user = await User.findById(id).exec();
         if (!user) {
             return res.status(404).json({
                 error: 'User nicht gefunden',

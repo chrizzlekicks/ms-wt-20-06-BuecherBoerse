@@ -44,7 +44,7 @@ UserSchema.virtual('password')
         return this._password
     })
 
-UserSchema.path('hashed_password').validate(function (v) {
+UserSchema.path('hashed_password').validate(function () {
     // if (this.getUpdate().$set.password) for pw update
     if (this._password && this._password.length < 6) {
         this.invalidate('password', 'Password muss mindestens 6 Zeichen lang sein.')
