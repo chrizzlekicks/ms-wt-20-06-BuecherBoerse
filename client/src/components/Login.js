@@ -2,10 +2,10 @@ import InputField from './InputField'
 import SigninBtn from './SigninBtn'
 import Form from './Form'
 import { useAuthContext } from '../context/AuthContext'
-import PasswordReset from './PasswordReset'
 
 const Login = () => {
-  const { userCredential, loginNow, checkSigninInput } = useAuthContext()
+  const { userCredential, loginNow, checkSigninInput, openPasswordResetTab } =
+    useAuthContext()
   const { email, password } = userCredential
 
   return (
@@ -33,8 +33,14 @@ const Login = () => {
             onChange={checkSigninInput}
             required
           />
-          <PasswordReset />
           <SigninBtn type='submit'>Einloggen</SigninBtn>
+          <button
+            type='button'
+            className='reset'
+            onClick={openPasswordResetTab}
+          >
+            Passwort vergessen?
+          </button>
         </section>
       </Form>
     </>

@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   })
   const { API_USERS, setIsUserLoggedIn, setAlert, setLoading } =
     useGlobalContext()
+  const [triggerPasswordReset, setTriggerPasswordReset] = useState(false)
   const forwardPage = useHistory()
   const { state } = useLocation()
 
@@ -75,6 +76,15 @@ export const AuthProvider = ({ children }) => {
   //   }
   // }
 
+  // öffne Passwortreset
+  const openPasswordResetTab = () => {
+    setTriggerPasswordReset(true)
+  }
+
+  const backToLoginTab = () => {
+    setTriggerPasswordReset(false)
+  }
+
   // verarbeite die Eingabe des Users
   const checkSigninInput = (e) => {
     setUserCredential({
@@ -105,6 +115,9 @@ export const AuthProvider = ({ children }) => {
     checkSigninInput,
     loginNow,
     signupNow,
+    triggerPasswordReset,
+    openPasswordResetTab,
+    backToLoginTab,
   }
 
   return (
