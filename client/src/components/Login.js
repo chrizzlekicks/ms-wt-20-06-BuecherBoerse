@@ -1,11 +1,12 @@
-import InputField from './InputField';
-import SigninBtn from './SigninBtn';
-import Form from './Form';
-import { useAuthContext } from '../context/AuthContext';
+import InputField from './InputField'
+import SigninBtn from './SigninBtn'
+import Form from './Form'
+import { useAuthContext } from '../context/AuthContext'
+import PasswordReset from './PasswordReset'
 
 const Login = () => {
-  const { userCredential, loginNow, checkSigninInput } = useAuthContext();
-  const { email, password } = userCredential;
+  const { userCredential, loginNow, checkSigninInput } = useAuthContext()
+  const { email, password } = userCredential
 
   return (
     <>
@@ -32,11 +33,12 @@ const Login = () => {
             onChange={checkSigninInput}
             required
           />
+          <PasswordReset />
           <SigninBtn type='submit'>Einloggen</SigninBtn>
         </section>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

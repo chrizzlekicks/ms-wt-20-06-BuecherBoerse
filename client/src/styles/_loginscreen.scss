@@ -24,6 +24,18 @@
   }
 }
 
+.reset {
+  text-align: left;
+  color: $brnd-clr;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    color: $fnt-clr;
+  }
+}
+
 @media (min-width: 800px) {
   .signin-center {
     max-width: 500px;
