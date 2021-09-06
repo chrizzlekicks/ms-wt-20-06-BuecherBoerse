@@ -72,36 +72,27 @@ async function sendPasswordResetMail(mailTo, resetLink) {
 
 const resetPassword = async (req, res) => {
     // We need userid, reset token, new password
-    let resetToken = await passwordResetToken.findOne({ user: req.body.userId }).exec();
+    const resetToken = await passwordResetToken.findOne({ user: req.body.userId }).exec();
     if (!resetToken) {
         return res.status(401).json({
             error: 'Token not found',
         });
     }
-
-    const keyBuffer = Buffer.from(req.body.token, "hex")
+    const hash = crypto.createHmac("sha256", config.passwortResetSalt).update(req.body.token).digest("hex")
+    const keyBuffer = Buffer.from(hash, "hex")
     const hashBuffer = Buffer.from(resetToken.token, "hex")
-    const isValid = await crypto.timingSafeEqual(keyBuffer, hashBuffer)
+    const isValid = crypto.timingSafeEqual(keyBuffer, hashBuffer)
     if (!isValid) {
         return res.status(401).json({
             error: "Invalid or expired password reset token",
         });
     }
 
-    // if(!req.body.password || req.body.password.length < 6){
-    //     return res.status('401').json({
-    //         error: 'Password too short',
-    //     });
-    // }
-
-    // { runValidators: true, context: 'query' };
-    // let user = await User.findByIdAndUpdate(req.body.userId,{ $set: { password: req.body.password } },{ new: true}).exec();
-
     // Use save for validators
-    let user = await Book.findById(req.body.userId);
+    const user = await User.findById(req.body.userId).exec();
     if (!user) {
         return res.status(404).json({
-             error: 'User not found',
+            error: 'User not found',
         });
     }
 
