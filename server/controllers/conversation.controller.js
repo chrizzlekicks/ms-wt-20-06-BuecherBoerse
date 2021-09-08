@@ -110,8 +110,11 @@ const countUnreadMessages = async (req, res) => {
         let counterUnread = 0
 
         if (conv.updatedAt > conv.readAt) {
-            if (conv.messages.slice(-1)[0].sender != req.auth._id) {
-                counterUnread = 1
+            // Only Check last 5 messages
+            for (let i = 0; i < 5; i++) {
+                if (conv.messages.slice(-1)[i].sender != req.auth._id) {
+                    counterUnread = counterUnread + 1
+                }
             }
         }
 
@@ -153,7 +156,7 @@ const deleteConvByID = async (req, res) => {
 
             conv.recipients = recipients
             await conv.save();
-            
+
             return res.status(200).json({
                 message: 'User from Conversation successfully removed!',
                 conversation: conv,
