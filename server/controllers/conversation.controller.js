@@ -145,17 +145,15 @@ const deleteConvByID = async (req, res) => {
             });
         }
         else {
-            // Remove rec if not last else remove conv
-            let newRecipients = []
-            req.conv.recipients.forEach(recipient => {
-                if (recipient._id != req.auth._id) {
-                    newRecipients.push(recipient)
-                }
-            });
+            // Remove current user from conv
+            let recipients = req.conv.recipients;
+            let pos = recipients.indexOf(req.auth._id)
+            // remove one element after pos (e.g. only the element on pos)
+            recipients.splice(pos, 1);
 
-            conv.recipients = newRecipients
+            conv.recipients = recipients
             await conv.save();
-
+            
             return res.status(200).json({
                 message: 'User from Conversation successfully removed!',
                 conversation: conv,
