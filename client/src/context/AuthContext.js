@@ -7,6 +7,7 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const AUTH_SIGNIN = '/auth/signin/'
+  const API_REQUESTRESET = '/auth/requestPasswordReset'
   const [isTabLeft, setIsTabLeft] = useState(true)
   const [userCredential, setUserCredential] = useState({
     name: '',
@@ -62,19 +63,33 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  // const resetPassword = async (url) => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await fetch(url, {
-  //       method: 'POST'
-  //     })
-  //     if(res.ok) {
-
-  //     }
-  //   } catch (error) {
-
-  //   }
-  // }
+  const requestPasswordReset = async (url) => {
+    try {
+      setLoading(true)
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(userCredential.email),
+      })
+      if (res.ok) {
+        await res.json()
+        setLoading(false)
+        setUserCredential({ email: '' })
+      } else {
+        throw new Error(
+          'Datenbankabgleich funktioniert nicht, versuche es später erneut'
+        )
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      setAlert({
+        display: true,
+        icon: <FaPoop />,
+        msg: 'Der Request hat leider nicht funktioniert. Versuche es später noch mal',
+      })
+      setUserCredential({ email: '' })
+    }
+  }
 
   // öffne Passwortreset
   const openPasswordResetTab = () => {
@@ -105,6 +120,12 @@ export const AuthProvider = ({ children }) => {
     signInUser(API_USERS)
   }
 
+  // schicke den Password Request mit useremail ab
+  const requestReset = (e) => {
+    e.preventDefault()
+    requestPasswordReset(API_REQUESTRESET)
+  }
+
   // speichere states und functions in Variable
   const authValues = {
     AUTH_SIGNIN,
@@ -118,6 +139,7 @@ export const AuthProvider = ({ children }) => {
     triggerPasswordReset,
     openPasswordResetTab,
     backToLoginTab,
+    requestReset,
   }
 
   return (

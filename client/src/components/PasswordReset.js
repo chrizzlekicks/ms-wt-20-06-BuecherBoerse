@@ -5,10 +5,11 @@ import SigninBtn from './SigninBtn'
 import { useAuthContext } from '../context/AuthContext'
 
 const PasswordReset = () => {
-  const { backToLoginTab } = useAuthContext()
+  const { userCredential, backToLoginTab, checkSigninInput, requestReset } =
+    useAuthContext()
   return (
     <>
-      <Form className='form-center'>
+      <Form className='form-center' onSubmit={requestReset}>
         <div className='title'>
           <h3>Passwort Reset</h3>
           <p>Gib hier deine Email ein und wir schicken dir einen Reset-Link</p>
@@ -19,6 +20,8 @@ const PasswordReset = () => {
             htmlFor='Deine Email:'
             name='email'
             id='email'
+            value={userCredential.email}
+            onChange={checkSigninInput}
             required
           />
           <SigninBtn type='submit'>Passwort zurücksetzen</SigninBtn>
