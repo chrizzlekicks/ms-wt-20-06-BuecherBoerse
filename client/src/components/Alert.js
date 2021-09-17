@@ -7,7 +7,7 @@ const Alert = () => {
   useEffect(() => {
     setTimeout(() => {
       setAlert({ display: false, icon: '', msg: '' });
-    }, 2000);
+    }, 3000);
   });
 
   return (

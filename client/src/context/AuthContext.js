@@ -6,7 +6,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const AUTH_SIGNIN = '/auth/signin/';
   const [isTabLeft, setIsTabLeft] = useState(true);
   const [userCredential, setUserCredential] = useState({
     name: '',
@@ -15,8 +14,18 @@ export const AuthProvider = ({ children }) => {
   });
   const { API_USERS, setIsUserLoggedIn, setAlert, setLoading } =
     useGlobalContext();
+  const AUTH_SIGNIN = '/auth/signin/';
+  const API_REQUESTRESET = '/auth/requestPasswordReset/';
+  const API_RESETPASSWORD = '/auth/resetPassword';
+  const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
   const forwardPage = useHistory();
-  const { state } = useLocation();
+  const { state, search } = useLocation();
+
+  // custom hook um die Query Parameter aus der URL zu bekommen
+  const useQuery = () => {
+    return new URLSearchParams(search);
+  };
+  let query = useQuery();
 
   // POST registriere neuen User im Backend / logge User ein (Backend)
   const signInUser = async (url, tryLogin) => {
@@ -47,17 +56,93 @@ export const AuthProvider = ({ children }) => {
           setIsTabLeft(true);
         }
       } else {
-        throw new Error('Hoppala, da ist wohl was schief gelaufen...');
+        throw new Error('Username oder Passwort stimmen nicht');
       }
     } catch (error) {
-      console.log('errrorrrrr', error);
       setLoading(false);
+      console.log(error);
       setAlert({
         display: true,
         icon: <FaPoop />,
-        msg: 'Das hat leider nicht geklappt',
+        msg: 'Username oder Passwort stimmen nicht',
       });
       setUserCredential({ name: '', email: '', password: '' });
+    }
+  };
+
+  const requestPasswordReset = async (api) => {
+    try {
+      setLoading(true);
+      const res = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ email: userCredential.email }),
+      });
+      if (res.ok) {
+        const sentEmail = await res.json();
+        console.log(sentEmail);
+        setLoading(false);
+        setAlert({
+          display: true,
+          icon: <FaCheckCircle />,
+          msg: 'Der erste Schritt war erfolgreich! Halte Ausschau in deinen Emails nach Post von uns',
+        });
+        setUserCredential({ email: '' });
+      } else {
+        throw new Error(
+          'Datenbankabgleich funktioniert nicht, versuche es später erneut'
+        );
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      setAlert({
+        display: true,
+        icon: <FaPoop />,
+        msg: 'Der Request hat leider nicht funktioniert. Versuche es später noch mal',
+      });
+      setUserCredential({ email: '' });
+    }
+  };
+
+  const resetPassword = async (api) => {
+    try {
+      setLoading(true);
+      const res = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: query.get('id'),
+          token: query.get('token'),
+          password: userCredential.password,
+        }),
+      });
+      if (res.ok) {
+        await res.json();
+        setLoading(false);
+        setAlert({
+          display: true,
+          icon: <FaCheckCircle />,
+          msg: 'Dein neues Passwort wurde erfolgreich eingerichtet. Logge dich nun damit ein.',
+        });
+        setUserCredential({ password: '' });
+        forwardPage.push('/login');
+      } else {
+        throw new Error('Das neue Passwort konnte nicht gespeichert werden');
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      setAlert({
+        display: true,
+        icon: <FaPoop />,
+        msg: 'Irgendwie konnte das neue Passwort nicht gespeichert werden',
+      });
+      setUserCredential({ password: '' });
     }
   };
 
@@ -81,6 +166,22 @@ export const AuthProvider = ({ children }) => {
     signInUser(API_USERS);
   };
 
+  // toggle between login screen and password reset
+  const openPasswordResetTab = () => {
+    setTriggerPasswordTab(!triggerPasswordTab);
+  };
+
+  // schicke den Password Request mit useremail ab
+  const requestReset = (e) => {
+    e.preventDefault();
+    requestPasswordReset(API_REQUESTRESET);
+  };
+
+  const reset = (e) => {
+    e.preventDefault();
+    resetPassword(API_RESETPASSWORD);
+  };
+
   // speichere states und functions in Variable
   const authValues = {
     AUTH_SIGNIN,
@@ -91,6 +192,10 @@ export const AuthProvider = ({ children }) => {
     checkSigninInput,
     loginNow,
     signupNow,
+    requestReset,
+    reset,
+    triggerPasswordTab,
+    openPasswordResetTab,
   };
 
   return (

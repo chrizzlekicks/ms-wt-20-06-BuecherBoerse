@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
-import { FaBook, FaBookOpen } from 'react-icons/fa'
-import logo from '../static/kodebi_normal.svg'
-import MenuLink from './MenuLink'
-import { links } from '../utils/linksDB'
-import UserBar from './UserBar'
-import { useNavbarContext } from '../context/NavbarContext'
-import { useGlobalContext } from '../context/GlobalContext'
+import { Link } from 'react-router-dom';
+import { FaBook, FaBookOpen } from 'react-icons/fa';
+import logo from '../static/kodebi_normal.svg';
+import MenuLink from './MenuLink';
+import { links } from '../utils/linksDB';
+import UserBar from './UserBar';
+import { useNavbarContext } from '../context/NavbarContext';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Navbar = () => {
-  const { navbar, toggleNavbar, hideSubmenu } = useNavbarContext()
-  const { showLinks, hideLinks } = useGlobalContext()
+  const { navbar, toggleNavbar, hideSubmenu } = useNavbarContext();
+  const { showLinks, hideLinks } = useGlobalContext();
 
   return (
     <>
@@ -29,7 +29,7 @@ const Navbar = () => {
           <div className={showLinks ? 'nav-menu show-menu' : 'nav-menu'}>
             <ul className='links-container basic-flex'>
               {links.map((link) => {
-                return <MenuLink key={link.id} {...link} />
+                return <MenuLink key={link.id} {...link} />;
               })}
             </ul>
             <UserBar />
@@ -37,7 +37,7 @@ const Navbar = () => {
         </header>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

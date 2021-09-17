@@ -4,7 +4,8 @@ import Form from './Form';
 import { useAuthContext } from '../context/AuthContext';
 
 const Login = () => {
-  const { userCredential, loginNow, checkSigninInput } = useAuthContext();
+  const { userCredential, loginNow, checkSigninInput, openPasswordResetTab } =
+    useAuthContext();
   const { email, password } = userCredential;
 
   return (
@@ -33,6 +34,13 @@ const Login = () => {
             required
           />
           <SigninBtn type='submit'>Einloggen</SigninBtn>
+          <button
+            type='button'
+            className='reset'
+            onClick={openPasswordResetTab}
+          >
+            Passwort vergessen?
+          </button>
         </section>
       </Form>
     </>

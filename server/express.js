@@ -27,6 +27,9 @@ if (config.env === 'production') {
   app.use(express.static(path.join(CURRENT_WORKING_DIR, 'client/build')));
 }
 
+// use morgan for logging
+// Use rate-limiter
+
 // mount routes
 app.use('/', userRoutes);
 app.use('/', authRoutes);

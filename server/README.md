@@ -55,8 +55,9 @@ Editor-view: Json visual Editor
 | name      | string| Notwendig |
 | email     | string| Notwendig (einzigartig) |
 | password  | string| Notwendig Passwort wird verschlüsselt gespeichert|
-| created   | Date  | Wann wurde der Benutzer erstellt? Automatisch generiert|
-| updated   | Date  | Wann wurde der Benutzer aktualisiert? Automatisch generiert|
+| createdAt | Date  | Wann wurde der Benutzer erstellt? Automatisch generiert|
+| updatedAt | Date  | Wann wurde der Benutzer aktualisiert? Automatisch generiert|
+| group     | string | Optional |
 
 ### Bücher API
 | Route         | HTTP Methode           | Beschreibung  |
@@ -80,8 +81,9 @@ Editor-view: Json visual Editor
 | description | string | Notwendig |
 | status    | string| optional  |
 | owner     | User  | Notwendig Wird später automatisch generiert |
-| created   | Datum | Wird automatisch generiert |
-| updated   | Datum | Wird automatisch generiert |
+| createdAt | Datum | Wird automatisch generiert |
+| updatedAt | Datum | Wird automatisch generiert |
+| group     | string | Optional |
 
 ### Nachrichten API
 | Route         | HTTP Methode           | Beschreibung  |
@@ -98,12 +100,33 @@ Editor-view: Json visual Editor
 | sender      | mongoose.userid| Notwendig |
 | reciever    | mongoose.userid| Notwendig |
 | message     | string| Notwendig |
-| created   | Datum | Wird automatisch generiert |
+| createdAt   | Datum | Wird automatisch generiert |
+| updatedAt   | Datum | Wird automatisch generiert |
+| group     | string | Optional |
 
 ### Konversation Felder in der Datenbank
 | Feld        | Typ           | Beschreibung  |
 | ------------- |:-------------:| -----:|
 | recipients   | array von mongoose.userid| Wird automatisch gesetzt (nicht veränderbar) |
 | messages    | arrray von mongoose.MessageID| Neue Nachrichten werden automatisch eingefügt |
-| created   | Datum | Wird automatisch generiert |
-| updated   | Datum | Wird automatisch generiert (noch nicht funktional) |
+| createdAt   | Datum | Wird automatisch generiert |
+| updatedAt   | Datum | Wird automatisch generiert |
+| readAt     | Datum | Zeigt an wann die Konversation das letzte mal aufgerufen wurde |
+| topic     | string | Optional |
+| group     | string | Optional |
+
+Bei ungelesen Nachrichten ist der Zeitstempel updatedAt neuer als readAt und der Sender der Nachricht ist nicht der gerade eingeloggte Benutzer
+updatedAt > readAt und Sender der letzten Nachricht != Gerade eingeloggter Benutzer
+
+### requestPasswordReset
+| Feld        | Typ           | Beschreibung  |
+| ------------- |:-------------:| -----:|
+| mail   | string| Mail des Users |
+
+### resetPassword
+| Feld        | Typ           | Beschreibung  |
+| ------------- |:-------------:| -----:|
+| userId     | mongoose.userid  | ID des Users |
+| token      | string           | Token zum zurücksetzen |
+| password   | string           | Neues Passwort |
+

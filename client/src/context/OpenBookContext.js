@@ -28,15 +28,19 @@ export const OpenBookProvider = ({ children }) => {
 
   // GET Buchinfo vom Backend
   const fetchSingleBook = useCallback(
-    async (api, id) => {
+    async (api, id, token) => {
       setLoading(true);
       try {
-        const res = await fetch(`${api}${id}`);
+        const res = await fetch(`${api}${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (res.ok) {
           const singleBook = await res.json();
           setOpenBook(singleBook);
         } else {
-          throw new Error('etwas hat nicht geklappt');
+          throw new Error('Es fehlt jegliche Buchinfo...');
         }
       } catch (err) {
         console.log(err);
@@ -153,8 +157,8 @@ export const OpenBookProvider = ({ children }) => {
 
   // öffne Buch
   useEffect(() => {
-    fetchSingleBook(API_BOOKS, id);
-  }, [API_BOOKS, fetchSingleBook, id]);
+    fetchSingleBook(API_BOOKS, id, jwt);
+  }, [API_BOOKS, fetchSingleBook, id, jwt]);
 
   // lösche Buch
   const removeBook = () => {
