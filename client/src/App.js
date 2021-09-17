@@ -26,6 +26,7 @@ import { MyBooksProvider } from './context/MyBooksContext';
 import { MessageProvider } from './context/MessageContext';
 import { AuthProvider } from './context/AuthContext';
 import { NavbarProvider } from './context/NavbarContext';
+import Reset from './pages/Reset';
 
 const App = () => {
   const { isUserLoggedIn } = useGlobalContext();
@@ -43,6 +44,15 @@ const App = () => {
             {!isUserLoggedIn ? (
               <AuthProvider>
                 <LoginScreen />
+              </AuthProvider>
+            ) : (
+              <Redirect to='/' />
+            )}
+          </Route>
+          <Route path='/reset'>
+            {!isUserLoggedIn ? (
+              <AuthProvider>
+                <Reset />
               </AuthProvider>
             ) : (
               <Redirect to='/' />

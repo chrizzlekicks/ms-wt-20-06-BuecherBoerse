@@ -24,6 +24,7 @@ export const NavbarProvider = ({ children }) => {
       if (res.ok) {
         await res.json();
         sessionStorage.clear();
+        setShowLinks(false);
       } else {
         throw new Error('Hoppala, da ist wohl was schief gelaufen...');
       }

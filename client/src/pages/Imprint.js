@@ -1,8 +1,8 @@
-import { useGlobalContext } from '../context/GlobalContext'
-import { motion } from 'framer-motion'
+import { useGlobalContext } from '../context/GlobalContext';
+import { motion } from 'framer-motion';
 
 const Imprint = () => {
-  const { closeSubmenu } = useGlobalContext()
+  const { closeSubmenu } = useGlobalContext();
   return (
     <>
       <motion.main
@@ -127,7 +127,7 @@ const Imprint = () => {
         </section>
       </motion.main>
     </>
-  )
-}
+  );
+};
 
-export default Imprint
+export default Imprint;
