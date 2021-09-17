@@ -1,12 +1,12 @@
-import InputField from './InputField'
-import SigninBtn from './SigninBtn'
-import Form from './Form'
-import { useAuthContext } from '../context/AuthContext'
+import InputField from './InputField';
+import SigninBtn from './SigninBtn';
+import Form from './Form';
+import { useAuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const { userCredential, loginNow, checkSigninInput, openPasswordResetTab } =
-    useAuthContext()
-  const { email, password } = userCredential
+    useAuthContext();
+  const { email, password } = userCredential;
 
   return (
     <>
@@ -44,7 +44,7 @@ const Login = () => {
         </section>
       </Form>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

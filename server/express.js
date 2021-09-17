@@ -24,7 +24,7 @@ app.use(cors());
 
 // Serve up static files when deployed
 if (config.env === 'production') {
-    app.use(express.static(path.join(CURRENT_WORKING_DIR, 'client/build')));
+  app.use(express.static(path.join(CURRENT_WORKING_DIR, 'client/build')));
 }
 
 // use morgan for logging
@@ -37,13 +37,13 @@ app.use('/', bookRoutes);
 app.use('/', conversationRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build/index.html'));
+  res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build/index.html'));
 });
 
 app.use((err, req, res, next) => {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).json({ error: err.name + ': ' + err.message });
-    }
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ error: err.name + ': ' + err.message });
+  }
 });
 
 export default app;

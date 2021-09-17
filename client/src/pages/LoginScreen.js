@@ -6,13 +6,13 @@ import Loading2 from '../components/Loading2'
 import Alert from '../components/Alert'
 import { motion } from 'framer-motion'
 import { useAuthContext } from '../context/AuthContext'
-import PasswordReset from '../components/PasswordReset'
+import SetEmailForReset from '../components/SetEmailForReset'
 
 const LoginScreen = () => {
   const { alert, loading } = useGlobalContext()
-  const { isTabLeft, triggerPasswordReset } = useAuthContext()
+  const { isTabLeft, triggerPasswordTab } = useAuthContext()
 
-  if (triggerPasswordReset) {
+  if (triggerPasswordTab) {
     return (
       <>
         {loading && <Loading2 />}
@@ -24,7 +24,7 @@ const LoginScreen = () => {
           className='hero'
         >
           <section className='signin-center'>
-            <PasswordReset />
+            <SetEmailForReset />
           </section>
         </motion.main>
         {alert.display && <Alert />}
