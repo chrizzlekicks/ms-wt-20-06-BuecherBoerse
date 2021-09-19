@@ -31,6 +31,12 @@ const signin = async (req, res) => {
       }
     );
 
+    const oneDay = 1000 * 60 * 60 * 24;
+    res.cookie('t', token, {
+      httpOnly: true,
+      expire: new Date(Date.now() + oneDay),
+    });
+
     return res.json({
       token,
       user: {
@@ -48,6 +54,7 @@ const signin = async (req, res) => {
 };
 
 const signout = (req, res) => {
+  res.clearCookie('t');
   return res.status(200).json({
     message: 'signed out',
   });
