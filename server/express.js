@@ -47,7 +47,7 @@ if (config.env === 'production') {
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', bookRoutes);
-app.use('/', conversationRoutes);
+app.use('/api/messages', conversationRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(CURRENT_WORKING_DIR + '/client/build/index.html'));

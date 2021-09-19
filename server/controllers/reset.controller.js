@@ -59,13 +59,12 @@ async function sendPasswordResetMail(mailTo, resetLink) {
     },
   });
 
-  // sender address "Kodebi" <passwort@kodebi.de> {name: 'Kodebi', address: 'passwort@kodebi.de'}
-  const mailFrom = { name: 'Kodebi', address: config.mailFrom };
+  const mailFrom = { name: 'Kodebi Passwort', address: config.mailFrom };
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: mailFrom,
-    bcc: mailFrom, // also send to myself for docu
+    bcc: mailFrom, // also send to self for docu
     to: mailTo, // list of receivers
     subject: 'Password Reset', // Subject line
     text: 'Click this link: ' + resetLink, // plain text body
