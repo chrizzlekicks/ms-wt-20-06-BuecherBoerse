@@ -17,13 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
+
 // Secure apps
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-      styleSrc: ['https://fonts.googleapis.com', "'unsafe-inline'"],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
       fontSrc: ['https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'https://ik.imagekit.io'],
       baseUri: ["'self'"],
@@ -49,6 +50,9 @@ app.use('/', conversationRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build/index.html'));
+  if (err) {
+    res.status(500).send(err);
+  }
 });
 
 app.use((err, req, res, next) => {
