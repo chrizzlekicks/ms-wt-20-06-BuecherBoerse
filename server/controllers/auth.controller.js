@@ -31,10 +31,6 @@ const signin = async (req, res) => {
       }
     );
 
-    // res.cookie('t', token, {
-    //     expire: Date.now() + 9999,
-    // });
-
     return res.json({
       token,
       user: {
@@ -64,13 +60,6 @@ const requireSignin = expressJwt({
   secret: config.jwtSecret,
   userProperty: 'auth',
 });
-
-// const signinError = function (err, req, res, next) {
-//     if (err) {
-//         res.status(401).send('Invalid token');
-//     }
-//     next();
-// }
 
 // Darf der Benutzer die Aktion ausfuehren?
 // Sein eigenes Profil bearbeiten ist in Ordnung
