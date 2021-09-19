@@ -5,9 +5,9 @@ import config from './../../config/config';
 // imagekit.io Auth definition
 // Define in process.env.
 var imagekitUpload = new ImageKit({
-  publicKey: config.ImagePublicKey,
-  privateKey: config.ImagePrivateKey,
-  urlEndpoint: config.ImageUrlEndpoint,
+  publicKey: 'public_s2ZIqzkkWu+a+UOrk9u2Jhdns2Q=',
+  privateKey: 'private_L2UxjOxihAT5R251LixHqwXpopI',
+  urlEndpoint: 'https://ik.imagekit.io/buecherregal/',
 });
 
 // Save picture temporally in memory

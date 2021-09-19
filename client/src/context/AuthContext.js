@@ -129,8 +129,10 @@ export const AuthProvider = ({ children }) => {
           icon: <FaCheckCircle />,
           msg: 'Dein neues Passwort wurde erfolgreich eingerichtet. Logge dich nun damit ein.',
         });
-        setUserCredential({ password: '' });
-        forwardPage.push('/login');
+        forwardPage.push(
+          '/login',
+          setUserCredential({ email: '', password: '' })
+        );
       } else {
         throw new Error('Das neue Passwort konnte nicht gespeichert werden');
       }
