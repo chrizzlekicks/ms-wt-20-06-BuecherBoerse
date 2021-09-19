@@ -10,7 +10,10 @@ import conversationRoutes from './routes/conversation.routes';
 import path from 'path';
 import config from '../config/config';
 
+const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -23,7 +26,7 @@ app.use(cors());
 
 // Serve up static files when deployed
 if (config.env === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(CURRENT_WORKING_DIR, 'client/build')));
 }
 
 // use morgan for logging
@@ -36,7 +39,7 @@ app.use('/', bookRoutes);
 app.use('/', conversationRoutes);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(CURRENT_WORKING_DIR + '/client/build/index.html'));
   if (err) {
     res.status(500).send(err);
   }
