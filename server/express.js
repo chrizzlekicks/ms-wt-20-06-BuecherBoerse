@@ -13,12 +13,25 @@ import config from '../config/config';
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
+
 // Secure apps
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+      fontSrc: ['https://fonts.gstatic.com'],
+      imgSrc: ["'self'", 'https://ik.imagekit.io'],
+      baseUri: ["'self'"],
+    },
+  })
+);
 // Cross Origin Resource Sharing
 app.use(cors());
 
@@ -34,10 +47,13 @@ if (config.env === 'production') {
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', bookRoutes);
-app.use('/', conversationRoutes);
+app.use('/api/messages', conversationRoutes);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build/index.html'));
+  res.sendFile(path.join(CURRENT_WORKING_DIR + '/client/build/index.html'));
+  if (err) {
+    res.status(500).send(err);
+  }
 });
 
 app.use((err, req, res, next) => {

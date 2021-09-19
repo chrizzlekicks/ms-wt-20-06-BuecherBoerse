@@ -19,6 +19,7 @@ import DataPrivacy from './pages/DataPrivacy';
 import Imprint from './pages/Imprint';
 import MyBooks from './pages/MyBooks';
 import Messages from './pages/Messages';
+import Reset from './pages/Reset';
 import { MarketplaceProvider } from './context/MarketplaceContext';
 import { UploadBookProvider } from './context/UploadBookContext';
 import { OpenBookProvider } from './context/OpenBookContext';
@@ -26,7 +27,6 @@ import { MyBooksProvider } from './context/MyBooksContext';
 import { MessageProvider } from './context/MessageContext';
 import { AuthProvider } from './context/AuthContext';
 import { NavbarProvider } from './context/NavbarContext';
-import Reset from './pages/Reset';
 
 const App = () => {
   const { isUserLoggedIn } = useGlobalContext();

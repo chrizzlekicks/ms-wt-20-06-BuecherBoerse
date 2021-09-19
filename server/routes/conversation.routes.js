@@ -8,14 +8,18 @@ const router = express.Router();
 // Check auth first
 router.use(authCtrl.requireSignin);
 
+// refactor route dont use params, add them to routes if needed
+// with req.query
+
+// Route: /api/messages
 // Create conversation
 router
-  .route('/api/messages')
+  .route('/')
   .post(authCtrl.hasAuthorizationForNewMessage, conversationCtrl.createConv);
 
 // Route for messages counter
 router
-  .route('/api/messages/unread/:convId')
+  .route('/unread/:convId')
   .get(
     authCtrl.hasAuthorizationForConversation,
     conversationCtrl.countUnreadMessages
@@ -24,17 +28,15 @@ router
 // Erstelle Nachricht in bestimmter Conversation, erhalte bestimmte Conversation
 // Loesche Konversation
 router
-  .route('/api/messages/:convId')
-  .get(authCtrl.hasAuthorizationForConversation, conversationCtrl.read)
-  .post(authCtrl.hasAuthorizationForConversation, conversationCtrl.writeMessage)
-  .delete(
-    authCtrl.hasAuthorizationForConversation,
-    conversationCtrl.deleteConvByID
-  );
+  .route('/:convId')
+  .all(authCtrl.hasAuthorizationForConversation)
+  .get(conversationCtrl.read)
+  .post(conversationCtrl.writeMessage)
+  .delete(conversationCtrl.deleteConvByID);
 
 // Erhalte alle Conversations in denen der User beteiligt ist
 router
-  .route('/api/messages/user/:userId')
+  .route('/user/:userId')
   .get(
     authCtrl.hasAuthorization,
     conversationCtrl.getConvByUser,

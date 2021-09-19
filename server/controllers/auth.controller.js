@@ -31,9 +31,11 @@ const signin = async (req, res) => {
       }
     );
 
-    // res.cookie('t', token, {
-    //     expire: Date.now() + 9999,
-    // });
+    const oneDay = 1000 * 60 * 60 * 24;
+    res.cookie('t', token, {
+      httpOnly: true,
+      expire: new Date(Date.now() + oneDay),
+    });
 
     return res.json({
       token,
@@ -52,6 +54,7 @@ const signin = async (req, res) => {
 };
 
 const signout = (req, res) => {
+  res.clearCookie('t');
   return res.status(200).json({
     message: 'signed out',
   });
@@ -64,13 +67,6 @@ const requireSignin = expressJwt({
   secret: config.jwtSecret,
   userProperty: 'auth',
 });
-
-// const signinError = function (err, req, res, next) {
-//     if (err) {
-//         res.status(401).send('Invalid token');
-//     }
-//     next();
-// }
 
 // Darf der Benutzer die Aktion ausfuehren?
 // Sein eigenes Profil bearbeiten ist in Ordnung

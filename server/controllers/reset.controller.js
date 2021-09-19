@@ -36,14 +36,11 @@ const requestPasswordReset = async (req, res) => {
   }
   const link =
     'http://app.kodebi.de/reset?token=' + resetToken + '&id=' + user._id;
-  //sendPasswordResetMail(user.email, "Password Reset Request", { name: user.name, link: link, }, "./template/requestResetPassword.handlebars");
-  //return link;
+
+  sendPasswordResetMail(user.email, link);
 
   return res.status(200).json({
     msg: 'Password Reset Token created',
-    user,
-    resetToken,
-    link,
   });
 };
 
@@ -59,17 +56,16 @@ async function sendPasswordResetMail(mailTo, resetLink) {
     },
   });
 
-  // sender address "Kodebi" <passwort@kodebi.de> {name: 'Kodebi', address: 'passwort@kodebi.de'}
-  const mailFrom = { name: 'Kodebi', address: config.mailFrom };
+  const mailFrom = { name: 'Kodebi Passwort', address: config.mailFrom };
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: mailFrom,
-    bcc: mailFrom, // also send to myself for docu
+    bcc: mailFrom, // also send to self for docu
     to: mailTo, // list of receivers
-    subject: 'Password Reset', // Subject line
-    text: 'Click this link: ' + resetLink, // plain text body
-    html: '<b>Hello world?</b>' + resetLink, // html body
+    subject: 'Kodebi Passwort Zurücksetzen', // Subject line
+    text: 'Um dein Passwort zurückzusetzen klicke bitte diesen Link: ' + resetLink, // plain text body
+    html: '<b>Um dein Passwort zurückzusetzen klicke bitte diesen Link:</b>' + resetLink, // html body
   });
 
   console.log('Message sent: %s', info.messageId);
