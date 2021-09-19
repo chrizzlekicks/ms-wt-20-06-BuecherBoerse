@@ -22,9 +22,9 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", 'https://fonts.googleapis.com'],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+      styleSrc: ['https://fonts.googleapis.com', "'unsafe-inline'"],
+      fontSrc: ['https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'https://ik.imagekit.io'],
       baseUri: ["'self'"],
     },
@@ -47,7 +47,7 @@ app.use('/', authRoutes);
 app.use('/', bookRoutes);
 app.use('/', conversationRoutes);
 
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build/index.html'));
 });
 
