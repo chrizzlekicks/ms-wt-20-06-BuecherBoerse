@@ -20,7 +20,14 @@ app.use(cookieParser());
 app.use(compress());
 
 // Secure apps
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+    },
+  })
+);
 // Cross Origin Resource Sharing
 app.use(cors());
 
