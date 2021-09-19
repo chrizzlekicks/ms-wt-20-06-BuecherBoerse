@@ -48,8 +48,10 @@ app.use('/', authRoutes);
 app.use('/', bookRoutes);
 app.use('/', conversationRoutes);
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(CURRENT_WORKING_DIR, 'client/build', 'index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(
+    path.resolve(CURRENT_WORKING_DIR, 'client', 'build', 'index.html')
+  );
   if (err) {
     res.status(500).send(err);
   }
