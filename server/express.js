@@ -25,6 +25,10 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+      fontSrc: ['https://fonts.gstatic.com'],
+      imgSrc: ["'self'", 'https://ik.imagekit.io'],
+      baseUri: ["'self'"],
     },
   })
 );
