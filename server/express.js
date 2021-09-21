@@ -46,7 +46,7 @@ if (config.env === 'production') {
 // mount routes
 app.use('/', userRoutes);
 app.use('/', authRoutes);
-app.use('/', bookRoutes);
+app.use('/api/books', bookRoutes);
 app.use('/api/messages', conversationRoutes);
 
 app.get('*', (req, res) => {

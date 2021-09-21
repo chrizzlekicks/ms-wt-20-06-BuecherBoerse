@@ -74,7 +74,7 @@ const MoveBookToDeleteFolder = (req, res, next) => {
   imagekitUpload
     .moveFile(sourceFilePath, destinationPath)
     .then((response) => {
-      //console.log(response);
+      console.log(response);
       next();
     })
     .catch((error) => {

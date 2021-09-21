@@ -7,7 +7,7 @@ import userCtrl from '../controllers/user.controller';
 const router = express.Router();
 
 router
-  .route('/api/books')
+  .route('/')
   .get(bookCtrl.list) //Seite mit allen hochgeladenen Büchern
   .post(
     authCtrl.requireSignin,
@@ -17,13 +17,11 @@ router
   ); // login notwendig
 
 // New Route to getBooks by User
-router
-  .route('/api/books/user/:userId')
-  .get(authCtrl.requireSignin, bookCtrl.bookByUser);
+router.route('/user/:userId').get(authCtrl.requireSignin, bookCtrl.bookByUser);
 
 // get book by bookid
 router
-  .route('/api/books/:bookId')
+  .route('/:bookId')
   .get(authCtrl.requireSignin, bookCtrl.read) //Registrierung nötig
   .put(
     authCtrl.requireSignin,
@@ -38,15 +36,13 @@ router
   ); // Remove with DELETE
 
 // Update image
-router
-  .route('/api/books/image/:bookId')
-  .put(
-    authCtrl.requireSignin,
-    authCtrl.hasAuthorizationForBook,
-    imgCtrl.UploadImageToMemory,
-    imgCtrl.UploadBookImageToImagekit,
-    bookCtrl.updateImage
-  ); // Update with PUT
+router.route('/image/:bookId').put(
+  authCtrl.requireSignin,
+  // authCtrl.hasAuthorizationForBook,
+  imgCtrl.UploadImageToMemory,
+  imgCtrl.UploadBookImageToImagekit,
+  bookCtrl.updateImage
+); // Update with PUT
 
 // add user and book id to req
 router.param('bookId', bookCtrl.bookByID);

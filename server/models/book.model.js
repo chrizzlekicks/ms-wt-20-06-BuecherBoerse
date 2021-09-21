@@ -24,24 +24,19 @@ const BookSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, 'Bitte ein Genre eintragen'],
-      enum: ['Thriller', 'Sachbuch'],
     },
     language: {
       type: String,
       trim: true,
       required: [true, 'Bitte eine Sprache eintragen'],
-      enum: ['Deutsch', 'English'],
+      enum: ['Deutsch', 'Englisch', 'Spanisch', 'Italienisch'],
     },
     condition: {
       //Zustand des Buches
       type: String,
       trim: true,
       required: [true, 'Bitte den Zustand angeben'],
-      enum: [
-        'Frisch aus der Druckerei',
-        'Viel gelesen',
-        'Hat schon viele Eselsohren',
-      ],
+      enum: ['Druckfrisch', 'Gut', 'Viele Eselsohren'],
     },
     description: {
       //Beschreibung des Buches
@@ -61,7 +56,8 @@ const BookSchema = new mongoose.Schema(
     status: {
       type: String,
       trim: true,
-      enum: ['privat', 'bereit zum Verleihen', 'verliehen'],
+      enum: ['Privat', 'Bereit zum Verleihen', 'Verliehen'],
+      required: [true, 'Bitte Status auswählen'],
     },
     group: {
       type: String,

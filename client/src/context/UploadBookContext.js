@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { FaCheckCircle, FaPoo, FaFlushed } from 'react-icons/fa';
 import { useGlobalContext } from './GlobalContext';
+import { genres, languages, conditions, status } from '../utils/dropdown';
 
 const UploadBookContext = createContext();
 
@@ -8,9 +9,10 @@ export const UploadBookProvider = ({ children }) => {
   const [newBook, setNewBook] = useState({
     name: '',
     author: '',
-    genre: '',
-    language: '',
-    condition: '',
+    genre: genres[0].title,
+    language: languages[0].title,
+    condition: conditions[0].title,
+    status: status[0].title,
     desc: '',
   });
   const [bookImage, setBookImage] = useState();
@@ -51,9 +53,10 @@ export const UploadBookProvider = ({ children }) => {
       setNewBook({
         name: '',
         author: '',
-        genre: '',
-        language: '',
-        condition: '',
+        genre: genres[0].title,
+        language: languages[0].title,
+        condition: conditions[0].title,
+        status: status[0].title,
         desc: '',
       });
       setBookImage();
@@ -78,7 +81,8 @@ export const UploadBookProvider = ({ children }) => {
       newBook.author &&
       newBook.genre &&
       newBook.language &&
-      newBook.condition
+      newBook.condition &&
+      newBook.status
     ) {
       const bookData = new FormData();
       bookData.append('bookImage', bookImage);
@@ -89,6 +93,7 @@ export const UploadBookProvider = ({ children }) => {
       bookData.append('condition', newBook.condition);
       bookData.append('owner', userId);
       bookData.append('username', userName);
+      bookData.append('status', newBook.status);
       bookData.append('description', newBook.desc);
       bookUpload(API_BOOKS, jwt, bookData);
     } else {
@@ -106,10 +111,12 @@ export const UploadBookProvider = ({ children }) => {
     setNewBook({
       name: '',
       author: '',
-      genre: '',
-      language: '',
-      condition: '',
+      genre: genres[0].title,
+      language: languages[0].title,
+      condition: conditions[0].title,
       owner: userId,
+      username: userName,
+      status: status[0].title,
       desc: '',
     });
   };

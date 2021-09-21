@@ -6,19 +6,24 @@ const UserAction = () => {
   const { userId } = useGlobalContext();
   const { openBook, removeBook, openEditWindow, messageUser } =
     useOpenBookContext();
-  const { username, condition, owner } = openBook;
+  const { username, condition, owner, status } = openBook;
 
   return (
     <>
       <aside className='user-action'>
         <section className='action-section'>
           <p>Dieses Buch gehört:</p>
-          <h3>{username}</h3>
+          <h4>{username}</h4>
         </section>
         <hr className='separation-line' />
         <section className='action-section'>
           <p>Zustand des Buches ist:</p>
-          <h3>{condition}</h3>
+          <h4>{condition}</h4>
+        </section>
+        <hr className='separation-line' />
+        <section className='action-section'>
+          <p>Dieses Buch ist:</p>
+          <h4>{status}</h4>
         </section>
         <hr className='separation-line' />
         <section className='action-section'>

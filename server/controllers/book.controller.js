@@ -1,13 +1,12 @@
 import Book from '../models/book.model';
 import extend from 'lodash/extend';
-import errorHandler from './../helpers/dbErrorHandler';
 
 //Buch wird erstellt
 const create = async (req, res) => {
   try {
     // overwrite the username und the user_id from the req
-    req.body.username = req.auth.name;
-    req.body.owner = req.auth._id;
+    // req.body.username = req.auth.name;
+    // req.body.owner = req.auth._id;
 
     const book = new Book(req.body);
     try {
@@ -96,10 +95,10 @@ const update = async (req, res) => {
     // with the old data from the book, so no one can change the book owner
     // Also don't allow to change the image in this route
     // Update the username to the name of the currently loggedin user
-    req.body.username = req.auth.name;
-    req.body.owner = book.owner;
-    req.body.image = book.image;
-    req.body.imagekitIoId = book.imagekitIoId;
+    // req.body.username = req.auth.name;
+    // req.body.owner = book.owner;
+    // req.body.image = book.image;
+    // req.body.imagekitIoId = book.imagekitIoId;
 
     // Verändern der restlichen Buchdaten
     book = extend(book, req.body);

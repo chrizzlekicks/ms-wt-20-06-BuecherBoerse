@@ -54,6 +54,7 @@
 }
 
 input,
+select,
 textarea {
   padding: 0.25rem;
   border: 1px solid $brnd-clr;
@@ -62,6 +63,7 @@ textarea {
   font-size: 0.75rem;
   width: 100%;
   font-family: $fnt-fmly;
+  color: $fnt-clr;
 
   &:focus {
     outline: none;
@@ -74,6 +76,7 @@ textarea {
 
 @media (min-width: 800px) {
   input,
+  select,
   textarea {
     padding: 0.5rem;
     font-size: $fnt-sz;
