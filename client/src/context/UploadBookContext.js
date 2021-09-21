@@ -9,7 +9,7 @@ export const UploadBookProvider = ({ children }) => {
   const [newBook, setNewBook] = useState({
     name: '',
     author: '',
-    genre: genres[0].title,
+    category: genres[0].title,
     language: languages[0].title,
     condition: conditions[0].title,
     status: status[0].title,
@@ -53,7 +53,7 @@ export const UploadBookProvider = ({ children }) => {
       setNewBook({
         name: '',
         author: '',
-        genre: genres[0].title,
+        category: genres[0].title,
         language: languages[0].title,
         condition: conditions[0].title,
         status: status[0].title,
@@ -79,7 +79,7 @@ export const UploadBookProvider = ({ children }) => {
     if (
       newBook.name &&
       newBook.author &&
-      newBook.genre &&
+      newBook.category &&
       newBook.language &&
       newBook.condition &&
       newBook.status
@@ -88,7 +88,7 @@ export const UploadBookProvider = ({ children }) => {
       bookData.append('bookImage', bookImage);
       bookData.append('name', newBook.name);
       bookData.append('author', newBook.author);
-      bookData.append('category', newBook.genre);
+      bookData.append('category', newBook.category);
       bookData.append('language', newBook.language);
       bookData.append('condition', newBook.condition);
       bookData.append('owner', userId);
@@ -111,7 +111,7 @@ export const UploadBookProvider = ({ children }) => {
     setNewBook({
       name: '',
       author: '',
-      genre: genres[0].title,
+      category: genres[0].title,
       language: languages[0].title,
       condition: conditions[0].title,
       owner: userId,

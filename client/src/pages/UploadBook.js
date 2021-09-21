@@ -49,10 +49,10 @@ const UploadBook = () => {
             />
             <Dropdown
               htmlFor='Genre:'
-              name='genre'
-              id='genre'
+              name='category'
+              id='category'
               options={genres}
-              value={newBook.genre}
+              value={newBook.category}
               onChange={textChange}
             />
             <Dropdown

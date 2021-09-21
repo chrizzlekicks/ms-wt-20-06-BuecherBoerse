@@ -5,7 +5,12 @@ const Dropdown = (props) => {
         <label htmlFor={props.htmlFor} name={props.name}>
           {props.htmlFor}
         </label>
-        <select name={props.name} id={props.id} onChange={props.onChange}>
+        <select
+          name={props.name}
+          id={props.id}
+          onChange={props.onChange}
+          defaultValue={props.value}
+        >
           {props.options.map((option) => {
             return (
               <option key={option.id} value={option.title}>

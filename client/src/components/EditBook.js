@@ -36,8 +36,8 @@ const EditBook = () => {
             />
             <Dropdown
               htmlFor='Genre:'
-              name='genre'
-              id='genre'
+              name='category'
+              id='category'
               options={genres}
               value={openBook.category}
               onChange={textChange}

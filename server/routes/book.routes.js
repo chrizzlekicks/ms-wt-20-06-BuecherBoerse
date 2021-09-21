@@ -36,13 +36,15 @@ router
   ); // Remove with DELETE
 
 // Update image
-router.route('/image/:bookId').put(
-  authCtrl.requireSignin,
-  // authCtrl.hasAuthorizationForBook,
-  imgCtrl.UploadImageToMemory,
-  imgCtrl.UploadBookImageToImagekit,
-  bookCtrl.updateImage
-); // Update with PUT
+router
+  .route('/image/:bookId')
+  .put(
+    authCtrl.requireSignin,
+    authCtrl.hasAuthorizationForBook,
+    imgCtrl.UploadImageToMemory,
+    imgCtrl.UploadBookImageToImagekit,
+    bookCtrl.updateImage
+  ); // Update with PUT
 
 // add user and book id to req
 router.param('bookId', bookCtrl.bookByID);
