@@ -46,6 +46,7 @@ export const MessageProvider = ({ children }) => {
         if (res.ok) {
           let data = await res.json();
           const convList = data.reverse();
+          console.log(convList);
           setConversations(convList);
         } else {
           throw new Error('conversations could not be fetched');
@@ -72,6 +73,7 @@ export const MessageProvider = ({ children }) => {
           });
           if (res.ok) {
             const singleConv = await res.json();
+            console.log(singleConv);
             setChat(singleConv);
             setNewMessage({
               sender: user_id,
@@ -115,7 +117,8 @@ export const MessageProvider = ({ children }) => {
         body: JSON.stringify(message),
       });
       if (res.ok) {
-        await res.json();
+        const sentMessage = await res.json();
+        console.log(sentMessage);
       } else {
         throw new Error('Nachricht konnte nicht verschickt werden');
       }

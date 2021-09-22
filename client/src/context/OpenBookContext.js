@@ -133,7 +133,8 @@ export const OpenBookProvider = ({ children }) => {
         body: JSON.stringify(message),
       });
       if (res.ok) {
-        await res.json();
+        const newConv = await res.json();
+        console.log(newConv);
         setAlert({
           display: true,
           icon: <FaCheckCircle />,

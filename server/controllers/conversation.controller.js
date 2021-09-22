@@ -63,7 +63,7 @@ const getConvByUser = async (req, res, next) => {
     // populate messages.send _id name
     let convs = await Conversation.find({ recipients: req.params.userId })
       .populate('recipients', '_id name')
-      .populate('messages', '_id message sender reciever')
+      .populate('messages', '_id message sender reciever createdAt')
       .exec();
     if (!convs) {
       return res.status(404).json({
@@ -86,7 +86,7 @@ const convByID = async (req, res, next, id) => {
   try {
     const conv = await Conversation.findById(id)
       .populate('recipients', '_id name')
-      .populate('messages', '_id message sender reciever')
+      .populate('messages', '_id message sender reciever createdAt')
       .exec();
     if (!conv) {
       return res.status(404).json({

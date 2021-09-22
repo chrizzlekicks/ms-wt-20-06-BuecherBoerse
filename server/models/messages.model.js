@@ -24,7 +24,6 @@ const MessageSchema = new mongoose.Schema(
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
     },
   }
 );
