@@ -39,7 +39,6 @@ const upload = multer({
 const UploadImageToMemory = upload.single('bookImage');
 
 const ShowUploadInfo = (req, res, next) => {
-  //console.log(req.file)
   console.log('File upload to memory successfull.');
   next();
 };
@@ -67,14 +66,13 @@ const UploadBookImageToImagekit = (req, res, next) => {
 
 // For later for removing pictures from the db
 const MoveBookToDeleteFolder = (req, res, next) => {
-  const fileName = req.profile.image.split('/').pop();
+  const fileName = req.book.image.split('/').pop();
   const sourceFilePath = '/b/' + fileName;
   const destinationPath = '/d/';
 
   imagekitUpload
     .moveFile(sourceFilePath, destinationPath)
-    .then((response) => {
-      console.log(response);
+    .then((_) => {
       next();
     })
     .catch((error) => {
@@ -85,7 +83,7 @@ const MoveBookToDeleteFolder = (req, res, next) => {
 // We need the id to delete the file
 const DeleteBookImage = (req, res, next) => {
   // Find by file name and file path
-  const fileName = req.profile.image.split('/').pop();
+  const fileName = req.book.image.split('/').pop();
   let ImageId = 0;
   imagekitUpload.listFiles(
     {

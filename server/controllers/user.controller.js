@@ -14,6 +14,7 @@ const create = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       what: err.name,
+      error: err.message,
     });
   }
 };

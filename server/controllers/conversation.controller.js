@@ -21,11 +21,12 @@ const createConv = async (req, res) => {
     return res.status(201).json({
       message: 'Nachricht erfolgreich gesendet!',
       nachricht: message,
-      conversation: conversation,
+      conversation: conversation
     });
   } catch (err) {
     return res.status(500).json({
       what: err.name,
+      error: err.message
     });
   }
 };
@@ -48,11 +49,11 @@ const writeMessage = async (req, res) => {
     return res.status(201).json({
       message: 'Nachricht erfolgreich gesendet!',
       nachricht: message,
-      conversation: conversation,
+      conversation: conversation
     });
   } catch (err) {
     return res.status(500).json({
-      what: err.name,
+      what: err.name
     });
   }
 };
@@ -67,7 +68,7 @@ const getConvByUser = async (req, res, next) => {
       .exec();
     if (!convs) {
       return res.status(404).json({
-        error: 'User has no conversations',
+        error: 'User has no conversations'
       });
     }
 
@@ -76,7 +77,7 @@ const getConvByUser = async (req, res, next) => {
     next();
   } catch (err) {
     return res.status(500).json({
-      what: err.name,
+      what: err.name
     });
   }
 };
@@ -90,7 +91,7 @@ const convByID = async (req, res, next, id) => {
       .exec();
     if (!conv) {
       return res.status(404).json({
-        error: 'Conversation not found',
+        error: 'Conversation not found'
       });
     }
 
@@ -108,7 +109,7 @@ const convByID = async (req, res, next, id) => {
   } catch (err) {
     return res.status(500).json({
       what: err.name,
-      err: err.message,
+      err: err.message
     });
   }
 };
@@ -131,11 +132,11 @@ const countUnreadMessages = async (req, res) => {
 
     return res.status(200).json({
       message: 'Unread Conversations successfully requested!',
-      unread: counterUnread,
+      unread: counterUnread
     });
   } catch (error) {
     return res.status(500).json({
-      what: err.name,
+      what: err.name
     });
   }
 };
@@ -154,7 +155,7 @@ const deleteConvByID = async (req, res) => {
 
       return res.status(200).json({
         message: 'Conversation successfully deleted!',
-        conversation: deletedConv,
+        conversation: deletedConv
       });
     } else {
       // Remove current user from conv
@@ -168,12 +169,12 @@ const deleteConvByID = async (req, res) => {
 
       return res.status(200).json({
         message: 'User from Conversation successfully removed!',
-        conversation: conv,
+        conversation: conv
       });
     }
   } catch (err) {
     return res.status(500).json({
-      what: err.name,
+      what: err.name
     });
   }
 };
@@ -189,5 +190,5 @@ export default {
   writeMessage,
   getConvByUser,
   deleteConvByID,
-  countUnreadMessages,
+  countUnreadMessages
 };

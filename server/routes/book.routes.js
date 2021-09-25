@@ -14,7 +14,7 @@ router
     imgCtrl.UploadImageToMemory,
     imgCtrl.UploadBookImageToImagekit,
     bookCtrl.create
-  ); // login notwendig
+  );
 
 // New Route to getBooks by User
 router.route('/user/:userId').get(authCtrl.requireSignin, bookCtrl.bookByUser);
