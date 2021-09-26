@@ -149,7 +149,7 @@ const deleteConvByID = async (req, res) => {
             isLastRecipient = true;
         }
 
-        if (isLastRecipient == true) {
+        if (isLastRecipient) {
             // Delete conv if last iser
             let deletedConv = await conv.remove();
 

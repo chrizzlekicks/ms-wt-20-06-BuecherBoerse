@@ -2,12 +2,15 @@
 @mixin show-shelf {
   max-width: $mx-wdth;
   margin: 1rem auto;
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .shelf-container {
   @include show-shelf;
   gap: 1rem;
+  flex-flow: column nowrap;
 }
 
 .empty-shelf {
@@ -24,7 +27,7 @@
 
 @media (min-width: 800px) {
   .shelf-container {
-    grid-template-columns: repeat(4, 1fr);
+    flex-flow: row wrap;
     gap: 1.5rem;
     padding: 1rem;
   }
