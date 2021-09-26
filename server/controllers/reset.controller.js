@@ -32,6 +32,7 @@ const requestPasswordReset = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       what: err.name,
+      error: err.message
     });
   }
   const link =
@@ -64,8 +65,11 @@ async function sendPasswordResetMail(mailTo, resetLink) {
     bcc: mailFrom, // also send to self for docu
     to: mailTo, // list of receivers
     subject: 'Kodebi Passwort Zurücksetzen', // Subject line
-    text: 'Um dein Passwort zurückzusetzen klicke bitte diesen Link: ' + resetLink, // plain text body
-    html: '<b>Um dein Passwort zurückzusetzen klicke bitte diesen Link:</b>' + resetLink, // html body
+    text:
+      'Um dein Passwort zurückzusetzen klicke bitte diesen Link: ' + resetLink, // plain text body
+    html:
+      '<b>Um dein Passwort zurückzusetzen klicke bitte diesen Link:</b>' +
+      resetLink, // html body
   });
 
   console.log('Message sent: %s', info.messageId);
@@ -108,6 +112,7 @@ const resetPassword = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       what: err.name,
+      error: err.message,
     });
   }
 
