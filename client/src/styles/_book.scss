@@ -47,12 +47,13 @@
 
     img {
       width: 100%;
+      object-fit: cover;
       border-top-left-radius: $brdr-rds;
       border-top-right-radius: $brdr-rds;
     }
 
     .book-info {
-      width: auto;
+      width: 16rem;
       height: 10rem;
       margin-left: 0;
       grid-template-rows: auto auto 1.5rem;

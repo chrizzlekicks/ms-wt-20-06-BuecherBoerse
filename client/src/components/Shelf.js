@@ -1,9 +1,9 @@
 import Book from './Book';
 
-const Shelf = (props) => {
+const Shelf = ({ children }) => {
   return (
     <>
-      {props.children.length < 1 ? (
+      {children.length < 1 ? (
         <section className='empty-shelf'>
           <div className='error-message basic-flex'>
             <h3 className='title'>
@@ -14,7 +14,7 @@ const Shelf = (props) => {
         </section>
       ) : (
         <ul className='shelf-container'>
-          {props.children.map((book) => {
+          {children.map((book) => {
             return <Book key={book._id} {...book} />;
           })}
         </ul>

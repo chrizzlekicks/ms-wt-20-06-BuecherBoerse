@@ -14,34 +14,34 @@ router.use(authCtrl.requireSignin);
 // Route: /api/messages
 // Create conversation
 router
-  .route('/')
-  .post(authCtrl.hasAuthorizationForNewMessage, conversationCtrl.createConv);
+    .route('/')
+    .post(authCtrl.hasAuthorizationForNewMessage, conversationCtrl.createConv);
 
 // Route for messages counter
 router
-  .route('/unread/:convId')
-  .get(
-    authCtrl.hasAuthorizationForConversation,
-    conversationCtrl.countUnreadMessages
-  );
+    .route('/unread/:convId')
+    .get(
+        authCtrl.hasAuthorizationForConversation,
+        conversationCtrl.countUnreadMessages
+    );
 
 // Erstelle Nachricht in bestimmter Conversation, erhalte bestimmte Conversation
 // Loesche Konversation
 router
-  .route('/:convId')
-  .all(authCtrl.hasAuthorizationForConversation)
-  .get(conversationCtrl.read)
-  .post(conversationCtrl.writeMessage)
-  .delete(conversationCtrl.deleteConvByID);
+    .route('/:convId')
+    .all(authCtrl.hasAuthorizationForConversation)
+    .get(conversationCtrl.read)
+    .post(conversationCtrl.writeMessage)
+    .delete(conversationCtrl.deleteConvByID);
 
 // Erhalte alle Conversations in denen der User beteiligt ist
 router
-  .route('/user/:userId')
-  .get(
-    authCtrl.hasAuthorization,
-    conversationCtrl.getConvByUser,
-    conversationCtrl.read
-  );
+    .route('/user/:userId')
+    .get(
+        authCtrl.hasAuthorization,
+        conversationCtrl.getConvByUser,
+        conversationCtrl.read
+    );
 
 // Needed for Auth
 router.param('convId', conversationCtrl.convByID);

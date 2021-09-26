@@ -54,6 +54,7 @@
 }
 
 input,
+select,
 textarea {
   padding: 0.25rem;
   border: 1px solid $brnd-clr;
@@ -74,6 +75,7 @@ textarea {
 
 @media (min-width: 800px) {
   input,
+  select,
   textarea {
     padding: 0.5rem;
     font-size: $fnt-sz;

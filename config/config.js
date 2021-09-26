@@ -10,14 +10,14 @@ const config = {
       ':' +
       (process.env.MONGO_PORT || '27017') +
       '/userlogin',
-  mailUser: process.env.mail_user,
-  mailPass: process.env.mail_pass,
-  mailFrom: process.env.mail_from,
-  mailSmtpServer: process.env.mail_server,
-  passwortResetSalt: process.env.passwort_reset_salt || 'YOUR_secret_key',
-  ImagePublicKey: process.env.imagekit_pub_key,
-  ImagePrivateKey: process.env.imagekit_private_key,
-  ImageUrlEndpoint: process.env.imagekit_url_endpoint,
+  mailUser: process.env.MAIL_USER,
+  mailPass: process.env.MAIL_PASS,
+  mailFrom: process.env.MAIL_FROM,
+  mailSmtpServer: process.env.MAIL_SERVER,
+  passwortResetSalt: process.env.PASSWORD_RESET_SALT || 'YOUR_secret_key',
+  ImagePublicKey: process.env.IMAGEKIT_PUB_KEY,
+  ImagePrivateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  ImageUrlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 };
 
 export default config;

@@ -8,6 +8,8 @@ import Form from '../components/Form';
 import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
 import { useUploadBookContext } from '../context/UploadBookContext';
+import Dropdown from '../components/Dropdown';
+import { genres, languages, conditions, status } from '../utils/dropdown';
 
 const UploadBook = () => {
   const { alert, loading, closeSubmenu } = useGlobalContext();
@@ -45,31 +47,36 @@ const UploadBook = () => {
               value={newBook.author}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Genre:'
-              name='genre'
-              id='genre'
-              placeholder='Genre des Buches'
-              value={newBook.genre}
+              name='category'
+              id='category'
+              options={genres}
+              value={newBook.category}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Sprache:'
               name='language'
               id='language'
-              placeholder='Sprache des Buches'
+              options={languages}
               value={newBook.language}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Zustand:'
               name='condition'
               id='condition'
-              placeholder='Zustand des Buches'
+              options={conditions}
               value={newBook.condition}
+              onChange={textChange}
+            />
+            <Dropdown
+              htmlFor='Status:'
+              name='status'
+              id='status'
+              options={status}
+              value={newBook.status}
               onChange={textChange}
             />
             <TextAreaInput

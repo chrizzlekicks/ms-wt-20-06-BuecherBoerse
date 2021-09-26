@@ -4,11 +4,12 @@ import Form from './Form';
 import InputField from './InputField';
 import TextAreaInput from './TextAreaInput';
 import ActionBtn from './ActionBtn';
+import Dropdown from './Dropdown';
+import { genres, languages, conditions, status } from '../utils/dropdown';
 
 const EditBook = () => {
   const { openBook, showEditBook, updateBook, textChange, closeEditWindow } =
     useOpenBookContext();
-  const { name, author, category, language, condition, description } = openBook;
 
   return (
     <>
@@ -21,7 +22,7 @@ const EditBook = () => {
               name='name'
               id='name'
               placeholder='Name des Buches'
-              value={name}
+              value={openBook.name}
               onChange={textChange}
             />
             <InputField
@@ -30,43 +31,48 @@ const EditBook = () => {
               name='author'
               id='author'
               placeholder='Autor*in des Buches'
-              value={author}
+              value={openBook.author}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Genre:'
               name='category'
               id='category'
-              placeholder='Genre des Buches'
-              value={category}
+              options={genres}
+              value={openBook.category}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Sprache:'
               name='language'
               id='language'
-              placeholder='Sprache des Buches'
-              value={language}
+              options={languages}
+              value={openBook.language}
               onChange={textChange}
             />
-            <InputField
-              type='text'
+            <Dropdown
               htmlFor='Zustand:'
               name='condition'
               id='condition'
-              placeholder='Zustand des Buches'
-              value={condition}
+              options={conditions}
+              value={openBook.condition}
+              onChange={textChange}
+            />
+            <Dropdown
+              htmlFor='Status:'
+              name='status'
+              id='status'
+              options={status}
+              value={openBook.status}
               onChange={textChange}
             />
             <TextAreaInput
               htmlFor='Beschreibung:'
-              name='desc'
-              id='desc'
+              name='description'
+              id='description'
               rows='2'
               placeholder='Kurze Beschreibung des Buches'
-              value={description}
+              value={openBook.description}
               onChange={textChange}
             />
             <div className='action-btn-container'>

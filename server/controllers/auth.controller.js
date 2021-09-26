@@ -6,16 +6,16 @@ import config from './../../config/config';
 const signin = async (req, res) => {
   try {
     let user = await User.findOne({
-      email: req.body.email,
+      email: req.body.email
     });
     if (!user)
       return res.status(404).json({
-        error: 'User not found',
+        error: 'User not found'
       });
 
     if (!user.authenticate(req.body.password)) {
       return res.status(401).send({
-        error: "Email and password don't match.",
+        error: "Email and password don't match."
       });
     }
 
@@ -23,18 +23,19 @@ const signin = async (req, res) => {
     const token = jwt.sign(
       {
         _id: user._id,
-        group: user.group,
+        name: user.name,
+        group: user.group
       },
       config.jwtSecret,
       {
-        expiresIn: '30 days',
+        expiresIn: '30 days'
       }
     );
 
     const oneDay = 1000 * 60 * 60 * 24;
     res.cookie('t', token, {
       httpOnly: true,
-      expire: new Date(Date.now() + oneDay),
+      expire: new Date(Date.now() + oneDay)
     });
 
     return res.json({
@@ -43,12 +44,12 @@ const signin = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        group: user.group,
-      },
+        group: user.group
+      }
     });
   } catch (err) {
     return res.status(500).json({
-      error: 'Could not sign in',
+      error: 'Could not sign in'
     });
   }
 };
@@ -56,7 +57,7 @@ const signin = async (req, res) => {
 const signout = (req, res) => {
   res.clearCookie('t');
   return res.status(200).json({
-    message: 'signed out',
+    message: 'signed out'
   });
 };
 
@@ -65,7 +66,7 @@ const signout = (req, res) => {
 // Wird in den Routen benutzt
 const requireSignin = expressJwt({
   secret: config.jwtSecret,
-  userProperty: 'auth',
+  userProperty: 'auth'
 });
 
 // Darf der Benutzer die Aktion ausfuehren?
@@ -75,7 +76,7 @@ const hasAuthorization = (req, res, next) => {
 
   if (!authorized) {
     return res.status(403).json({
-      error: 'User is not authorized',
+      error: 'User is not authorized'
     });
   }
   next();
@@ -86,7 +87,7 @@ const hasAuthorizationForNewMessage = (req, res, next) => {
 
   if (!authorized) {
     return res.status(403).json({
-      error: 'User is not the sender of the new message',
+      error: 'User is not the sender of the new message'
     });
   }
   next();
@@ -101,7 +102,7 @@ const hasAuthorizationForConversation = (req, res, next) => {
 
   if (!authorized) {
     return res.status(403).json({
-      error: 'User is not part of conversation',
+      error: 'User is not part of conversation'
     });
   }
   next();
@@ -112,7 +113,7 @@ const hasAuthorizationForBook = (req, res, next) => {
   const authorized = req.auth && req.book.owner == req.auth._id;
   if (!authorized) {
     return res.status(403).json({
-      error: 'User is not authorized for book',
+      error: 'User is not authorized for book'
     });
   }
   next();
@@ -125,5 +126,5 @@ export default {
   hasAuthorization,
   hasAuthorizationForBook,
   hasAuthorizationForConversation,
-  hasAuthorizationForNewMessage,
+  hasAuthorizationForNewMessage
 };

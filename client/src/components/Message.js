@@ -1,6 +1,9 @@
 import { FaUserCircle } from 'react-icons/fa';
 
-const Message = ({ recipients, message, sender }) => {
+const Message = ({ recipients, message, sender, createdAt }) => {
+  const formattedDate =
+    createdAt && createdAt.slice(0, 16).concat(' Uhr').split('T').join(' | ');
+
   return (
     <>
       <article className='message basic-flex'>
@@ -14,6 +17,7 @@ const Message = ({ recipients, message, sender }) => {
                 ? recipients[0].name
                 : recipients[1].name}
             </h4>
+            <p>{formattedDate}</p>
           </header>
           <p className='message-body'>{message}</p>
         </aside>

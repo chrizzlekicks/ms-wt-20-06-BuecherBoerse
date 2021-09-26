@@ -49,7 +49,6 @@
   }
 
   p {
-    display: none;
     margin-bottom: 0;
   }
 }
@@ -72,6 +71,8 @@
 
   .message-header {
     margin-bottom: 0.25rem;
+    display: flex;
+    flex-direction: column;
 
     h4 {
       display: flex;
@@ -104,13 +105,10 @@
 
   .glimpse-message {
     margin-left: 0.5rem;
+    width: 100%;
 
     h4 {
       margin-bottom: 0.5rem;
-    }
-
-    p {
-      display: block;
     }
   }
 
@@ -119,6 +117,10 @@
 
     .message-header {
       margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 
