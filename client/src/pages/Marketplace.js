@@ -8,31 +8,29 @@ import Alert from '../components/Alert';
 import { motion } from 'framer-motion';
 
 const Marketplace = () => {
-  const { alert, loading, closeSubmenu } = useGlobalContext();
-  const { books } = useMarketplaceContext();
+    const { alert, loading, closeSubmenu } = useGlobalContext();
+    const { books } = useMarketplaceContext();
 
-  return (
-    <>
-      {loading ? (
-        <main>
-          <Loading />
-        </main>
-      ) : (
-        <motion.main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          onClick={closeSubmenu}
-        >
-          <SearchBar />
-          <GenreFilter />
-          <Shelf books={books}>{books}</Shelf>
-          {alert.display && <Alert />}
-        </motion.main>
-      )}
-    </>
-  );
+    return (
+        <>
+            {loading ? (
+                <Loading />
+            ) : (
+                <motion.main
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    onClick={closeSubmenu}
+                >
+                    <SearchBar />
+                    <GenreFilter />
+                    <Shelf>{books}</Shelf>
+                    {alert.display && <Alert />}
+                </motion.main>
+            )}
+        </>
+    );
 };
 
 export default Marketplace;
