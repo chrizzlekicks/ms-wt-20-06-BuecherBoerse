@@ -6,6 +6,8 @@ import userCtrl from '../controllers/user.controller';
 
 const router = express.Router();
 
+// Add Validator for books? sanitize input
+// Check for fields
 router
   .route('/')
   .get(bookCtrl.list) //Seite mit allen hochgeladenen Büchern

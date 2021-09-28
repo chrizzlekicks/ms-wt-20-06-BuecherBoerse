@@ -11,6 +11,10 @@ router.use(authCtrl.requireSignin);
 // refactor route dont use params, add them to routes if needed
 // with req.query
 
+// Add Validator to post for username, message
+// add Check for fields
+// sanitize input
+
 // Route: /api/messages
 // Create conversation
 router
@@ -24,6 +28,10 @@ router
         authCtrl.hasAuthorizationForConversation,
         conversationCtrl.countUnreadMessages
     );
+
+// Add Validator to post for username, message
+// add Check for fields
+// sanitize input
 
 // Erstelle Nachricht in bestimmter Conversation, erhalte bestimmte Conversation
 // Loesche Konversation

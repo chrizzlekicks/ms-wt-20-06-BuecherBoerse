@@ -10,6 +10,9 @@ import conversationRoutes from './routes/conversation.routes';
 import path from 'path';
 import config from '../config/config';
 
+import winston from 'winston';
+import expressWinston from 'express-winston';
+
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 
@@ -44,8 +47,23 @@ if (config.env === 'production') {
     app.use(express.static(path.join(CURRENT_WORKING_DIR, 'client/build')));
 }
 
-// use morgan for logging
-// Use rate-limiter
+// rate-limiter-flexible
+
+// use winston and express-winston for logging
+app.use(expressWinston.logger({
+    transports: [
+    new winston.transports.Console()
+    ],
+    format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.json()
+    ),
+    meta: true, // optional: control whether you want to log the meta data about the request (default to true)
+    msg: "HTTP {{req.method}} {{req.url}}", // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
+    expressFormat: true, // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
+    colorize: false, // Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red).
+    ignoreRoute: function (req, res) { return false; } // optional: allows to skip some log messages based on request and/or response
+}));
 
 // mount routes
 app.use('/', userRoutes);
@@ -60,10 +78,15 @@ app.get('*', (req, res) => {
     }
 });
 
-app.use((err, req, res, next) => {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).json({ error: err.name + ': ' + err.message });
-    }
-});
+// use winston and express-winston for error logging
+app.use(expressWinston.errorLogger({
+    transports: [
+    new winston.transports.Console()
+    ],
+    format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.json()
+    )
+}));
 
 export default app;
