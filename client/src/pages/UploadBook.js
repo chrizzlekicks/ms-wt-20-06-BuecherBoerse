@@ -5,7 +5,7 @@ import { useGlobalContext } from '../context/GlobalContext';
 import TextAreaInput from '../components/TextAreaInput';
 import ActionBtn from '../components/ActionBtn';
 import Form from '../components/Form';
-import Loading from '../components/Loading';
+import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
 import { useUploadBookContext } from '../context/UploadBookContext';
 import Dropdown from '../components/Dropdown';
@@ -18,7 +18,7 @@ const UploadBook = () => {
 
     return (
         <>
-            {loading && <Loading />}
+            {loading && <Loading2 />}
             <motion.main
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

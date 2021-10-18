@@ -6,12 +6,13 @@ import {
     useContext
 } from 'react';
 import { useGlobalContext } from './GlobalContext';
+import { API_BOOKSBYUSER } from '../config/config';
 
 const MyBooksContext = createContext();
 
 export const MyBooksProvider = ({ children }) => {
     const [myBooks, setMyBooks] = useState([]);
-    const { setLoading, API_BOOKSBYUSER, userId, jwt } = useGlobalContext();
+    const { setLoading, userId, jwt } = useGlobalContext();
 
     // GET Bücher des Users
     const fetchMyBooks = useCallback(
@@ -42,7 +43,7 @@ export const MyBooksProvider = ({ children }) => {
     // hole Bücher des Users
     useEffect(() => {
         fetchMyBooks(API_BOOKSBYUSER, userId, jwt);
-    }, [fetchMyBooks, API_BOOKSBYUSER, userId, jwt]);
+    }, [fetchMyBooks, userId, jwt]);
 
     // sammle alle states und functions und gebe sie an children weiter
     const myValues = {

@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { FaFlushed } from 'react-icons/fa';
 import { useGlobalContext } from '../context/GlobalContext';
+import { API_MESSAGES, API_MESSAGESUSER } from '../config/config';
 
 const MessageContext = createContext();
 
@@ -28,8 +29,6 @@ export const MessageProvider = ({ children }) => {
         setLoading,
         userId,
         jwt,
-        API_MESSAGESUSER,
-        API_MESSAGES,
         setAlert
     } = useGlobalContext();
 
@@ -137,14 +136,7 @@ export const MessageProvider = ({ children }) => {
     // ziehe alle Konversationen eines Users
     useEffect(() => {
         fetchUserConversations(API_MESSAGESUSER, userId, jwt);
-    }, [
-        API_MESSAGESUSER,
-        fetchUserConversations,
-        isMessageSent,
-        setIsMessageSent,
-        userId,
-        jwt
-    ]);
+    }, [fetchUserConversations, isMessageSent, setIsMessageSent, userId, jwt]);
 
     // update die Nachrichten
     useEffect(() => {
@@ -154,7 +146,7 @@ export const MessageProvider = ({ children }) => {
             jwt,
             userId
         );
-    }, [isMessageSent, API_MESSAGES, fetchMessages, jwt, userId]);
+    }, [isMessageSent, fetchMessages, jwt, userId]);
 
     // rufe eine Konversation und die dazugehörigen Nachrichten auf
     const openConversation = (e) => {

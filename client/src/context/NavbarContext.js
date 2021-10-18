@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useRef, useEffect } from 'react';
 import { useGlobalContext } from './GlobalContext';
+import { AUTH_SIGNOUT } from '../config/config';
 
 const NavbarContext = createContext();
 
 export const NavbarProvider = ({ children }) => {
-    const AUTH_SIGNOUT = '/auth/signout';
     const [navbar, setNavbar] = useState(false);
     const [location, setLocation] = useState({});
     const container = useRef(null);

@@ -6,6 +6,7 @@ import {
     useCallback
 } from 'react';
 import { useGlobalContext } from './GlobalContext';
+import { API_BOOKS } from '../config/config';
 
 const MarketplaceContext = createContext();
 
@@ -13,7 +14,7 @@ export const MarketplaceProvider = ({ children }) => {
     const [allBooks, setAllBooks] = useState([]);
     const [books, setBooks] = useState(allBooks);
     const [search, setSearch] = useState('');
-    const { setLoading, API_BOOKS } = useGlobalContext();
+    const { setLoading } = useGlobalContext();
 
     // GET Bücher vom Backend
     const fetchBooks = useCallback(
@@ -41,7 +42,7 @@ export const MarketplaceProvider = ({ children }) => {
     // hole alle Bücher
     useEffect(() => {
         fetchBooks(API_BOOKS);
-    }, [fetchBooks, API_BOOKS]);
+    }, [fetchBooks]);
 
     // filter Bücher nach Suche
     useEffect(() => {

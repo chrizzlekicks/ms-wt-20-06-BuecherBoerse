@@ -2,6 +2,12 @@ import { createContext, useContext, useState } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
+import {
+    AUTH_SIGNIN,
+    API_REQUESTRESET,
+    API_RESETPASSWORD,
+    API_USERS
+} from '../config/config';
 
 const AuthContext = createContext();
 
@@ -12,10 +18,7 @@ export const AuthProvider = ({ children }) => {
         email: '',
         password: ''
     });
-    const { API_USERS, setUser, setAlert, setLoading } = useGlobalContext();
-    const AUTH_SIGNIN = '/auth/signin/';
-    const API_REQUESTRESET = '/auth/requestPasswordReset/';
-    const API_RESETPASSWORD = '/auth/resetPassword';
+    const { setUser, setAlert, setLoading } = useGlobalContext();
     const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
     const forwardPage = useHistory();
     const { state, search } = useLocation();
