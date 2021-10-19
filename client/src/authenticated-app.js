@@ -1,9 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Navbar from './components/Navbar';
-import ScrollToTop from './components/ScrollToTop';
 import Loading from './components/Loading';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import { MarketplaceProvider } from './context/MarketplaceContext';
 import { UploadBookProvider } from './context/UploadBookContext';
 import { OpenBookProvider } from './context/OpenBookContext';
@@ -20,7 +21,6 @@ const UploadBook = lazy(() => import('./pages/UploadBook'));
 const DataPrivacy = lazy(() => import('./pages/DataPrivacy'));
 const Imprint = lazy(() => import('./pages/Imprint'));
 const Error = lazy(() => import('./pages/Error'));
-const Footer = lazy(() => import('./components/Footer'));
 
 function AuthApp() {
     return (
