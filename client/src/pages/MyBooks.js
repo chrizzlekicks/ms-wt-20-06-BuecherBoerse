@@ -7,31 +7,28 @@ import { motion } from 'framer-motion';
 import Shelf from '../components/Shelf';
 
 const MyBooks = () => {
-  const { alert, closeSubmenu, loading } = useGlobalContext();
-  const { myBooks } = useMyBooksContext();
+    const { alert, closeSubmenu, loading } = useGlobalContext();
+    const { myBooks } = useMyBooksContext();
 
-  return (
-    <>
-      {loading ? (
-        <main>
-          <Loading />
-        </main>
-      ) : (
-        <motion.main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          onClick={closeSubmenu}
-        >
-          <UserDashboard />
-          <Shelf myBooks={myBooks}>{myBooks}</Shelf>
-          {alert.display && <Alert />}
-        </motion.main>
-      )}
-      ;
-    </>
-  );
+    return (
+        <>
+            {loading ? (
+                <Loading />
+            ) : (
+                <motion.main
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    onClick={closeSubmenu}
+                >
+                    <UserDashboard />
+                    <Shelf>{myBooks}</Shelf>
+                    {alert.display && <Alert />}
+                </motion.main>
+            )}
+        </>
+    );
 };
 
 export default MyBooks;

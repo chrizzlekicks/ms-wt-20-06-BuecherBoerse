@@ -8,6 +8,7 @@ import {
 import { useParams, useHistory } from 'react-router-dom';
 import { useGlobalContext } from './GlobalContext';
 import { FaCheckCircle, FaPoo } from 'react-icons/fa';
+import { API_BOOKS, API_MESSAGES } from '../config/config';
 
 const OpenBookContext = createContext();
 
@@ -23,8 +24,7 @@ export const OpenBookProvider = ({ children }) => {
     });
     const history = useHistory();
     const { id } = useParams();
-    const { setLoading, setAlert, API_BOOKS, API_MESSAGES, userId, jwt } =
-        useGlobalContext();
+    const { setLoading, setAlert, userId, jwt } = useGlobalContext();
 
     // GET Buchinfo vom Backend
     const fetchSingleBook = useCallback(
@@ -159,7 +159,7 @@ export const OpenBookProvider = ({ children }) => {
     // öffne Buch
     useEffect(() => {
         fetchSingleBook(API_BOOKS, id, jwt);
-    }, [API_BOOKS, fetchSingleBook, id, jwt]);
+    }, [fetchSingleBook, id, jwt]);
 
     // lösche Buch
     const removeBook = () => {

@@ -18,9 +18,7 @@ const OpenBook = () => {
     if (loading) {
         return (
             <>
-                <main>
-                    <Loading />
-                </main>
+                <Loading />
             </>
         );
     }

@@ -4,12 +4,12 @@
   "private": true,
   "dependencies": {
     "framer-motion": "^4.1.17",
-    "node-sass": "^6.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "sass": "^1.42.1"
   },
   "scripts": {
     "start": "react-scripts start",
