@@ -22,12 +22,7 @@ const Navbar = () => {
                 <header className='nav-content'>
                     <div className='nav-header basic-flex'>
                         <Link to='/' className='basic-flex' onClick={hideLinks}>
-                            <img
-                                src={logo}
-                                alt='logo'
-                                width='160'
-                                height='60'
-                            />
+                            <img src={logo} alt='logo' width='80' height='80' />
                         </Link>
                         <button className='nav-toggle' onClick={toggleNavbar}>
                             {showLinks ? <FaBookOpen /> : <FaBook />}

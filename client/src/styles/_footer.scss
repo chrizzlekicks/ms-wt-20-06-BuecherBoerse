@@ -14,34 +14,44 @@
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-
+    
     .footer-wrapper {
       width: 100%;
       display: flex;
       max-width: $mx-wdth;
-      justify-content: space-between;
-      align-items: center;
-        
+      flex-flow: column wrap;
+
+      @media (min-width: 800px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
       .footer-link-container {
         display: flex;
         flex-flow: column;
         align-items: flex-start;
-
+        padding: 0.5rem 0;
+        
         .footer-links {
           @include footer-link-wrapper;
           justify-content: flex-start;
         }
-
+        
         .footer-social {
           @include footer-link-wrapper;
-          justify-content: flex-end;
+          justify-content: flex-start;
+
+          @media (min-width: 800px) {
+            justify-content: flex-end;  
+          }
         }
       }
+
     }
   }
 
   .heart {
-    color: red;
+    color: $fnt-clr;
   }
 }

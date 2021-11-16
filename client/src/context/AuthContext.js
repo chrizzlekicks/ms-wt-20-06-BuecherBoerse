@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useUrlParams } from '../hooks/useUrlParams';
 import {
     AUTH_SIGNIN,
     API_REQUESTRESET,
@@ -22,12 +23,7 @@ export const AuthProvider = ({ children }) => {
     const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
     const forwardPage = useHistory();
     const { state, search } = useLocation();
-
-    // custom hook um die Query Parameter aus der URL zu bekommen
-    const useQuery = () => {
-        return new URLSearchParams(search);
-    };
-    let query = useQuery();
+    let query = useUrlParams(search);
 
     // POST registriere neuen User im Backend / logge User ein (Backend)
     const signInUser = async (url, tryLogin) => {

@@ -18,11 +18,7 @@
 
 .footer-link {
   @include link;
-  margin-right: 0.5rem;    
-  
-  a:hover {
-    color: $bckgrnd-clr;
-  }
+  margin-right: 0.5rem;
 }
 
 @media (min-width: 800px) {

@@ -24,7 +24,7 @@ const Footer = () => {
                                 <span className='heart'>
                                     <FaHeart />
                                 </span>{' '}
-                                in Münster
+                                in Berlin und München
                             </p>
                             <div className='footer-social'>
                                 <a
@@ -34,9 +34,7 @@ const Footer = () => {
                                         cursor: 'pointer'
                                     }}
                                 >
-                                    <FaGithub
-                                        style={{ marginLeft: '0.75rem' }}
-                                    />
+                                    <FaGithub style={{ margin: '0 0.25rem' }} />
                                 </a>
                                 <a
                                     href='https://www.instagram.com/kodebi_bookshare/'

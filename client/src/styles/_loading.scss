@@ -1,6 +1,6 @@
 .loading {
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.46);
+  background: rgba(242, 234, 208, 0.46);
   height: 100vh;
   z-index: 3;
   display: grid;
@@ -8,7 +8,7 @@
 }
 
 .load-wrapper {
-  background: rgba(255, 255, 255, 0.46);
+  background: rgba(242, 234, 208, 0.46);
   top: 0;
   left: 0;
   width: 100vw;
@@ -32,7 +32,7 @@
 .loader {
   width: 6rem;
   height: 6rem;
-  border: 4px solid $clr-gry;
+  border: 4px solid $sm-clr;
   border-radius: 50%;
   border-top-color: $brnd-clr;
   animation: spinner 0.6s linear infinite;
