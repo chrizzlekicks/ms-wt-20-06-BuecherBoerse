@@ -56,9 +56,15 @@ export const MarketplaceProvider = ({ children }) => {
 
     // ziehe Kategorien der Bücher
     const categories = [
-        'alle',
+        'alle bücher',
         ...new Set(allBooks.map((book) => book.category))
     ];
+
+    // ziehe Status der Bücher
+    const status = [...new Set(allBooks.map((book) => book.status))];
+
+    // ziehe Sprache der Bücher
+    const lenguajes = [...new Set(allBooks.map((book) => book.language))];
 
     // verarbeite den Input des Suchfeldes
     const handleSearch = (e) => {
@@ -66,12 +72,24 @@ export const MarketplaceProvider = ({ children }) => {
     };
 
     // filtert Bücher anhand der Kategorien
-    const filterBooks = (category) => {
-        if (category === 'alle') {
+    const filterByCategory = (category) => {
+        if (category === 'alle bücher') {
             return setBooks(allBooks);
         }
         let filteredBooks = allBooks.filter(
             (book) => book.category === category
+        );
+        setBooks(filteredBooks);
+    };
+
+    const filterByStatus = (status) => {
+        let filteredBooks = allBooks.filter((book) => book.status === status);
+        setBooks(filteredBooks);
+    };
+
+    const filterByLanguage = (language) => {
+        let filteredBooks = allBooks.filter(
+            (book) => book.language === language
         );
         setBooks(filteredBooks);
     };
@@ -81,8 +99,12 @@ export const MarketplaceProvider = ({ children }) => {
         allBooks,
         books,
         categories,
+        lenguajes,
+        status,
         handleSearch,
-        filterBooks
+        filterByCategory,
+        filterByStatus,
+        filterByLanguage
     };
 
     return (

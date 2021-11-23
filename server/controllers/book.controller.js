@@ -35,7 +35,7 @@ const create = async (req, res) => {
 const list = async (req, res) => {
     try {
         let bookList = await Book.find().select(
-            'name author image category owner status updated created group'
+            'name author image category owner language status updated created'
         );
         res.json(bookList);
     } catch (err) {

@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useRef, useEffect } from 'react';
+import {
+    createContext,
+    useContext,
+    useState,
+    useRef,
+    useEffect,
+    useLayoutEffect
+} from 'react';
 import { useGlobalContext } from './GlobalContext';
 import { AUTH_SIGNOUT } from '../config/config';
 
@@ -49,7 +56,7 @@ export const NavbarProvider = ({ children }) => {
     });
 
     // bestimme die Position des Submenus
-    useEffect(() => {
+    useLayoutEffect(() => {
         const submenu = container.current;
         const { divCenter, divBottom } = location;
         submenu.style.left = `${divCenter}px`;

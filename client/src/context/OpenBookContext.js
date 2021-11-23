@@ -14,7 +14,6 @@ const OpenBookContext = createContext();
 
 export const OpenBookProvider = ({ children }) => {
     const [openBook, setOpenBook] = useState({});
-    const [showDesc, setShowDesc] = useState(false);
     const [showEditBook, setShowEditBook] = useState(false);
     const [showMessageModal, setShowMessageModal] = useState(false);
     const [newConv, setNewConv] = useState({
@@ -187,11 +186,6 @@ export const OpenBookProvider = ({ children }) => {
         setShowEditBook(false);
     };
 
-    // minimiere Buchbeschreibung
-    const collapseDesc = () => {
-        setShowDesc(!showDesc);
-    };
-
     // kontaktiere Besitzer des Buchs
     const messageUser = () => {
         setShowMessageModal(true);
@@ -222,14 +216,12 @@ export const OpenBookProvider = ({ children }) => {
         openBook,
         showEditBook,
         showMessageModal,
-        showDesc,
         newConv,
         removeBook,
         openEditWindow,
         textChange,
         updateBook,
         closeEditWindow,
-        collapseDesc,
         messageUser,
         msgModalInput,
         submitConv,

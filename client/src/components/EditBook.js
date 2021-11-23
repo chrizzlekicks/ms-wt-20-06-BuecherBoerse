@@ -13,11 +13,12 @@ const EditBook = () => {
 
     return (
         <>
-            <ModalWrapper showEditBook={showEditBook}>
+            <ModalWrapper showEditBook={showEditBook} onClick={closeEditWindow}>
                 <motion.form
                     drag
                     className='book-update-form'
                     onSubmit={updateBook}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     <div className='info-upload'>
                         <InputField

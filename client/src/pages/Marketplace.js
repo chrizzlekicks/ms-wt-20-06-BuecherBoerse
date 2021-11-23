@@ -1,6 +1,6 @@
 import { useGlobalContext } from '../context/GlobalContext';
 import { useMarketplaceContext } from '../context/MarketplaceContext';
-import GenreFilter from '../components/GenreFilter';
+import Filter from '../components/Filter';
 import Shelf from '../components/Shelf';
 import SearchBar from '../components/SearchBar';
 import Loading from '../components/Loading';
@@ -9,7 +9,15 @@ import { motion } from 'framer-motion';
 
 const Marketplace = () => {
     const { alert, loading, closeSubmenu } = useGlobalContext();
-    const { books } = useMarketplaceContext();
+    const {
+        books,
+        categories,
+        lenguajes,
+        status,
+        filterByCategory,
+        filterByLanguage,
+        filterByStatus
+    } = useMarketplaceContext();
 
     return (
         <>
@@ -24,7 +32,9 @@ const Marketplace = () => {
                     onClick={closeSubmenu}
                 >
                     <SearchBar />
-                    <GenreFilter />
+                    <Filter elements={categories} onClick={filterByCategory} />
+                    <Filter elements={lenguajes} onClick={filterByLanguage} />
+                    <Filter elements={status} onClick={filterByStatus} />
                     <Shelf>{books}</Shelf>
                     {alert.display && <Alert />}
                 </motion.main>

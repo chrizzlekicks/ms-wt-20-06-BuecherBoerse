@@ -11,8 +11,7 @@ import { useOpenBookContext } from '../context/OpenBookContext';
 
 const OpenBook = () => {
     const { alert, closeSubmenu, loading } = useGlobalContext();
-    const { openBook, showDesc, showMessageModal, showEditBook, collapseDesc } =
-        useOpenBookContext();
+    const { openBook, showMessageModal, showEditBook } = useOpenBookContext();
     const { image, name, author, category, language, description } = openBook;
 
     if (loading) {
@@ -53,18 +52,7 @@ const OpenBook = () => {
                         </div>
                         <div>
                             <h4>Beschreibung</h4>
-                            <p>
-                                {showDesc
-                                    ? `${description} `
-                                    : description &&
-                                      `${description.substring(0, 300)}... `}
-                                <button
-                                    className='collapse'
-                                    onClick={collapseDesc}
-                                >
-                                    {!showDesc ? 'Mehr' : 'Weniger'}
-                                </button>
-                            </p>
+                            <p>{description}</p>
                         </div>
                     </section>
                     <UserAction />
