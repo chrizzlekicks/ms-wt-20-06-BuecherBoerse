@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
@@ -31,7 +31,7 @@ function AuthApp() {
                 </NavbarProvider>
                 <ScrollToTop />
                 <AnimatePresence initial={false} exitBeforeEnter>
-                    <Switch>
+                    <Routes>
                         <Route exact path='/'>
                             <MarketplaceProvider>
                                 <Marketplace />
@@ -66,7 +66,7 @@ function AuthApp() {
                         <Route path='*'>
                             <Error />
                         </Route>
-                    </Switch>
+                    </Routes>
                 </AnimatePresence>
                 <Footer />
             </Suspense>

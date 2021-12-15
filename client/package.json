@@ -1,0 +1,51 @@
+{
+  "name": "kodebi_ui",
+  "version": "1.0.0",
+  "description": "The UI for the Kodebi Booksharing application",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse.git"
+  },
+  "author": "Chris Schimetschka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse/issues"
+  },
+  "homepage": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "framer-motion": "^5.4.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "@svgr/webpack": "^6.1.1",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.2.0",
+    "eslint": "^8.4.1",
+    "eslint-plugin-react": "^7.27.1",
+    "mini-css-extract-plugin": "^2.4.5",
+    "postcss": "^8.4.5",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.0.1",
+    "resolve-url-loader": "^4.0.0",
+    "sass": "^1.45.0",
+    "sass-loader": "^12.4.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}

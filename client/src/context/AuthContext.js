@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useUrlParams } from '../hooks/useUrlParams';
 import {
     AUTH_SIGNIN,
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     });
     const { setUser, setAlert, setLoading } = useGlobalContext();
     const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
-    const forwardPage = useHistory();
+    const forwardPage = useNavigate();
     const { state, search } = useLocation();
     let query = useUrlParams(search);
 

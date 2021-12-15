@@ -5,7 +5,7 @@ import {
     useCallback,
     useEffect
 } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from './GlobalContext';
 import { FaCheckCircle, FaPoo } from 'react-icons/fa';
 import { API_BOOKS, API_MESSAGES } from '../config/config';
@@ -21,7 +21,7 @@ export const OpenBookProvider = ({ children }) => {
         reciever: '',
         message: ''
     });
-    const history = useHistory();
+    const history = useNavigate();
     const { id } = useParams();
     const { setLoading, setAlert, userId, jwt } = useGlobalContext();
 

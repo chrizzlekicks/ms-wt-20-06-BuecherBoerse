@@ -1,5 +1,10 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    Navigate
+} from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Loading from './components/Loading';
 import LoginScreen from './pages/LoginScreen';
@@ -13,15 +18,14 @@ function UnauthApp() {
             <Suspense fallback={<Loading />}>
                 <Router>
                     <AuthProvider>
-                        <Route exact path='/'>
-                            <LoginScreen />
-                        </Route>
-                        <Route path='/reset'>
-                            <Reset />
-                        </Route>
-                        <Route path='*'>
-                            <Redirect to={{ pathname: '/' }} />
-                        </Route>
+                        <Routes>
+                            <Route path='/' element={<LoginScreen />} />
+                            <Route path='/reset' element={<Reset />} />
+                            <Route
+                                path='*'
+                                element={<Navigate to={{ pathname: '/' }} />}
+                            />
+                        </Routes>
                     </AuthProvider>
                 </Router>
             </Suspense>
