@@ -1,3 +1,4 @@
+import React from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { motion } from 'framer-motion';
 

@@ -5,12 +5,6 @@ import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import { MarketplaceProvider } from './context/MarketplaceContext';
-import { UploadBookProvider } from './context/UploadBookContext';
-import { OpenBookProvider } from './context/OpenBookContext';
-import { MyBooksProvider } from './context/MyBooksContext';
-import { MessageProvider } from './context/MessageContext';
-import { NavbarProvider } from './context/NavbarContext';
 
 // lazy imports
 const Marketplace = lazy(() => import('./pages/Marketplace'));
@@ -26,46 +20,18 @@ function AuthApp() {
     return (
         <Router>
             <Suspense fallback={<Loading />}>
-                <NavbarProvider>
-                    <Navbar />
-                </NavbarProvider>
+                <Navbar />
                 <ScrollToTop />
                 <AnimatePresence initial={false} exitBeforeEnter>
                     <Routes>
-                        <Route exact path='/'>
-                            <MarketplaceProvider>
-                                <Marketplace />
-                            </MarketplaceProvider>
-                        </Route>
-                        <Route path='/mybooks'>
-                            <MyBooksProvider>
-                                <MyBooks />
-                            </MyBooksProvider>
-                        </Route>
-                        <Route path='/uploadbook'>
-                            <UploadBookProvider>
-                                <UploadBook />
-                            </UploadBookProvider>
-                        </Route>
-                        <Route path='/book/:id'>
-                            <OpenBookProvider>
-                                <OpenBook />
-                            </OpenBookProvider>
-                        </Route>
-                        <Route path='/messages'>
-                            <MessageProvider>
-                                <Messages />
-                            </MessageProvider>
-                        </Route>
-                        <Route path='/imprint'>
-                            <Imprint />
-                        </Route>
-                        <Route path='/dataprivacy'>
-                            <DataPrivacy />
-                        </Route>
-                        <Route path='*'>
-                            <Error />
-                        </Route>
+                        <Route path='/' element={<Marketplace />} />
+                        <Route path='/mybooks' element={<MyBooks />} />
+                        <Route path='/uploadbook' element={<UploadBook />} />
+                        <Route path='/book/:id' element={<OpenBook />} />
+                        <Route path='/messages' element={<Messages />} />
+                        <Route path='/imprint' element={<Imprint />} />
+                        <Route path='/dataprivacy' element={<DataPrivacy />} />
+                        <Route path='*' element={<Error />} />
                     </Routes>
                 </AnimatePresence>
                 <Footer />

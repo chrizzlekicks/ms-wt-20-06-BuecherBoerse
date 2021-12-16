@@ -1,11 +1,10 @@
+import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import Submenu from '../components/Submenu';
 import { useGlobalContext } from '../context/GlobalContext';
-import { useNavbarContext } from '../context/NavbarContext';
 
-const UserBar = () => {
+const UserBar = ({ showUserSubmenu, container, logout }) => {
     const { user, isSubmenuOpen, closeSubmenu, userName } = useGlobalContext();
-    const { showUserSubmenu } = useNavbarContext();
 
     return (
         <>
@@ -20,7 +19,7 @@ const UserBar = () => {
                     <FaUserCircle className='helper' />
                 </span>
             </button>
-            <Submenu />
+            <Submenu container={container} logout={logout} />
         </>
     );
 };

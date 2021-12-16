@@ -1,11 +1,16 @@
+import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { useGlobalContext } from '../context/GlobalContext';
-import { useMessageContext } from '../context/MessageContext';
 import { useDateFormatter } from '../hooks/useDateFormatter';
 
-const Conversation = ({ _id, recipients, messages, updatedAt }) => {
+const Conversation = ({
+    _id,
+    recipients,
+    messages,
+    updatedAt,
+    openConversation
+}) => {
     const { userName } = useGlobalContext();
-    const { openConversation } = useMessageContext();
     const formattedDate = useDateFormatter(updatedAt);
 
     return (

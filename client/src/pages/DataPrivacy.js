@@ -1,3 +1,4 @@
+import React from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { motion } from 'framer-motion';
 
@@ -293,7 +294,7 @@ const DataPrivacy = () => {
                         Amphitheatre Parkway, Mountain View, CA 94043, USA.
                     </p>
                     <p>
-                        Google Analytics verwendet "Cookies." Das sind kleine
+                        Google Analytics verwendet Cookies. Das sind kleine
                         Textdateien, die Ihr Webbrowser auf Ihrem Endgerät
                         speichert und eine Analyse der Website-Benutzung
                         ermöglichen. Mittels Cookie erzeugte Informationen über
@@ -422,7 +423,7 @@ const DataPrivacy = () => {
                     </p>
                     <p>
                         Das Unternehmen Google ist für das us-europäische
-                        Datenschutzübereinkommen "Privacy Shield" zertifiziert.
+                        Datenschutzübereinkommen Privacy Shield zertifiziert.
                         Dieses Datenschutzübereinkommen soll die Einhaltung des
                         in der EU geltenden Datenschutzniveaus gewährleisten.
                     </p>

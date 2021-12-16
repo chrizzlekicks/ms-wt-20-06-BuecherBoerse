@@ -1,18 +1,21 @@
-import { useMessageContext } from '../context/MessageContext';
+import React from 'react';
 import Conversation from './Conversation';
 
-const Conversations = () => {
-  const { conversations } = useMessageContext();
-
-  return (
-    <>
-      <aside className='conversations'>
-        {conversations.map((conversation) => {
-          return <Conversation key={conversation._id} {...conversation} />;
-        })}
-      </aside>
-    </>
-  );
+const Conversations = ({ conversations }) => {
+    return (
+        <>
+            <aside className='conversations'>
+                {conversations.map((conversation) => {
+                    return (
+                        <Conversation
+                            key={conversation._id}
+                            {...conversation}
+                        />
+                    );
+                })}
+            </aside>
+        </>
+    );
 };
 
 export default Conversations;

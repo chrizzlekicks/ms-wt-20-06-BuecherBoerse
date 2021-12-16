@@ -1,10 +1,9 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../context/GlobalContext';
-import { useNavbarContext } from '../context/NavbarContext';
 
-const Submenu = () => {
+const Submenu = ({ container, logout }) => {
     const { isSubmenuOpen } = useGlobalContext();
-    const { container, logout } = useNavbarContext();
 
     return (
         <>

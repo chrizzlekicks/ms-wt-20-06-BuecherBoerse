@@ -1,3 +1,4 @@
+import React from 'react';
 import { footer } from '../utils/linksDB';
 import FooterLink from './FooterLink';
 import { FaHeart, FaGithub, FaInstagram } from 'react-icons/fa';

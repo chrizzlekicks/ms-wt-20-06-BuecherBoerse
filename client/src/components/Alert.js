@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Alert = () => {

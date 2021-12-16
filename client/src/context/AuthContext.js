@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
