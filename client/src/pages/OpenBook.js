@@ -8,12 +8,14 @@ import Loading2 from '../components/Loading2';
 import { motion } from 'framer-motion';
 import EditBook from '../components/EditBook';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import { FaCheckCircle, FaPoo } from 'react-icons/fa';
 import { API_BOOKS, API_MESSAGES } from '../config/config';
+import { useAuthContext } from '../context/AuthContext';
 
 const OpenBook = () => {
-    const { alert, closeSubmenu, loading } = useGlobalContext();
+    const { alert, setAlert, closeSubmenu, loading, setLoading } =
+        useLayoutContext();
 
     const [openBook, setOpenBook] = useState({});
     const [showEditBook, setShowEditBook] = useState(false);
@@ -25,7 +27,7 @@ const OpenBook = () => {
     });
     const history = useNavigate();
     const { id } = useParams();
-    const { setLoading, setAlert, userId, jwt } = useGlobalContext();
+    const { userId, jwt } = useAuthContext();
     const { image, name, author, category, language, description } = openBook;
 
     // GET Buchinfo vom Backend

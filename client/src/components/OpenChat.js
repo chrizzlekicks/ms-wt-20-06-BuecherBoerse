@@ -1,9 +1,9 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import Message from './Message';
 
 const OpenChat = ({ chat, scrollToBottom }) => {
-    const { selectedConversation } = useGlobalContext();
+    const { selectedConversation } = useLayoutContext();
     const { recipients, messages } = chat;
 
     if (!selectedConversation) {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const Loading2 = () => {
-    const { loading } = useGlobalContext();
+    const { loading } = useLayoutContext();
     return (
         <>
             <div

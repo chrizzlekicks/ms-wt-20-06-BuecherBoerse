@@ -1,9 +1,9 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import { motion } from 'framer-motion';
 
 const Imprint = () => {
-    const { closeSubmenu } = useGlobalContext();
+    const { closeSubmenu } = useLayoutContext();
     return (
         <>
             <motion.main

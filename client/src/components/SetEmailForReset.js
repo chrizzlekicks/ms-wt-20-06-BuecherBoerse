@@ -4,13 +4,8 @@ import InputField from './InputField';
 import SigninBtn from './SigninBtn';
 import { useAuthContext } from '../context/AuthContext';
 
-const SetEmailForReset = () => {
-    const {
-        userCredential,
-        checkSigninInput,
-        requestReset,
-        openPasswordResetTab
-    } = useAuthContext();
+const SetEmailForReset = ({ openPasswordResetTab }) => {
+    const { userCredential, checkSigninInput, requestReset } = useAuthContext();
 
     return (
         <>

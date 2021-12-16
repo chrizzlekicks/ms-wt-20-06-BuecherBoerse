@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuthContext } from '../context/AuthContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const Tab = () => {
-    const { isTabLeft, setIsTabLeft } = useAuthContext();
+    const { isTabLeft, setIsTabLeft } = useLayoutContext();
     return (
         <>
             <div className='tab-container'>

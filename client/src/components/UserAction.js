@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useAuthContext } from '../context/AuthContext';
 import ActionButton from './ActionBtn';
 
 const UserAction = ({ openBook, removeBook, openEditWindow, messageUser }) => {
-    const { userId } = useGlobalContext();
+    const { userId } = useAuthContext();
     const { username, condition, owner, status } = openBook;
 
     return (

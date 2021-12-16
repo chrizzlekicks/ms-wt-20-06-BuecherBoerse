@@ -1,7 +1,7 @@
 import React from 'react';
 import Conversation from './Conversation';
 
-const Conversations = ({ conversations }) => {
+const Conversations = ({ conversations, openConversation }) => {
     return (
         <>
             <aside className='conversations'>
@@ -10,6 +10,7 @@ const Conversations = ({ conversations }) => {
                         <Conversation
                             key={conversation._id}
                             {...conversation}
+                            openConversation={openConversation}
                         />
                     );
                 })}

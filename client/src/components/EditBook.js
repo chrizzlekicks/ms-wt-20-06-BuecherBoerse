@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import ModalWrapper from './ModalWrapper';
 import { motion } from 'framer-motion';

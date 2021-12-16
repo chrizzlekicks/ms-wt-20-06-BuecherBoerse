@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
@@ -18,25 +18,23 @@ const Error = lazy(() => import('./pages/Error'));
 
 function AuthApp() {
     return (
-        <Router>
-            <Suspense fallback={<Loading />}>
-                <Navbar />
-                <ScrollToTop />
-                <AnimatePresence initial={false} exitBeforeEnter>
-                    <Routes>
-                        <Route path='/' element={<Marketplace />} />
-                        <Route path='/mybooks' element={<MyBooks />} />
-                        <Route path='/uploadbook' element={<UploadBook />} />
-                        <Route path='/book/:id' element={<OpenBook />} />
-                        <Route path='/messages' element={<Messages />} />
-                        <Route path='/imprint' element={<Imprint />} />
-                        <Route path='/dataprivacy' element={<DataPrivacy />} />
-                        <Route path='*' element={<Error />} />
-                    </Routes>
-                </AnimatePresence>
-                <Footer />
-            </Suspense>
-        </Router>
+        <Suspense fallback={<Loading />}>
+            <Navbar />
+            <ScrollToTop />
+            <AnimatePresence initial={false} exitBeforeEnter>
+                <Routes>
+                    <Route path='/' element={<Marketplace />} />
+                    <Route path='/mybooks' element={<MyBooks />} />
+                    <Route path='/uploadbook' element={<UploadBook />} />
+                    <Route path='/book/:id' element={<OpenBook />} />
+                    <Route path='/messages' element={<Messages />} />
+                    <Route path='/imprint' element={<Imprint />} />
+                    <Route path='/dataprivacy' element={<DataPrivacy />} />
+                    <Route path='*' element={<Error />} />
+                </Routes>
+            </AnimatePresence>
+            <Footer />
+        </Suspense>
     );
 }
 

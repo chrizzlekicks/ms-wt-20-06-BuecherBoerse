@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from '../components/Login';
 import Tab from '../components/Tab';
 import Signup from '../components/Signup';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import Loading2 from '../components/Loading2';
 import Alert from '../components/Alert';
 import { motion } from 'framer-motion';
-import { useAuthContext } from '../context/AuthContext';
 import SetEmailForReset from '../components/SetEmailForReset';
 
 const LoginScreen = () => {
-    const { alert, loading } = useGlobalContext();
-    const { isTabLeft, triggerPasswordTab } = useAuthContext();
+    const { alert, loading, isTabLeft } = useLayoutContext();
+    const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
+
+    // toggle between login screen and password reset
+    const openPasswordResetTab = () => {
+        setTriggerPasswordTab(!triggerPasswordTab);
+    };
 
     if (triggerPasswordTab) {
         return (
@@ -25,7 +29,9 @@ const LoginScreen = () => {
                     className='hero'
                 >
                     <section className='signin-center'>
-                        <SetEmailForReset />
+                        <SetEmailForReset
+                            openPasswordResetTab={openPasswordResetTab}
+                        />
                     </section>
                 </motion.main>
                 {alert.display && <Alert />}
@@ -44,7 +50,13 @@ const LoginScreen = () => {
                 >
                     <section className='signin-center'>
                         <Tab />
-                        {isTabLeft ? <Login /> : <Signup />}
+                        {isTabLeft ? (
+                            <Login
+                                openPasswordResetTab={openPasswordResetTab}
+                            />
+                        ) : (
+                            <Signup />
+                        )}
                     </section>
                 </motion.main>
                 {alert.display && <Alert />}

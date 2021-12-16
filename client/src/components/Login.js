@@ -4,9 +4,8 @@ import SigninBtn from './SigninBtn';
 import Form from './Form';
 import { useAuthContext } from '../context/AuthContext';
 
-const Login = () => {
-    const { userCredential, loginNow, checkSigninInput, openPasswordResetTab } =
-        useAuthContext();
+const Login = ({ openPasswordResetTab }) => {
+    const { userCredential, loginNow, checkSigninInput } = useAuthContext();
     const { email, password } = userCredential;
 
     return (

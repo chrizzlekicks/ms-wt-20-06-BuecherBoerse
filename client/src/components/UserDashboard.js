@@ -1,8 +1,8 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useAuthContext } from '../context/AuthContext';
 
 const UserDashboard = () => {
-    const { userName } = useGlobalContext();
+    const { userName } = useAuthContext();
     return (
         <>
             <section className='dashboard'>

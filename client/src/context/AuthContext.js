@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUrlParams } from '../hooks/useUrlParams';
 import {
     AUTH_SIGNIN,
+    AUTH_SIGNOUT,
     API_REQUESTRESET,
     API_RESETPASSWORD,
     API_USERS
@@ -13,14 +14,23 @@ import {
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isTabLeft, setIsTabLeft] = useState(true);
+    const userName = sessionStorage.getItem('name');
+    const userId = sessionStorage.getItem('id');
+    const jwt = sessionStorage.getItem('token');
+    const [user, setUser] = useState(jwt ? true : false);
     const [userCredential, setUserCredential] = useState({
         name: '',
         email: '',
         password: ''
     });
-    const { setUser, setAlert, setLoading } = useGlobalContext();
-    const [triggerPasswordTab, setTriggerPasswordTab] = useState(false);
+    const {
+        setAlert,
+        setLoading,
+        isTabLeft,
+        setIsTabLeft,
+        setShowLinks,
+        setSelectedConversation
+    } = useLayoutContext();
     const forwardPage = useNavigate();
     const { state, search } = useLocation();
     let query = useUrlParams(search);
@@ -43,7 +53,7 @@ export const AuthProvider = ({ children }) => {
                     sessionStorage.setItem('id', userData.user._id);
                     sessionStorage.setItem('name', userData.user.name);
                     sessionStorage.setItem('token', userData.token);
-                    forwardPage.push(state ? state.from : '/', setUser(true));
+                    forwardPage(state ? state.from : '/', setUser(true));
                 } else {
                     setAlert({
                         display: true,
@@ -105,6 +115,22 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    // GET logge User aus System
+    const signoutUser = async (url) => {
+        try {
+            const res = await fetch(url);
+            if (res.ok) {
+                await res.json();
+                sessionStorage.clear();
+                setShowLinks(false);
+            } else {
+                throw new Error('Hoppala, da ist wohl was schief gelaufen...');
+            }
+        } catch (error) {
+            console.log('Das hat nicht geklappt', error);
+        }
+    };
+
     const resetPassword = async (api) => {
         try {
             setLoading(true);
@@ -127,8 +153,8 @@ export const AuthProvider = ({ children }) => {
                     icon: <FaCheckCircle />,
                     msg: 'Dein neues Passwort wurde erfolgreich eingerichtet. Logge dich nun damit ein.'
                 });
-                forwardPage.push(
-                    '/login',
+                forwardPage(
+                    '/',
                     setUserCredential({ email: '', password: '' })
                 );
             } else {
@@ -168,9 +194,11 @@ export const AuthProvider = ({ children }) => {
         signInUser(API_USERS);
     };
 
-    // toggle between login screen and password reset
-    const openPasswordResetTab = () => {
-        setTriggerPasswordTab(!triggerPasswordTab);
+    // logge den User aus (UI)
+    const logout = () => {
+        signoutUser(AUTH_SIGNOUT);
+        setUser(false);
+        setSelectedConversation(false);
     };
 
     // schicke den Password Request mit useremail ab
@@ -186,18 +214,19 @@ export const AuthProvider = ({ children }) => {
 
     // speichere states und functions in Variable
     const authValues = {
-        AUTH_SIGNIN,
-        isTabLeft,
-        setIsTabLeft,
+        userName,
+        userId,
+        jwt,
+        user,
         userCredential,
+        setUser,
         setUserCredential,
         checkSigninInput,
         loginNow,
         signupNow,
+        logout,
         requestReset,
-        reset,
-        triggerPasswordTab,
-        openPasswordResetTab
+        reset
     };
 
     return (

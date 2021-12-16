@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { FaFlushed } from 'react-icons/fa';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
+import { useAuthContext } from '../context/AuthContext';
 import { API_MESSAGES, API_MESSAGESUSER } from '../config/config';
 import Conversations from '../components/Conversations';
 import ChatWindow from '../components/ChatWindow';
@@ -23,13 +24,12 @@ const Messages = () => {
         selectedConversation,
         setSelectedConversation,
         setLoading,
-        userId,
-        jwt,
         setAlert,
         alert,
         closeSubmenu,
         loading
-    } = useGlobalContext();
+    } = useLayoutContext();
+    const { userId, jwt } = useAuthContext();
 
     // GET Konversationen vom Backend
     const fetchUserConversations = useCallback(
@@ -198,6 +198,7 @@ const Messages = () => {
                     />
                     <ChatWindow
                         chat={chat}
+                        newMessage={newMessage}
                         handleKeyPress={handleKeyPress}
                         handleMessage={handleMessage}
                         scrollToBottom={scrollToBottom}

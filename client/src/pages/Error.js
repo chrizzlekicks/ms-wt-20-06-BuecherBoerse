@@ -1,10 +1,10 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import { FaMeh } from 'react-icons/fa';
 import ReturnTo from '../components/ReturnTo';
 
 const Error = () => {
-    const { closeSubmenu } = useGlobalContext();
+    const { closeSubmenu } = useLayoutContext();
     return (
         <>
             <main onClick={closeSubmenu}>

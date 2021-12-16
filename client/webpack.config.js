@@ -17,11 +17,14 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'public')
         },
-        open: true,
         compress: true,
         port: 3000,
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            context: ['/auth', '/api'],
+            target: 'http://localhost:4000'
+        }
     },
     module: {
         rules: [
@@ -61,13 +64,14 @@ module.exports = {
                     }
                 ]
             },
-            {
-                test: /\.svg$/,
-                use: ['@svgr/webpack']
-            },
+
             {
                 test: /\.(?:ico|gif|png|jpe?g)$/i,
                 type: 'asset/resource'
+            },
+            {
+                test: /\.svg$/,
+                type: 'asset/inline'
             }
         ]
     },

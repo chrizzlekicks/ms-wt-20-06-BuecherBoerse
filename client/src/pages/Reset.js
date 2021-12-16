@@ -1,11 +1,11 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import Loading2 from '../components/Loading2';
 import Alert from '../components/Alert';
 import PasswordReset from '../components/PasswordReset';
 
 const Reset = () => {
-    const { alert, loading } = useGlobalContext();
+    const { alert, loading } = useLayoutContext();
 
     return (
         <>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import Submenu from '../components/Submenu';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useAuthContext } from '../context/AuthContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const UserBar = ({ showUserSubmenu, container, logout }) => {
-    const { user, isSubmenuOpen, closeSubmenu, userName } = useGlobalContext();
+    const { isSubmenuOpen, closeSubmenu } = useLayoutContext();
+    const { user, userName } = useAuthContext();
 
     return (
         <>

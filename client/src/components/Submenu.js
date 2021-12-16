@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const Submenu = ({ container, logout }) => {
-    const { isSubmenuOpen } = useGlobalContext();
+    const { isSubmenuOpen } = useLayoutContext();
 
     return (
         <>

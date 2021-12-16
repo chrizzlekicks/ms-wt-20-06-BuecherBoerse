@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import Filter from '../components/Filter';
 import Shelf from '../components/Shelf';
 import SearchBar from '../components/SearchBar';
@@ -9,12 +9,10 @@ import { motion } from 'framer-motion';
 import { API_BOOKS } from '../config/config';
 
 const Marketplace = () => {
-    const { alert, loading, closeSubmenu } = useGlobalContext();
-
+    const { alert, loading, setLoading, closeSubmenu } = useLayoutContext();
     const [allBooks, setAllBooks] = useState([]);
     const [books, setBooks] = useState(allBooks);
     const [search, setSearch] = useState('');
-    const { setLoading } = useGlobalContext();
 
     // GET Bücher vom Backend
     const fetchBooks = useCallback(

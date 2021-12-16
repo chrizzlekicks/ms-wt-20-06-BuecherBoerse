@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
-import { AUTH_SIGNOUT } from '../config/config';
+import { useLayoutContext } from '../context/LayoutContext';
+import { useAuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import logo from '../static/kodebi_normal-min.svg';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
-import logo from '../static/kodebi_normal.svg';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
 import UserBar from './UserBar';
@@ -13,30 +13,13 @@ const Navbar = () => {
     const [location, setLocation] = useState({});
     const container = useRef(null);
     const {
-        setUser,
         closeSubmenu,
         setIsSubmenuOpen,
-        setSelectedConversation,
         setShowLinks,
         showLinks,
         hideLinks
-    } = useGlobalContext();
-
-    // GET logge User aus System
-    const signoutUser = async (url) => {
-        try {
-            const res = await fetch(url);
-            if (res.ok) {
-                await res.json();
-                sessionStorage.clear();
-                setShowLinks(false);
-            } else {
-                throw new Error('Hoppala, da ist wohl was schief gelaufen...');
-            }
-        } catch (error) {
-            console.log('Das hat nicht geklappt', error);
-        }
-    };
+    } = useLayoutContext();
+    const { logout } = useAuthContext();
 
     // aktiviere sticky navbar beim scrollen
     useEffect(() => {
@@ -85,13 +68,6 @@ const Navbar = () => {
         const divCenter = (divSize.left + divSize.right) / 2;
         const divBottom = divSize.bottom - 3;
         openSubmenu({ divCenter, divBottom });
-    };
-
-    // logge den User aus (UI)
-    const logout = () => {
-        signoutUser(AUTH_SIGNOUT);
-        setUser(false);
-        setSelectedConversation(false);
     };
 
     return (

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
+import { useAuthContext } from '../context/AuthContext';
 import UserDashboard from '../components/UserDashboard';
 import Loading from '../components/Loading';
 import Alert from '../components/Alert';
@@ -8,9 +9,9 @@ import Shelf from '../components/Shelf';
 import { API_BOOKSBYUSER } from '../config/config';
 
 const MyBooks = () => {
-    const { alert, closeSubmenu, loading } = useGlobalContext();
+    const { alert, closeSubmenu, loading, setLoading } = useLayoutContext();
     const [myBooks, setMyBooks] = useState([]);
-    const { setLoading, userId, jwt } = useGlobalContext();
+    const { userId, jwt } = useAuthContext();
 
     // GET Bücher des Users
     const fetchMyBooks = useCallback(

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaCheckCircle, FaPoo, FaFlushed } from 'react-icons/fa';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
+import { useAuthContext } from '../context/AuthContext';
 import { API_BOOKS } from '../config/config';
 import Alert from '../components/Alert';
 import ImageUploader from '../components/ImageUploader';
@@ -14,7 +15,9 @@ import Dropdown from '../components/Dropdown';
 import { genres, languages, conditions, status } from '../utils/dropdown';
 
 const UploadBook = () => {
-    const { alert, loading, closeSubmenu } = useGlobalContext();
+    const { loading, setLoading, alert, setAlert, closeSubmenu } =
+        useLayoutContext();
+    const { userId, userName, jwt } = useAuthContext();
     const [newBook, setNewBook] = useState({
         name: '',
         author: '',
@@ -25,7 +28,6 @@ const UploadBook = () => {
         desc: ''
     });
     const [bookImage, setBookImage] = useState();
-    const { setLoading, setAlert, userId, userName, jwt } = useGlobalContext();
 
     // POST Buch
     const bookUpload = async (api, token, formdata) => {

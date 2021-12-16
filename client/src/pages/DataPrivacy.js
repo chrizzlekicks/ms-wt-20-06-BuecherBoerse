@@ -1,9 +1,9 @@
 import React from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 import { motion } from 'framer-motion';
 
 const DataPrivacy = () => {
-    const { closeSubmenu } = useGlobalContext();
+    const { closeSubmenu } = useLayoutContext();
     return (
         <>
             <motion.main
@@ -35,7 +35,7 @@ const DataPrivacy = () => {
                     </p>
                     <p>
                         <br />
-                        Revaler Str. 1 10
+                        Revaler Str. 1
                         <br />
                         10243 Berlin
                     </p>
