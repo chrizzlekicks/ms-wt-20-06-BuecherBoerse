@@ -12,6 +12,7 @@
   box-shadow: $frm-shdw;
   z-index: 100;
   animation: alert-popup 3s ease-in-out;
+  animation-fill-mode: forwards;
 
   p {
     color: $bckgrnd-clr;

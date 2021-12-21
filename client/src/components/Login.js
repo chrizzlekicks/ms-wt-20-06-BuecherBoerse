@@ -5,8 +5,11 @@ import Form from './Form';
 import { useAuthContext } from '../context/AuthContext';
 
 const Login = ({ openPasswordResetTab }) => {
-    const { userCredential, loginNow, checkSigninInput } = useAuthContext();
-    const { email, password } = userCredential;
+    const {
+        userCredential: { email, password },
+        loginNow,
+        checkSigninInput
+    } = useAuthContext();
 
     return (
         <>

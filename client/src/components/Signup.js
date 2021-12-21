@@ -5,8 +5,11 @@ import Form from './Form';
 import { useAuthContext } from '../context/AuthContext';
 
 const Signup = () => {
-    const { userCredential, signupNow, checkSigninInput } = useAuthContext();
-    const { name, email, password } = userCredential;
+    const {
+        userCredential: { name, email, password },
+        signupNow,
+        checkSigninInput
+    } = useAuthContext();
 
     return (
         <>
