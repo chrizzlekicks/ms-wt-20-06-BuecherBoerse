@@ -1,15 +1,74 @@
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useLayoutContext } from '../context/LayoutContext';
+import { useAuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import logo from '../static/kodebi_logo_classic.png';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
-import logo from '../static/kodebi_normal.svg';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
 import UserBar from './UserBar';
-import { useNavbarContext } from '../context/NavbarContext';
-import { useGlobalContext } from '../context/GlobalContext';
 
 const Navbar = () => {
-    const { navbar, toggleNavbar, hideSubmenu } = useNavbarContext();
-    const { showLinks, hideLinks } = useGlobalContext();
+    const [navbar, setNavbar] = useState(false);
+    const [location, setLocation] = useState({});
+    const container = useRef(null);
+    const {
+        closeSubmenu,
+        setIsSubmenuOpen,
+        setShowLinks,
+        showLinks,
+        hideLinks
+    } = useLayoutContext();
+    const { logout } = useAuthContext();
+
+    // aktiviere sticky navbar beim scrollen
+    useEffect(() => {
+        const stickyNav = () => {
+            if (window.scrollY >= 120) {
+                setNavbar(true);
+            } else {
+                setNavbar(false);
+            }
+        };
+        window.addEventListener('scroll', stickyNav);
+        return () => {
+            window.removeEventListener('scroll', stickyNav);
+        };
+    });
+
+    // bestimme die Position des Submenus
+    useLayoutEffect(() => {
+        const submenu = container.current;
+        const { divCenter, divBottom } = location;
+        submenu.style.left = `${divCenter}px`;
+        submenu.style.bottom = `${divBottom}px`;
+    }, [location]);
+
+    // toggle Navbar in mobiler Ansicht
+    const toggleNavbar = () => {
+        setShowLinks(!showLinks);
+    };
+
+    // öffne das Usermenu rechts oben
+    const openSubmenu = (coordinates) => {
+        setLocation(coordinates);
+        setIsSubmenuOpen(true);
+    };
+
+    // schliesse das Usermenu unabhängig davon wo der User hinklickt (außerhalb des Usermenus)
+    const hideSubmenu = (e) => {
+        if (!e.target.classList.contains('helper')) {
+            closeSubmenu();
+        }
+    };
+
+    // bestimme die Position des Submenus
+    const showUserSubmenu = (e) => {
+        const divSize = e.currentTarget.getBoundingClientRect();
+        const divCenter = (divSize.left + divSize.right) / 2;
+        const divBottom = divSize.bottom - 3;
+        openSubmenu({ divCenter, divBottom });
+    };
 
     return (
         <>
@@ -22,7 +81,12 @@ const Navbar = () => {
                 <header className='nav-content'>
                     <div className='nav-header basic-flex'>
                         <Link to='/' className='basic-flex' onClick={hideLinks}>
-                            <img src={logo} alt='logo' width='80' height='80' />
+                            <img
+                                src={logo}
+                                alt='logo'
+                                width='110'
+                                height='70'
+                            />
                         </Link>
                         <button className='nav-toggle' onClick={toggleNavbar}>
                             {showLinks ? <FaBookOpen /> : <FaBook />}
@@ -38,7 +102,11 @@ const Navbar = () => {
                                 return <MenuLink key={link.id} {...link} />;
                             })}
                         </ul>
-                        <UserBar />
+                        <UserBar
+                            showUserSubmenu={showUserSubmenu}
+                            container={container}
+                            logout={logout}
+                        />
                     </div>
                 </header>
             </nav>

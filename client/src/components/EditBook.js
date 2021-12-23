@@ -1,4 +1,4 @@
-import { useOpenBookContext } from '../context/OpenBookContext';
+import React from 'react';
 import ModalWrapper from './ModalWrapper';
 import { motion } from 'framer-motion';
 import InputField from './InputField';
@@ -7,10 +7,13 @@ import ActionBtn from './ActionBtn';
 import Dropdown from './Dropdown';
 import { genres, languages, conditions, status } from '../utils/dropdown';
 
-const EditBook = () => {
-    const { openBook, showEditBook, updateBook, textChange, closeEditWindow } =
-        useOpenBookContext();
-
+const EditBook = ({
+    openBook,
+    showEditBook,
+    updateBook,
+    textChange,
+    closeEditWindow
+}) => {
     return (
         <>
             <ModalWrapper showEditBook={showEditBook} onClick={closeEditWindow}>

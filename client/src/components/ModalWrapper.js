@@ -1,3 +1,5 @@
+import React from 'react';
+
 const ModalWrapper = (props) => {
     return (
         <>

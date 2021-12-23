@@ -1,14 +1,14 @@
-import { useLayoutEffect } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import React, { useLayoutEffect } from 'react';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const Alert = () => {
-    const { alert, setAlert } = useGlobalContext();
+    const { alert, setAlert } = useLayoutContext();
 
     useLayoutEffect(() => {
         setTimeout(() => {
             setAlert({ display: false, icon: '', msg: '' });
         }, 3000);
-    });
+    }, [alert]);
 
     return (
         <div className='alert basic-flex'>

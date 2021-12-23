@@ -1,11 +1,12 @@
+import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import Submenu from '../components/Submenu';
-import { useGlobalContext } from '../context/GlobalContext';
-import { useNavbarContext } from '../context/NavbarContext';
+import { useAuthContext } from '../context/AuthContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
-const UserBar = () => {
-    const { user, isSubmenuOpen, closeSubmenu, userName } = useGlobalContext();
-    const { showUserSubmenu } = useNavbarContext();
+const UserBar = ({ showUserSubmenu, container, logout }) => {
+    const { isSubmenuOpen, closeSubmenu } = useLayoutContext();
+    const { user, userName } = useAuthContext();
 
     return (
         <>
@@ -20,7 +21,7 @@ const UserBar = () => {
                     <FaUserCircle className='helper' />
                 </span>
             </button>
-            <Submenu />
+            <Submenu container={container} logout={logout} />
         </>
     );
 };

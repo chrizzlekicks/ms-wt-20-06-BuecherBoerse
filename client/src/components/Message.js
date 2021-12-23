@@ -1,8 +1,9 @@
+import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import { useDateFormatter } from '../hooks/useDateFormatter';
+import { dateFormatter } from '../helpers/dateFormatter';
 
 const Message = ({ recipients, message, sender, createdAt }) => {
-    const formattedDate = useDateFormatter(createdAt);
+    const formattedDate = dateFormatter(createdAt);
     return (
         <>
             <article className='message basic-flex'>
