@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useLayoutContext } from '../context/LayoutContext';
 import { useAuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
-import logo from '../static/kodebi_normal-min.svg';
+import logo from '../static/kodebi_logo_classic.png';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';
@@ -81,7 +81,12 @@ const Navbar = () => {
                 <header className='nav-content'>
                     <div className='nav-header basic-flex'>
                         <Link to='/' className='basic-flex' onClick={hideLinks}>
-                            <img src={logo} alt='logo' width='80' height='80' />
+                            <img
+                                src={logo}
+                                alt='logo'
+                                width='110'
+                                height='70'
+                            />
                         </Link>
                         <button className='nav-toggle' onClick={toggleNavbar}>
                             {showLinks ? <FaBookOpen /> : <FaBook />}

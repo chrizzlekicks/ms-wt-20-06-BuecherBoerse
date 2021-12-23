@@ -68,7 +68,8 @@ const OpenBook = () => {
             if (res.ok) {
                 await res.json();
                 setLoading(false);
-                history.goBack(
+                history(
+                    -1,
                     setAlert({
                         display: true,
                         icon: <FaCheckCircle />,
@@ -234,6 +235,7 @@ const OpenBook = () => {
             )}
             {showEditBook && (
                 <EditBook
+                    openBook={openBook}
                     textChange={textChange}
                     updateBook={updateBook}
                     closeEditWindow={closeEditWindow}

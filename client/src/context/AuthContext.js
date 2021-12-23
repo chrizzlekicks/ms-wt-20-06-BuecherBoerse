@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { useLayoutContext } from '../context/LayoutContext';
 import { FaCheckCircle, FaPoop } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useUrlParams } from '../hooks/useUrlParams';
+import { getUrlParams } from '../helpers/getUrlParams';
 import {
     AUTH_SIGNIN,
     AUTH_SIGNOUT,
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     } = useLayoutContext();
     const forwardPage = useNavigate();
     const { state, search } = useLocation();
-    let query = useUrlParams(search);
+    let query = getUrlParams(search);
 
     // POST registriere neuen User im Backend / logge User ein (Backend)
     const signInUser = async (url, tryLogin) => {
@@ -198,6 +198,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         signoutUser(AUTH_SIGNOUT);
         setUser(false);
+        setUserCredential({ name: '', email: '', password: '' });
         setSelectedConversation(false);
     };
 
@@ -219,8 +220,6 @@ export const AuthProvider = ({ children }) => {
         jwt,
         user,
         userCredential,
-        setUser,
-        setUserCredential,
         checkSigninInput,
         loginNow,
         signupNow,
