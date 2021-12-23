@@ -4,8 +4,8 @@
   "description": "The UI for the Kodebi Booksharing application",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode=development",
-    "build": "webpack --mode=production"
+    "start": "webpack-cli serve --mode=development",
+    "build": "webpack-cli --mode=production"
   },
   "repository": {
     "type": "git",
