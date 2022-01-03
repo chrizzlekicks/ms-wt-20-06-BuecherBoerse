@@ -9,7 +9,7 @@
 
 ### Anleitung Docker (or "How to get started via `docker-compose`")
 
-siehe [README.md](/) im root folder
+siehe [README.md](../) im root folder
 
 ### Anleitung lokal (or "How to get started locally")
 

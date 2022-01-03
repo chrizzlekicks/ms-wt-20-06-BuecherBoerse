@@ -8,8 +8,7 @@
 </h1>
 
 ## Installationsanleitung
-
-Der einfachste Weg die Applikation zu starten ist via Docker. Lade dir hierfür vorher entweder `Docker Desktop` (für MacOS und Windows) oder das `Docker CLI` (für Linux herunter) [https://www.docker.com/get-started](https://www.docker.com/get-started) herunter, klone das Repository und navigiere in den Zielordner. Dann führe folgenden Befehl aus:
+Der einfachste Weg die Applikation zu starten ist via Docker. Lade dir hierfür vorher entweder `Docker Desktop` (für MacOS und Windows) oder das `Docker CLI` (für Linux herunter) via [https://www.docker.com/get-started](https://www.docker.com/get-started) herunter, klone das Repository und navigiere in den Zielordner. Dann führe folgenden Befehl aus:
 
 ```shell
 docker-compose -p kodebi up -d --force-recreate

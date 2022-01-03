@@ -1,5 +1,11 @@
-# ms-wt-20-06-BuecherBoerse
-### Tutorial aus Full-Stack React Projects
+<p align="center">
+  <a href="http://dev.app.kodebi.de">
+    <img src="client/src/static/kodebi_logo_classic.svg" width="250">
+  </a>
+</p>
+<h1 align="center">
+  Kodebi Web App
+</h1>
 
 ### Pakete installieren
 ```
@@ -26,13 +32,11 @@ Später dann
 npm run start
 ```
 
-
 Im Browser aufrufen:
 http://localhost:3000
 
-
 ### Beschreibung
-User login backend mit create, update, delete (CRUD) und authentication-authorization (auth)
+Kodebi backend mit create, update, delete (CRUD) und authentication-authorization (auth)
 Testen mit https://install.advancedrestclient.com/install
 
 Body-Content-Type: application/json
