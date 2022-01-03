@@ -1,26 +1,31 @@
+import React from 'react';
+import { useLayoutContext } from '../context/LayoutContext';
 import Message from './Message';
-import { useMessageContext } from '../context/MessageContext';
 
-const OpenChat = () => {
-  const { chat, selectedConversation, scrollToBottom } = useMessageContext();
-  const { recipients, messages } = chat;
+const OpenChat = ({ chat, scrollToBottom }) => {
+    const { selectedConversation } = useLayoutContext();
+    const { recipients, messages } = chat;
 
-  if (!selectedConversation) {
-    return null;
-  }
-  return (
-    <>
-      <section className='chat'>
-        {messages &&
-          messages.map((message) => {
-            return (
-              <Message key={message._id} recipients={recipients} {...message} />
-            );
-          })}
-        <div ref={scrollToBottom}></div>
-      </section>
-    </>
-  );
+    if (!selectedConversation) {
+        return null;
+    }
+    return (
+        <>
+            <section className='chat'>
+                {messages &&
+                    messages.map((message) => {
+                        return (
+                            <Message
+                                key={message._id}
+                                recipients={recipients}
+                                {...message}
+                            />
+                        );
+                    })}
+                <div ref={scrollToBottom}></div>
+            </section>
+        </>
+    );
 };
 
 export default OpenChat;

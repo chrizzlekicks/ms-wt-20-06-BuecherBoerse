@@ -1,25 +1,26 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/GlobalContext';
-import { useNavbarContext } from '../context/NavbarContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
-const Submenu = () => {
-  const { isSubmenuOpen } = useGlobalContext();
-  const { container, logout } = useNavbarContext();
+const Submenu = ({ container, logout }) => {
+    const { isSubmenuOpen } = useLayoutContext();
 
-  return (
-    <>
-      <ul
-        className={`${isSubmenuOpen ? 'user-submenu show' : 'user-submenu'}`}
-        ref={container}
-      >
-        <li className='links'>
-          <Link to='/' onClick={logout}>
-            Logout
-          </Link>
-        </li>
-      </ul>
-    </>
-  );
+    return (
+        <>
+            <ul
+                className={`${
+                    isSubmenuOpen ? 'user-submenu show' : 'user-submenu'
+                }`}
+                ref={container}
+            >
+                <li className='menu-link'>
+                    <Link to='/' onClick={logout}>
+                        Logout
+                    </Link>
+                </li>
+            </ul>
+        </>
+    );
 };
 
 export default Submenu;

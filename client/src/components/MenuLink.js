@@ -1,15 +1,16 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useLayoutContext } from '../context/LayoutContext';
 
 const MenuLink = ({ id, url, text }) => {
-  const { hideLinks } = useGlobalContext();
-  return (
-    <>
-      <li key={id} className='links' onClick={hideLinks}>
-        <NavLink to={url}>{text}</NavLink>
-      </li>
-    </>
-  );
+    const { hideLinks } = useLayoutContext();
+    return (
+        <>
+            <li key={id} onClick={hideLinks} className='menu-link'>
+                <NavLink to={url}>{text}</NavLink>
+            </li>
+        </>
+    );
 };
 
 export default MenuLink;

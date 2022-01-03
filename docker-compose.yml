@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  database: 
+    image: mongo:4.4-bionic
+    volumes: 
+      - database:/data/db
+    ports: 
+      - "27017:27017"
+    networks:
+      - kodebi-network
+  backend: 
+    env_file:
+      - ./server/.env
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    environment:
+      - DOCKER_HOST_DB=database
+    volumes: 
+      - ./server:/backend
+      - /backend/node_modules
+    ports:
+      - "4000:4000"
+    networks:
+      - kodebi-network
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    environment:
+      - DOCKER_HOST_URL=http://backend:4000
+    volumes: 
+      - ./client:/frontend
+      - /frontend/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - kodebi-network
+    stdin_open: true
+    links:
+      - "backend"
+networks:
+  kodebi-network:
+    driver: bridge
+volumes:
+  database:
+    driver: local

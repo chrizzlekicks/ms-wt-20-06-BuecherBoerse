@@ -1,0 +1,7 @@
+{
+    "verbose": false,
+    "watch": [
+        "./"
+    ],
+    "exec": "node --es-module-specifier-resolution=node ./server.js"
+}

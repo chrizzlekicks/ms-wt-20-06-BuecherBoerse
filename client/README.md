@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="http://dev.app.kodebi.de">
+    <img src="src/static/kodebi_logo_classic.svg" width="250">
+  </a>
+</p>
+<h1 align="center">
+  Kodebi Web App
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Anleitung Docker (or "How to get started via `docker-compose`")
 
-## Available Scripts
+siehe [README.md](/) im root folder
 
-In the project directory, you can run:
+### Anleitung lokal (or "How to get started locally")
 
-### `npm start`
+Um die Web App lokal zum Laufen zu bekommen müssen einige Schritte im Vorfeld befolgt werden. Zuerst sollte das Repository ordnungsgemäß im Zielordner Deiner Wahl geklont werden. Diese App wird ohne `create-react-app`, sondern mit einer benutzerdefinierten Konfiguration von React, Babel und Webpack gebootstrapped. Für weitere Inforamtionen s. `webpack.config.js` sowie die jeweiligen `.babelrc`, `.eslintrc.json` und `postcss.config.js`-Dateien.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1.  **Pakete installieren.**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Navigiere in den Ordner, in welchem sich das geklonte Repository befindet und installiere alle notwendigen Pakete.
 
-### `npm test`
+```shell
+cd path/to/clonedRepo/client
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.  **Entwicklungsumgebung starten.**
 
-### `npm run build`
+Sobald alle Pakete installiert sind, starte vorher die Datenbank und das Backend (s. Readme.md vom Backend). Sollten Datenbank und Backend zuverlässig laufen, starte das Frontend:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```shell
+cd path/to/clonedRepo/client
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3.  **Öffne den Source Code und leg los!**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Das Projekt sollte lokal im Browser unter der folgenden URL aufgerufen werden können: `http://localhost:3000`! Durch die Webpack-Configuration sollte sich der Browser von selbst starten.

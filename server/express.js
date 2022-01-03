@@ -8,7 +8,7 @@ import authRoutes from './routes/auth.routes';
 import bookRoutes from './routes/book.routes';
 import conversationRoutes from './routes/conversation.routes';
 import path from 'path';
-import config from '../config/config';
+import config from './config/config';
 
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
@@ -54,7 +54,7 @@ app.use('/api/books', bookRoutes);
 app.use('/api/messages', conversationRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(CURRENT_WORKING_DIR + '/client/build/index.html'));
+    res.sendFile(path.join(CURRENT_WORKING_DIR + '/client/dist/index.html'));
     if (err) {
         res.status(500).send(err);
     }

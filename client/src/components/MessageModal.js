@@ -1,19 +1,17 @@
+import React from 'react';
 import Form from './Form';
 import TextAreaInput from './TextAreaInput';
 import FilterButton from './FilterButton';
 import ModalWrapper from './ModalWrapper';
-import { useOpenBookContext } from '../context/OpenBookContext';
 import { motion } from 'framer-motion';
 
-const MessageModal = () => {
-    const {
-        showMessageModal,
-        newConv,
-        msgModalInput,
-        submitConv,
-        closeMessageModal
-    } = useOpenBookContext();
-
+const MessageModal = ({
+    showMessageModal,
+    newConv,
+    msgModalInput,
+    submitConv,
+    closeMessageModal
+}) => {
     return (
         <>
             <ModalWrapper
