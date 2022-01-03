@@ -74,6 +74,9 @@ typings/
 
 .eslintcache
 
+# Optional icloud cache
+*.icloud
+
 # Microbundle cache
 
 .rpt2_cache/
