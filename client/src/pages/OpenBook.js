@@ -231,6 +231,8 @@ const OpenBook = () => {
                     closeMessageModal={closeMessageModal}
                     msgModalInput={msgModalInput}
                     submitConv={submitConv}
+                    showMessageModal={showMessageModal}
+                    newConv={newConv}
                 />
             )}
             {showEditBook && (

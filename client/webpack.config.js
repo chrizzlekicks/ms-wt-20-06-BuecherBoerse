@@ -1,15 +1,23 @@
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = (env, argv) => {
-    let config = {
+    // use object keys and reducer to create a nice object of env vars
+    const envKeys = Object.keys(env).reduce((prev, next) => {
+        prev[`process.env.${next}`] = JSON.stringify(env[next]);
+        return prev;
+    }, {});
+
+    // standard config for webpack
+    const config = {
         entry: path.resolve(__dirname, 'src/index.js'),
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: '[name].[contenthash].js',
+            filename: 'js/[name].[contenthash].js',
             clean: true
         },
         plugins: [
@@ -18,7 +26,8 @@ module.exports = (env, argv) => {
                 template: path.resolve(__dirname, 'public/index.html'),
                 filename: 'index.html'
             }),
-            new CleanWebpackPlugin()
+            new CleanWebpackPlugin(),
+            new DefinePlugin(envKeys)
         ],
         module: {
             rules: [
@@ -38,6 +47,8 @@ module.exports = (env, argv) => {
             ]
         }
     };
+
+    // if application is in development mode
     if (argv.mode === 'development') {
         config.mode = env.WEBPACK_SERVE && argv.mode;
         config.module.rules.push({
@@ -80,16 +91,20 @@ module.exports = (env, argv) => {
             historyApiFallback: true,
             proxy: {
                 context: ['/auth', '/api'],
-                target: 'http://localhost:4000'
+                target: process.env.DOCKER_HOST_URL
+                    ? process.env.DOCKER_HOST_URL
+                    : 'http://localhost:4000'
             }
         };
     }
+
+    // if application moves into production mode
     if (argv.mode === 'production') {
         config.mode = env.WEBPACK_BUILD && argv.mode;
         config.plugins.push(
             new MiniCssExtractPlugin({
-                filename: '[name].[contenthash].css',
-                chunkFilename: '[id].css'
+                filename: 'css/[name].[contenthash].css',
+                chunkFilename: 'css/[id].css'
             })
             // new BundleAnalyzerPlugin()
         );
@@ -133,7 +148,8 @@ module.exports = (env, argv) => {
                 cacheGroups: {
                     vendor: {
                         test: /[\\/]node_modules[\\/]/,
-                        name: 'vendors',
+                        name: 'vendor',
+                        filename: 'js/[name].[contenthash].js',
                         chunks: 'all'
                     }
                 }
