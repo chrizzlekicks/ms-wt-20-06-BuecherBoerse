@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const config = {
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 4000,
@@ -6,7 +10,7 @@ const config = {
         process.env.MONGODB_URI ||
         process.env.MONGO_HOST ||
         'mongodb://' +
-            (process.env.IP || 'localhost') +
+            (process.env.DOCKER_HOST_DB || 'localhost') +
             ':' +
             (process.env.MONGO_PORT || '27017') +
             '/userlogin',

@@ -1,11 +1,11 @@
 {
   "name": "kodebi_ui",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "The UI for the Kodebi Booksharing application",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-cli serve --mode=development",
-    "build": "webpack-cli --mode=production"
+    "start": "webpack serve --mode=development",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,5 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0"
-  },
-  "proxy": "http://localhost:4000"
+  }
 }

@@ -1,13 +1,17 @@
 <p align="center">
   <a href="http://dev.app.kodebi.de">
-    <img src="src/static/kodebi_logo_classic.png" width="250">
+    <img src="src/static/kodebi_logo_classic.svg" width="250">
   </a>
 </p>
 <h1 align="center">
   Kodebi Web App
 </h1>
 
-### Anleitung (or "How to get started")
+### Anleitung Docker (or "How to get started via `docker-compose`")
+
+siehe [README.md](/) im root folder
+
+### Anleitung lokal (or "How to get started locally")
 
 Um die Web App lokal zum Laufen zu bekommen müssen einige Schritte im Vorfeld befolgt werden. Zuerst sollte das Repository ordnungsgemäß im Zielordner Deiner Wahl geklont werden. Diese App wird ohne `create-react-app`, sondern mit einer benutzerdefinierten Konfiguration von React, Babel und Webpack gebootstrapped. Für weitere Inforamtionen s. `webpack.config.js` sowie die jeweiligen `.babelrc`, `.eslintrc.json` und `postcss.config.js`-Dateien.
 
@@ -16,7 +20,7 @@ Um die Web App lokal zum Laufen zu bekommen müssen einige Schritte im Vorfeld b
 Navigiere in den Ordner, in welchem sich das geklonte Repository befindet und installiere alle notwendigen Pakete.
 
 ```shell
-cd path/to/clonedRepo
+cd path/to/clonedRepo/client
 npm install
 ```
 
@@ -25,7 +29,7 @@ npm install
 Sobald alle Pakete installiert sind, starte vorher die Datenbank und das Backend (s. Readme.md vom Backend). Sollten Datenbank und Backend zuverlässig laufen, starte das Frontend:
 
 ```shell
-cd path/to/clonedRepo
+cd path/to/clonedRepo/client
 npm start
 ```
 

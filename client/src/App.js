@@ -6,7 +6,7 @@ import Loading from './components/Loading';
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'));
 const AuthenticatedApp = lazy(() => import('./authenticated-app'));
 
-function App() {
+export function App() {
     const { user } = useAuthContext();
     return (
         <>
@@ -16,5 +16,3 @@ function App() {
         </>
     );
 }
-
-export { App };

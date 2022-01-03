@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useLayoutContext } from '../context/LayoutContext';
 import { useAuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
-import logo from '../static/kodebi_logo_classic.png';
+import logo from '../static/kodebi_logo_classic.svg';
 import { FaBook, FaBookOpen } from 'react-icons/fa';
 import MenuLink from './MenuLink';
 import { links } from '../utils/linksDB';

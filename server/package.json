@@ -1,11 +1,11 @@
 {
-  "name": "buecherboerse_backend_user_login",
+  "name": "kodebi_api",
   "version": "0.0.1",
   "description": "Backend fuer den User Login",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node --es-module-specifier-resolution=node ./server/server.js",
+    "start": "node --es-module-specifier-resolution=node ./server.js",
     "heroku-postbuild": "cd client && npm ci && npm run build"
   },
   "type": "module",
@@ -19,10 +19,6 @@
     "url": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse/issues"
   },
   "homepage": "https://github.com/chrizzlekicks/ms-wt-20-06-BuecherBoerse#readme",
-  "engines": {
-    "node": "16.13.0",
-    "npm": "8.1.0"
-  },
   "devDependencies": {
     "nodemon": "^2.0.15",
     "prettier": "2.4.1"
@@ -31,6 +27,7 @@
     "compression": "1.7.4",
     "cookie-parser": "1.4.5",
     "cors": "2.8.5",
+    "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "4.17.1",
     "express-jwt": "^6.1.0",
