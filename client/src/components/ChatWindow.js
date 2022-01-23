@@ -3,19 +3,15 @@ import FilterButton from './FilterButton';
 import Form from './Form';
 import OpenChat from './OpenChat';
 import { FaPaperPlane } from 'react-icons/fa';
+import { useMessagesContext } from '../context/MessageContext';
 
-const ChatWindow = ({
-    chat,
-    sendMessage,
-    newMessage,
-    handleKeyPress,
-    handleMessage,
-    scrollToBottom
-}) => {
+const ChatWindow = () => {
+    const { sendMessage, newMessage, handleKeyPress, handleMessage } =
+        useMessagesContext();
     return (
         <>
             <aside className='chat-window'>
-                <OpenChat chat={chat} scrollToBottom={scrollToBottom} />
+                <OpenChat />
                 <Form className='input-message' onSubmit={sendMessage}>
                     <textarea
                         className='enter-message'

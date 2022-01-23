@@ -1,7 +1,9 @@
 import React from 'react';
 import Conversation from './Conversation';
+import { useMessagesContext } from '../context/MessageContext';
 
-const Conversations = ({ conversations, openConversation }) => {
+const Conversations = () => {
+    const { conversations } = useMessagesContext();
     return (
         <>
             <aside className='conversations'>
@@ -10,7 +12,6 @@ const Conversations = ({ conversations, openConversation }) => {
                         <Conversation
                             key={conversation._id}
                             {...conversation}
-                            openConversation={openConversation}
                         />
                     );
                 })}

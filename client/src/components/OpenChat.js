@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLayoutContext } from '../context/LayoutContext';
+import { useMessagesContext } from '../context/MessageContext';
 import Message from './Message';
 
-const OpenChat = ({ chat, scrollToBottom }) => {
+const OpenChat = () => {
     const { selectedConversation } = useLayoutContext();
+    const { chat, scrollToBottom } = useMessagesContext();
     const { recipients, messages } = chat;
 
     if (!selectedConversation) {
